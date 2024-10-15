@@ -182,7 +182,7 @@ function Home() {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="d-flex align-items-end">
-                                            <img src="https://plus.unsplash.com/premium_photo-1719611418530-353ffc0e92ff?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" style={{
+                                            <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZHxlbnwwfHwwfHx8Mg%3D%3D" alt="" style={{
                                                 width: "48px", height: "48px", objectFit: " cover",
                                                 borderRadius: '100%'
                                             }} />
