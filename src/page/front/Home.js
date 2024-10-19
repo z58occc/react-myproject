@@ -60,6 +60,7 @@ function Home() {
     }, [])
     return (
         <>
+        
 
             <div className={`homepage-bg ${isMobile ? '' : 'container'}`}>
                 <Loading isLoading={isLoading}></Loading>
