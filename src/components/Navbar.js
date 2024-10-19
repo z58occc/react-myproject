@@ -23,8 +23,8 @@ function Navbar({ cartData }) {
     }, []);
 
     const style = {
-        backgroundColor: windowWidth < 768 ? "rgb(211, 211, 211, 0.8)" : '',
-        textAlign: windowWidth < 768 ? 'center' : ''
+        backgroundColor: windowWidth < 990 ? "rgb(211, 211, 211, 0.8)" : '',
+        textAlign: windowWidth < 990 ? 'center' : ''
 
     };
 

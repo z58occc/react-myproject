@@ -130,7 +130,7 @@ function Checkout() {
                             </div>
                         </div>
 
-                        <div className="d-flex flex-column-reverse flex-md-row mt-4 justify-content-between align-items-md-center align-items-end w-100">
+                        <div className="checkout-button d-flex flex-column-reverse flex-md-row mt-4 justify-content-between align-items-md-center align-items-md-end w-100">
                             <Link to='/products' className="text-dark mt-md-0 mt-3"
                             ><i className="fas fa-chevron-left me-2"></i> 繼續購物</Link>
                             <button type="submit" className="btn btn-dark py-3 px-7 rounded-0">送出表單</button>

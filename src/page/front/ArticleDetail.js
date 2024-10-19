@@ -49,7 +49,7 @@ function ArticleDetail() {
         <div className="container">
             <div className=" mb-5 row">
                 <Loading isLoading={isLoading}></Loading>
-                <div className="col-sm-9 mt-5">
+                <div className="col-lg-9 mt-5">
                     <div>
                         {article?.tag?.map((item, i) => {
                             return (

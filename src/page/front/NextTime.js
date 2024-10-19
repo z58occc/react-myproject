@@ -144,7 +144,7 @@ function NextTime() {
             ></FilterModal>
             <div className=" mt-5">
                 <div className="d-flex   justify-content-sm-between flex-sm-row flex-column">
-                    <div >
+                    <div className="favorite-all-choose" >
                         <span >
                             <input type="checkbox"
                                 onChange={hadleChange}
@@ -264,10 +264,10 @@ function NextTime() {
                             >
                                 <thead >
                                     <tr className="table-secondary ">
-                                        <th className="col"></th>
-                                        <th className="col"></th>
+                                        <th className="col favorite-th"></th>
+                                        <th className="col favorite-th" ></th>
                                         <th className="col text-center">商品明細</th>
-                                        <th className="col"></th>
+                                        <th className="col "></th>
                                         <th className="col text-center">變更</th>
                                     </tr>
                                 </thead>
@@ -275,13 +275,13 @@ function NextTime() {
                                     {myFavorites?.map((myFavorite, i) => {
                                         return (
                                             <tr key={myFavorite.id}>
-                                                <th scope="row">
+                                                <th className="favorite-checkbox" scope="row">
                                                     <input type="checkbox"
                                                         ref={(e) => checked.current[i] = e}
                                                         onChange={handleDisabled}
                                                     />
                                                 </th>
-                                                <td >
+                                                <td className="favorite-img" >
                                                     <Link to={`/product/${myFavorite.id}`}>
                                                         <img src={myFavorite.imageUrl}
                                                             alt=""
@@ -306,7 +306,7 @@ function NextTime() {
                                                             </h4>
                                                         </Link>
                                                     </div>
-                                                    <div>
+                                                    <div className="favorite-description">
                                                         <small>
                                                             {myFavorite.description}
                                                         </small>
@@ -321,11 +321,11 @@ function NextTime() {
                                                 </td>
                                                 <td>
                                                     <div
-                                                        className="d-sm-flex nexttime-change  "
+                                                        className="d-sm-flex  mt-0 mt-md-3 "
                                                     >
                                                         <button
                                                             type="button"
-                                                            href="./checkout.html" className="nexttime-button w-100 btn btn-dark  rounded py-3"
+                                                            href="./checkout.html" className="nexttime-button w-50 btn btn-dark  rounded py-3"
                                                             onClick={() => addToCart(myFavorite)}
                                                             disabled={isLoadingCart}
                                                         >
@@ -333,7 +333,7 @@ function NextTime() {
                                                         </button>
                                                         <button
                                                             type="button"
-                                                            className="nexttime-button w-100 btn btn-secondary m-sm-0 mt-5 rounded"
+                                                            className="nexttime-button w-50 btn btn-secondary m-sm-0  rounded py-3"
                                                             onClick={() => deleteFavorite(myFavorite.id)}
                                                         >
                                                             刪除商品
