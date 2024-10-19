@@ -60,8 +60,6 @@ function Home() {
     }, [])
     return (
         <>
-        
-
             <div className={`homepage-bg ${isMobile ? '' : 'container'}`}>
                 <Loading isLoading={isLoading}></Loading>
                 <div className="d-flex me-5 "
