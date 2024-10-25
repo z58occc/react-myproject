@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-myproject/static/css/main.ff3f4814.css",
-    "main.js": "/react-myproject/static/js/main.af712d37.js",
+    "main.css": "/react-myproject/static/css/main.cf19d724.css",
+    "main.js": "/react-myproject/static/js/main.b93a0d73.js",
     "static/js/453.68d63b2b.chunk.js": "/react-myproject/static/js/453.68d63b2b.chunk.js",
     "static/media/heroImage.webp": "/react-myproject/static/media/heroImage.1be9e0dbf1ed961dde7b.webp",
     "static/media/bootstrap-icons.woff?": "/react-myproject/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
@@ -9,12 +9,12 @@
     "static/media/bootstrap-icons.woff2?": "/react-myproject/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
     "static/media/logo.png": "/react-myproject/static/media/logo.0278b3118cf7b836f86b.png",
     "index.html": "/react-myproject/index.html",
-    "main.ff3f4814.css.map": "/react-myproject/static/css/main.ff3f4814.css.map",
-    "main.af712d37.js.map": "/react-myproject/static/js/main.af712d37.js.map",
+    "main.cf19d724.css.map": "/react-myproject/static/css/main.cf19d724.css.map",
+    "main.b93a0d73.js.map": "/react-myproject/static/js/main.b93a0d73.js.map",
     "453.68d63b2b.chunk.js.map": "/react-myproject/static/js/453.68d63b2b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ff3f4814.css",
-    "static/js/main.af712d37.js"
+    "static/css/main.cf19d724.css",
+    "static/js/main.b93a0d73.js"
   ]
 }
