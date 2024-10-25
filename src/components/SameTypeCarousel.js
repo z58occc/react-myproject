@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 
 function SameTypeCarousel({ sameProducts }) {
     return (
-        <div id="carouselExampleIndicators" className="carousel slide position-relative mt-5">
-            <div className=" carousel-indicators  position-absolute   sameType"
+        <div id="carouselExampleIndicators" className=" carousel slide position-relative mt-5"
+        >
+            <div className=" carousel-indicators    sameType"
                 style={{
                     position: 'absolute',
-                    top: '0px',
-                    left: '700px'
+                    top: 'clamp(0px, 0%, 100%)',
+                    left: 'clamp(0px, 90%, 100%)',
+                    zIndex:'100'    
                 }}
             >
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active  " aria-current="true " aria-label="Slide 1">

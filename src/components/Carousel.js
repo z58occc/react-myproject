@@ -41,18 +41,18 @@ function Carousel({ products }) {
     return (
 
 
-        <div id="carouselExampleIndicators" className="carousel slide product-carousel"
+        <div id="carouselExampleIndicators" className="carousel slide product-carousel "
             style={{
-                width: "1200px",
                 position: 'relative'
             }}>
 
-            <div className="carousel-indicators"
+            <div className="carousel-indicators "
                 style={{
                     position: "absolute",
                     bottom: "-50px",
                     /* 根據需要調整 */
-                    zIndex: "2"
+                    zIndex: "100",
+                    
                 }}
             >
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
@@ -65,7 +65,12 @@ function Carousel({ products }) {
 
             </div>
 
-            <div className="carousel-inner" >
+            <div className="carousel-inner container"
+            style={{
+                maxWidth:"1100px",
+                // margin:"0,auto"
+            }}
+             >
                 {/* 第一頁 */}
                 <div className="carousel-item active">
                     <div className="row g-0">

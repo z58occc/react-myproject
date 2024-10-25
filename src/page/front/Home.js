@@ -98,15 +98,16 @@ function Home() {
                     </div>
                 </div>
 
-                <div className="row flex-md-row-reverse flex-column mt-5"
+                <div className="row flex-md-row-reverse flex-column mt-5 "
                     style={{
                         display: 'flex',
                         justifyContent: "center",
                         alignItems: "center",
+                        // width:'500px'
                     }}>
                     <Carousel products={products} ></Carousel>
                 </div>
-                <div className="row mt-10 g-0 g-md-3">
+                <div className="row mt-10 g-0 ">
                     {products.slice(randomNum, randomNum + 4).map((product) => {
                         return (
                             <div className="col-md-6 mt-md-4" key={product.id}>
@@ -133,7 +134,7 @@ function Home() {
                     })}
 
                     <div className={isMobile ? '' : 'container'}>
-                        <div className="row  g-0 g-md-3" >
+                        <div className="row  g-0 " >
                             {articles.slice(randomNum, randomNum + 3).map((article, i) => {
                                 return (
                                     <div className="col-md-4" key={i}>

@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext,Link } from "react-router-dom";
+import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { Input } from "../../components/FontElements";
 import { Textarea } from "../../components/FontElements";
@@ -39,7 +39,7 @@ function Checkout() {
 
 
     return (
-        <div className="bg-light pt-5 pb-7">
+        <div className="bg-light pt-5 pb-7 min-vh-100">
             <div className="container">
                 <div className="row justify-content-center flex-md-row flex-column-reverse">
                     <form className="col-md-6" onSubmit={handleSubmit(onSubmit)}>
@@ -146,11 +146,23 @@ function Checkout() {
                                             <img src={item.product.imageUrl} alt="..." className="me-2 " style={{ width: '48px', height: "48px", objectFit: "cover" }} />
                                         </div>
                                         <div className="w-100">
-                                            <div className="d-flex justify-content-between fw-bold">
-                                                <p className="mb-0">{item.product.title}</p>
+                                            <div className="d-flex justify-content-between fw-bold"
+                                                >
+                                                <p className="mb-0 ">{item.product.title}</p>
                                                 <p className="mb-0">x{item.qty}</p>
                                             </div>
-                                            <div className="d-flex justify-content-between mt-auto">
+                                            <div className="d-flex 
+                                            flex-row 
+                                            flex-lg-row
+                                            justify-content-between
+                                            flex-md-column
+                                            mt-auto checkout-order-data"
+                                            >
+                                                 {/*
+                                                 flex-row 小於768px排列方向row(橫)
+                                                 flex-lg-row 大於992px排列方向row(橫)
+                                                 flex-md-column 介於768~992px排列方向col(直)
+                                                 */}
                                                 <p className="text-muted mb-0"><small>NT${item.product.price}</small></p>
                                                 <p className={`${item.total != item.final_total
                                                     ?

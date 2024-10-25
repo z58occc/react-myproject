@@ -136,7 +136,7 @@ function NextTime() {
 
 
     return (
-        <div className="container ">
+        <div className="container  min-vh-100">
             <FilterModal
                 closeFilterModal={closeFilterModal}
                 setMyFavorites={setMyFavorites}

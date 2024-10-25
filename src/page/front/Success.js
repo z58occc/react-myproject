@@ -45,7 +45,7 @@ function Success() {
         getOrder();
     }, [orderId])
     return (
-        <div className="container">
+        <div className="container min-vh-100">
             <div
                 className="object-cover "
                 style={{
