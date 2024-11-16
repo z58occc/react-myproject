@@ -60,7 +60,7 @@ function Home() {
     }, [])
     return (
         <>
-        test
+        
             <div className={'homepage-bg  container'}>
                 <Loading isLoading={isLoading}></Loading>
                 <div className="d-flex me-5 "
