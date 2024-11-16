@@ -1,9 +1,9 @@
-import Carousel from "../../components/Carousel";
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import Loading from "../../components/Loading";
 import { Link, useNavigate, } from "react-router-dom";
-import heroImage from '../../heroImage.webp'
+import axios from "axios";
+import { useState, useEffect, useRef } from "react";
+import Carousel from "../../components/Carousel";
+import Loading from "../../components/Loading";
+import heroImage from '../../heroImage.webp';
 
 function Home() {
 
@@ -33,14 +33,14 @@ function Home() {
 
     const search = (e) => {
         setSearchWord(e.target.value);
-    }
+    };
 
 
     const getArticles = async (page = 1) => {
         const articleRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=${page}`);
         setArticles(articleRes.data.articles);
         setLoading(false);
-    }
+    };
 
 
 
@@ -48,31 +48,28 @@ function Home() {
         setLoading(true);
         const productRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/products?page=${page}`);
         setProducts(productRes.data.products);
-    }
+    };
     const handleKeyEnter = (e) => {
-        if (e.code == 'Enter') {
-            navigate(`/products/${searchWord}`)
+        if (e.code === 'Enter') {
+            navigate(`/products/${searchWord}`);
         }
-    }
+    };
     useEffect(() => {
         getProducts(1);
         getArticles(1);
-    }, [])
+    }, []);
     return (
         <>
-        
-            <div className={'homepage-bg  container'}>
-                <Loading isLoading={isLoading}></Loading>
+            <div className='homepage-bg  container'>
+                <Loading isLoading={isLoading} />
                 <div className="d-flex me-5 "
                     style={{
                         justifyContent: 'flex-end'
                     }}
-                >
-
-                </div>
+                />
                 <div className="hero-image row flex-md-row-reverse flex-column m-5 mb-10">
                     <div className="col-md-8">
-                        <img
+                        <img alt=""
                             src={heroImage} className="img-fluid object-cover"
                             style={{
                                 height: '450px',
@@ -106,39 +103,39 @@ function Home() {
                         alignItems: "center",
                         // width:'500px'
                     }}>
-                    <Carousel products={products} ></Carousel>
+                    <Carousel products={products} />
                 </div>
                 <div className="row mt-10  ">
-                    {products.slice(randomNum, randomNum + 4).map((product) => {
-                        return (
-                            <div className="col-md-6 mt-md-4" key={product.id}>
-                                <div className="card border-0 mb-4 position-relative position-relative">
-                                    <Link style={{ textDecoration: 'none' }} to={`./product/${product.id}`}>
-                                        <img
-                                            src={product.imageUrl}
-                                            className="card-img-top rounded-0 object-cover"
-                                            alt="..."
-                                            style={{ height: "300px" }}
-                                        />
-                                        <div className="card-body p-0">
-                                            <h4 className="mb-0 mt-4">{product.title}</h4>
-                                            <div className="d-flex justify-content-between mt-3">
-                                                <p className="product-description card-text text-muted mb-0 w-100">
-                                                    {product.description}
-                                                </p>
-                                            </div>
+                    {products.slice(randomNum, randomNum + 4).map((product) =>
+                    (
+                        <div className="col-md-6 mt-md-4" key={product.id}>
+                            <div className="card border-0 mb-4 position-relative position-relative">
+                                <Link style={{ textDecoration: 'none' }} to={`./product/${product.id}`}>
+                                    <img
+                                        src={product.imageUrl}
+                                        className="card-img-top rounded-0 object-cover"
+                                        alt="..."
+                                        style={{ height: "300px" }}
+                                    />
+                                    <div className="card-body p-0">
+                                        <h4 className="mb-0 mt-4">{product.title}</h4>
+                                        <div className="d-flex justify-content-between mt-3">
+                                            <p className="product-description card-text text-muted mb-0 w-100">
+                                                {product.description}
+                                            </p>
                                         </div>
-                                    </Link>
-                                </div>
+                                    </div>
+                                </Link>
                             </div>
-                        )
-                    })}
+                        </div>
+                    )
+                    )}
 
                     <div className={isMobile ? '' : 'container'}>
                         <div className="row   " >
-                            {articles.slice(randomNum, randomNum + 3).map((article, i) => {
-                                return (
-                                    <div className="col-md-4" key={i}>
+                            {articles.slice(randomNum, randomNum + 3).map((article) => 
+                                 (
+                                    <div className="col-md-4" key={article.id}>
                                         <Link to={`/article/${article.id}`}>
                                             <img src={article.image} alt="" style={{ width: "100px", height: "100px", objectFit: "cover" }} />
                                         </Link>
@@ -151,7 +148,7 @@ function Home() {
                                         <p className="home-article-description ">{article.description}</p>
                                     </div>
                                 )
-                            })}
+                            )}
                             <div className="bg-light mt-7">
                                 <div className={isMobile ? '' : 'container'}>
                                     <div id="carouselExampleControls" data-ride="carousel">
@@ -201,11 +198,11 @@ function Home() {
                                         >
                                             <h4 className="mt-4">PS5</h4>
                                         </Link>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
                                         <p className="text-muted">PS5表現超棒，畫質細膩，遊戲體驗升級，強烈推薦！
                                         </p>
                                     </div>
@@ -229,10 +226,10 @@ function Home() {
                                         >
                                             <h4 className="mt-4">Nintendo Switch</h4>
                                         </Link>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
                                         <p className="text-muted">Switch遊戲多樣，適合全家一起玩，但Joy-Con靈敏度略有不足。
                                         </p>
                                     </div>
@@ -256,9 +253,9 @@ function Home() {
                                         >
                                             <h4 className="mt-4">Steam Deck</h4>
                                         </Link>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
-                                        <i className="bi bi-star-fill"></i>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
+                                        <i className="bi bi-star-fill"/>
                                         <p className="text-muted">Steam Deck概念不錯，但性能不足，續航力需改進。
                                         </p>
                                     </div>
@@ -269,6 +266,6 @@ function Home() {
                 </div>
             </div>
         </>
-    )
+    );
 }
 export default Home;
