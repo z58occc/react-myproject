@@ -30,31 +30,31 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
             });
             setDate(new Date());
         } else if (type === 'edit') {
-            setTempData(tempCoupon)
+            setTempData(tempCoupon);
             setDate(new Date(tempCoupon.due_date));
         }
-    }, [type, tempCoupon])
+    }, [type, tempCoupon]);
 
     const handleChange = (e) => {
-        const { value, name } = e.target
+        const { value, name } = e.target;
         if (['percent'].includes(name)) {
             setTempData({
                 ...tempData,
                 [name]: Number(value)
-            })
+            });
         } else if (name === 'is_enabled') {
             setTempData({
                 ...tempData,
                 [name]: +e.target.checked,// boolean
-            })
+            });
         }
         else {
             setTempData({
                 ...tempData,
                 [name]: value
-            })
+            });
         }
-    }
+    };
 
     const submit = async () => {
         setLoading(true);
@@ -69,7 +69,7 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
                 api, {
                 data: {
                     ...tempData,
-                    due_date: date.getTime(),//轉換成unix timestamp
+                    due_date: date.getTime(),// 轉換成unix timestamp
                 }
             }
             );
@@ -80,7 +80,7 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
             handleErrorMessage(dispatch, error);
         }
         setLoading(false);
-    }
+    };
 
 
     return (
@@ -152,7 +152,7 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
                                                 .getDate()
                                                 .toString()
                                                 .padStart(2, 0)}`} onChange={(e) => {
-                                                    setDate(new Date(e.target.value))
+                                                    setDate(new Date(e.target.value));
                                                 }}
                                     />
                                 </label>
@@ -178,7 +178,7 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
                                 type='checkbox'
                                 id='is_enabled'
                                 name='is_enabled'
-                                checked={!!tempData.is_enabled}//!!用來轉成布林值
+                                checked={!!tempData.is_enabled}//   !!用來轉成布林值
                                 onChange={handleChange}
                             />
                             是否啟用
@@ -199,6 +199,6 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 export default CouponModal;

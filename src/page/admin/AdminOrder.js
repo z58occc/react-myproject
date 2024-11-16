@@ -1,18 +1,24 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import OrderModal from "../../components/OrderModal";
 import { Modal } from "bootstrap";
-import Pagination from "../../components/Pagination";
 import moment from "moment";
+import OrderModal from "../../components/OrderModal";
+import Pagination from "../../components/Pagination";
 import DeleteModal from "../../components/DeleteModal";
 
 
 function AdminOrders() {
     const [orders, setOrders] = useState([]);
-    const [tempOrder, setTempOrder] = useState({})
+    const [tempOrder, setTempOrder] = useState({});
     const orderModal = useRef(null);
     const deleteModal = useRef(null);
     const [pagination, setPagination] = useState({});
+
+    const getOrders = async (page = 1) => {
+        const orderRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/orders?page=${page}`);
+        setOrders(orderRes.data.orders);
+        setPagination(orderRes.data.pagination);
+    };
 
     useEffect(() => {
         orderModal.current = new Modal('#orderModal', {
@@ -26,26 +32,22 @@ function AdminOrders() {
         getOrders();
 
 
-    }, [])
+    }, []);
 
     const openOrderModal = (order) => {
         orderModal.current.show();
         setTempOrder(order);
-    }
+    };
 
     const closeOrderModal = () => {
         orderModal.current.hide();
-    }
+    };
 
     const closeDeleteModal = () => {
         deleteModal.current.hide();
-    }
+    };
 
-    const getOrders = async (page = 1) => {
-        const orderRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/orders?page=${page}`)
-        setOrders(orderRes.data.orders);
-        setPagination(orderRes.data.pagination);
-    }
+    
     const deleteOrder = async (id) => {
         try {
             const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/order/${id}`);
@@ -54,9 +56,8 @@ function AdminOrders() {
                 deleteModal.current.hide();
             }
         } catch (error) {
-            console.log((error));
         }
-    }
+    };
 
    
 
@@ -69,12 +70,12 @@ function AdminOrders() {
                 closeOrderModal={closeOrderModal}
                 tempOrder={tempOrder}
                 getOrders={getOrders}
-            ></OrderModal>
+            />
             <DeleteModal
                 close={closeDeleteModal}
                 text={tempOrder.title}
                 handleDelete={deleteOrder}
-                id={tempOrder.id}></DeleteModal>
+                id={tempOrder.id}/>
             {/* Products */}
             <div className="p-3">
                 <h3>訂單列表</h3>
@@ -92,8 +93,8 @@ function AdminOrders() {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order) => {
-                            return (
+                        {orders.map((order) => 
+                             (
                                 <tr key={order.id}>
                                     <td>{order.id}</td>
                                     <td>{order.user.email}</td>
@@ -125,12 +126,12 @@ function AdminOrders() {
                                     </td>
                                 </tr>
                             )
-                        })}
+                        )}
 
                     </tbody>
                 </table>
 
-                <Pagination pagination={pagination} changePage={getOrders} ></Pagination>
+                <Pagination pagination={pagination} changePage={getOrders} />
             </div>
             {/* Products end */}
         </>

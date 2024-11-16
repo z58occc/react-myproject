@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { MessageContext, handleSuccessMessage, handleErrorMessage } from "../store/messageStore";
 import moment from "moment/moment";
+import { MessageContext, handleSuccessMessage, handleErrorMessage } from "../store/messageStore";
 
 function OrderModal({ closeOrderModal, getOrders, tempOrder  }) {
     const [tempData, setTempData] = useState({
@@ -27,8 +27,8 @@ function OrderModal({ closeOrderModal, getOrders, tempOrder  }) {
 
     });
     useEffect(() => {
-        setTempData(tempOrder)
-    }, [tempOrder])
+        setTempData(tempOrder);
+    }, [tempOrder]);
 
 
     const [, dispatch] = useContext(MessageContext);
@@ -41,22 +41,22 @@ function OrderModal({ closeOrderModal, getOrders, tempOrder  }) {
                     ...tempData,
                     [name]: e.target.checked,
                     payment_date: moment(new Date()).unix()
-                })
+                });
             } else {
                 setTempData({
                     ...tempData,
                     [name]: e.target.checked,
                     payment_date: ''
-                })
+                });
             }
         } else {
             setTempData({
                 ...tempData,
                 [name]: value
-            })
+            });
         }
 
-    }
+    };
 
     const submit = async () => {
         try {
@@ -74,7 +74,7 @@ function OrderModal({ closeOrderModal, getOrders, tempOrder  }) {
         } catch (error) {
             handleErrorMessage(dispatch, error);
         }
-    }
+    };
 
 
 
@@ -228,7 +228,7 @@ function OrderModal({ closeOrderModal, getOrders, tempOrder  }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 export default OrderModal;
 

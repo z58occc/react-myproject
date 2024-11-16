@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { createAsyncMessage } from "../../slice/messageSlice";
 import { useOutletContext, Link } from "react-router-dom";
-import FilterModal from "../../components/FilterModal";
 import { Modal } from "bootstrap";
+import { createAsyncMessage } from "../../slice/messageSlice";
+import FilterModal from "../../components/FilterModal";
 
 function NextTime() {
     const [myFavorites, setMyFavorites] = useState([]);
     const [isLoadingCart, setIsLoadingCart] = useState(false);
-    const [cartQuantity, setCartQuantity] = useState(1);
+    const cartQuantity = 1;
     const dispatch = useDispatch();
     const { getCart } = useOutletContext();
     const checked = useRef([]);
@@ -23,7 +23,7 @@ function NextTime() {
                 product_id: myFavorite.id,
                 qty: cartQuantity,
             }
-        }
+        };
         setIsLoadingCart(true);
         try {
             const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/cart`,
@@ -36,9 +36,9 @@ function NextTime() {
             setIsLoadingCart(false);
             dispatch(createAsyncMessage(error.response.data));
         }
-        //觸發addToCartAll時 避免更動myFavorites陣列 造成myFavorites跟checked.current的index會對不上
+        //  觸發addToCartAll時 避免更動myFavorites陣列 造成myFavorites跟checked.current的index會對不上
         if (!all) {
-            const remain = myFavorites.filter((item) => item.id != myFavorite.id);
+            const remain = myFavorites.filter((item) => item.id !== myFavorite.id);
             setMyFavorites(remain);
             localStorage.setItem('favorites', JSON.stringify(remain));
         }
@@ -53,27 +53,27 @@ function NextTime() {
         const remain = myFavorites.filter((_, index) => !checked?.current[index]?.checked);
         setMyFavorites(remain);
         localStorage.setItem('favorites', JSON.stringify(remain));
-    }
+    };
 
     const deleteFavoriteAll = () => {
         const remain = myFavorites.filter((_, index) => !checked?.current[index]?.checked);
         localStorage.setItem('favorites', JSON.stringify(remain));
-        if (remain.length == 0) {
+        if (remain.length === 0) {
             localStorage.clear();
         }
         setMyFavorites(remain);
-    }
+    };
 
     const deleteFavorite = (id) => {
 
         const filterFavorites = myFavorites.filter((item) => item.id != id);
         localStorage.setItem('favorites', JSON.stringify(filterFavorites));
-        if (filterFavorites.length == 0) {
+        if (filterFavorites.length === 0) {
             localStorage.clear();
         }
         setMyFavorites(filterFavorites);
 
-    }
+    };
     const hadleChange = (e) => {
         setDisabled(allChoose.current.checked);
         if (e.target.checked) {
@@ -85,7 +85,7 @@ function NextTime() {
                 checked.current[index].checked = false;
             }
         }
-    }
+    };
 
     const handleDisabled = () => {
         if (checked.current.some((item) => item.checked)) {
@@ -93,7 +93,7 @@ function NextTime() {
         } else {
             setDisabled(false);
         }
-    }
+    };
 
 
     let sortFavorites;
@@ -118,13 +118,13 @@ function NextTime() {
                 break;
         }
         setMyFavorites(sortFavorites);
-    }
+    };
     const openFilterModal = () => {
         filterModal.current.show();
-    }
+    };
     const closeFilterModal = () => {
         filterModal.current.hide();
-    }
+    };
 
 
     useEffect(() => {
@@ -132,7 +132,7 @@ function NextTime() {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         sortFavorites = [...favorites].sort((a, b) => a.create_at - b.create_at);
         setMyFavorites(sortFavorites);
-    }, [])
+    }, []);
 
 
     return (
@@ -141,7 +141,7 @@ function NextTime() {
                 closeFilterModal={closeFilterModal}
                 setMyFavorites={setMyFavorites}
                 myFavorites={myFavorites}
-            ></FilterModal>
+            />
             <div className=" mt-5">
                 <div className="d-flex   justify-content-sm-between flex-sm-row flex-column">
                     <div className="favorite-all-choose" >
@@ -162,7 +162,7 @@ function NextTime() {
                             }}
                             className="me-5 "
                         >
-                            <button
+                            <button type="button"
                                 className={`btn   p-0 w-100 rounded ${disabled ? '' : 'disabled'}`}
                                 onClick={addToCartAll}
                                 style={{
@@ -172,7 +172,7 @@ function NextTime() {
                             >
                                 <i
                                     className="bi bi-cart4"
-                                ></i>
+                                />
                                 放入購物車
                             </button>
                         </span>
@@ -183,7 +183,7 @@ function NextTime() {
                                 width: '80px',
                             }}
                         >
-                            <button
+                            <button type="button"
                                 className={`btn   p-0 w-100 rounded ${disabled ? '' : 'disabled'} `}
                                 onClick={deleteFavoriteAll}
                                 style={{
@@ -195,7 +195,7 @@ function NextTime() {
                             >
                                 <i
                                     className="bi bi-trash"
-                                ></i>
+                                />
                                 刪除商品
                             </button>
                         </span>
@@ -229,14 +229,15 @@ function NextTime() {
                                 價格（高⭢低）
                             </option>
                         </select>
-                        <button className="mybtn btn "
+                        <button type="button"
+                            className="mybtn btn "
                             onClick={openFilterModal}
                             style={{
                                 cursor: 'pointer',
                             }}
 
                         >
-                            <i className="bi bi-filter"></i>
+                            <i className="bi bi-filter" />
                             篩選
                         </button>
                     </div>
@@ -252,7 +253,7 @@ function NextTime() {
                                 marginBottom: '300px'
                             }}
                         >
-                            <i className="bi bi-emoji-surprise-fill me-3"></i>
+                            <i className="bi bi-emoji-surprise-fill me-3" />
                             目前下次再買清單沒有商品
                         </div>
                         :
@@ -264,16 +265,16 @@ function NextTime() {
                             >
                                 <thead >
                                     <tr className="table-secondary ">
-                                        <th className="col favorite-th"></th>
-                                        <th className="col favorite-th" ></th>
+                                        <th className="col favorite-th" />
+                                        <th className="col favorite-th" />
                                         <th className="col text-center">商品明細</th>
-                                        <th className="col "></th>
+                                        <th className="col "/>
                                         <th className="col text-center">變更</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {myFavorites?.map((myFavorite, i) => {
-                                        return (
+                                    {myFavorites?.map((myFavorite, i) => 
+                                         (
                                             <tr key={myFavorite.id}>
                                                 <th className="favorite-checkbox" scope="row">
                                                     <input type="checkbox"
@@ -342,7 +343,7 @@ function NextTime() {
                                                 </td>
                                             </tr>
                                         )
-                                    })}
+                                    )}
                                 </tbody>
                             </table>
                         </div>
@@ -352,7 +353,7 @@ function NextTime() {
 
 
         </div>
-    )
+    );
 }
 
-export default NextTime
+export default NextTime;

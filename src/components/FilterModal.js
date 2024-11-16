@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function FilterModal({ closeFilterModal, setMyFavorites }) {
-    const favorites = JSON.parse(localStorage.getItem('favorites'))
+    const favorites = JSON.parse(localStorage.getItem('favorites'));
     const [timeOption, setTimeOption] = useState('');
     const [typeState, setTypeState] = useState({
         alltype: true,
@@ -9,7 +9,7 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
         gameConsole: false,
         controller: false,
         others: false
-    })
+    });
 
     const timeRange = {
 
@@ -38,15 +38,15 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
             end: 86400 * 30 * 12
         }
         ,
-    }
+    };
     const handleTime = (e) => {
         const { id } = e.target;
         setTimeOption(id);
-    }
+    };
     let filterTimeArr;
     const filerTime = (filterArr) => {
         const currentTime = Math.floor(Date.now() / 1000); // 当前时间的 Unix 时间戳
-        if (timeOption == 'alltime') {
+        if (timeOption === 'alltime') {
             filterTimeArr = filterArr;
         } else {
             let timeRangeOption;
@@ -82,7 +82,7 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
             });
         }
         setMyFavorites(filterTimeArr);
-    }
+    };
 
 
 
@@ -91,22 +91,22 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
 
     const handleType = (e) => {
         const { id, checked } = e.target;
-        if (id == 'alltype' && checked) {
+        if (id === 'alltype' && checked) {
             setTypeState({
                 alltype: true,
                 apple: false,
                 gameConsole: false,
                 controller: false,
                 others: false
-            })
+            });
         } else {
             setTypeState({
                 ...typeState,
                 alltype: false,
                 [id]: checked
-            })
+            });
         }
-    }
+    };
     let filterArr;
     const filterFavorite = () => {
         if (typeState.alltype) {
@@ -116,9 +116,9 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
             filterArr = favorites.filter(favorite => typeState[favorite.category]);
             setMyFavorites(filterArr);
         }
-        filerTime(filterArr)
+        filerTime(filterArr);
         closeFilterModal();
-    }
+    };
     const reset = () => {
         setTypeState({
             alltype: true,
@@ -126,9 +126,9 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
             gameConsole: false,
             controller: false,
             others: false
-        })
+        });
         setTimeOption('');
-    }
+    };
 
 
 
@@ -143,8 +143,7 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
                         <button type="button" className="btn-close"
                             aria-label="Close"
                             onClick={closeFilterModal}
-                        >
-                        </button>
+                        />
                     </div>
                     <div className="modal-body">
 
@@ -202,7 +201,7 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
                                 <li className="option">
                                     <input type="radio" name='time' id='alltime'
                                         onChange={(e) => handleTime(e)}
-                                        checked={timeOption == 'alltime' || timeOption == ''}
+                                        checked={timeOption === 'alltime' || timeOption === ''}
                                     />
                                     <label htmlFor="alltime">全部</label>
                                 </li>
@@ -249,7 +248,8 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
                     </div>
                 </div>
             </div>
-        </div>)
+        </div>
+    );
 }
 
-export default FilterModal
+export default FilterModal;

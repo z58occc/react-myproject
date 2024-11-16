@@ -1,11 +1,11 @@
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import logo from '../logo.png'
 import { Collapse } from "bootstrap";
+import logo from '../logo.png';
 
 function Navbar({ cartData }) {
 
-    const navCollapse = useRef(null)
+    const navCollapse = useRef(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -30,14 +30,14 @@ function Navbar({ cartData }) {
 
     const hideCollapse = () => {
         navCollapse.current.hide();
-    }
+    };
 
 
     useEffect(() => {
         navCollapse.current = new Collapse('#navbarNav', {
             toggle: false
         });
-    }, [])
+    }, []);
 
 
 
@@ -56,7 +56,7 @@ function Navbar({ cartData }) {
                 }}
             >
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"/>
                 </button>
                 <div className="collapse navbar-collapse  custom-header-md-open" id="navbarNav"
                     style={style}
@@ -102,12 +102,12 @@ function Navbar({ cartData }) {
                     </ul>
                 </div>
                 <div className="d-flex me-5">
-                    <NavLink to="/cart" className={'nav-link position-relative  me-5'}>
+                    <NavLink to="/cart" className='nav-link position-relative  me-5'>
                         <i className="bi bi-cart-x-fill"
                             style={{
                                 fontSize: '25px'
                             }}
-                        ></i>
+                        />
                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {cartData?.carts?.length}
                         </span>
@@ -121,6 +121,6 @@ function Navbar({ cartData }) {
                 </div>
             </nav>
         </div>
-    )
+    );
 }
 export default Navbar;

@@ -23,28 +23,28 @@ import NextTime from "./page/front/NextTime";
 function App() {
   return (
     <div className="App">
-      <ScrollToTop></ScrollToTop>
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<FrountLayout />}>
-          <Route path="" element={<Home></Home>}></Route>
-          <Route path="products" element={<Products></Products>}></Route>
-          <Route path="articles" element={<Articles></Articles>}></Route>
-          <Route path="articles/:tag" element={<Articles></Articles>}></Route>
-          <Route path="orderQuery" element={<OrderQuery></OrderQuery>}></Route>
-          <Route path="nexttime" element={<NextTime></NextTime>}></Route>
-          <Route path="products/:searchWord" element={<Products></Products>}></Route>
-          <Route path="product/:id" element={<ProdeuctDetail></ProdeuctDetail>}></Route>
-          <Route path="article/:id" element={<ArticleDetail></ArticleDetail>}></Route>
-          <Route path="cart" element={<Cart></Cart>}></Route>
-          <Route path="/cart/checkout" element={<Checkout></Checkout>}></Route>
-          <Route path="success/:orderId" element={<Success></Success>}></Route>
+          <Route path="" element={<Home/>}/>
+          <Route path="products" element={<Products/>}/>
+          <Route path="articles" element={<Articles/>}/>
+          <Route path="articles/:tag" element={<Articles/>}/>
+          <Route path="orderQuery" element={<OrderQuery/>}/>
+          <Route path="nexttime" element={<NextTime/>}/>
+          <Route path="products/:searchWord" element={<Products/>}/>
+          <Route path="product/:id" element={<ProdeuctDetail/>}/>
+          <Route path="article/:id" element={<ArticleDetail/>}/>
+          <Route path="cart" element={<Cart/>}/>
+          <Route path="/cart/checkout" element={<Checkout/>}/>
+          <Route path="success/:orderId" element={<Success/>}/>
         </Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login />}/>
         <Route path="/admin" element={<Dashboard />}>
-          <Route path="products" element={<AdminProducts></AdminProducts>}></Route>
-          <Route path="coupons" element={<AdminCoupons></AdminCoupons>}></Route>
-          <Route path="orders" element={<AdminOrders></AdminOrders>}></Route>
-          <Route path="articles" element={<AdminArticle></AdminArticle>}></Route>
+          <Route path="products" element={<AdminProducts/>}/>
+          <Route path="coupons" element={<AdminCoupons/>}/>
+          <Route path="orders" element={<AdminOrders/>}/>
+          <Route path="articles" element={<AdminArticle/>}/>
         </Route>
       </Routes>
 

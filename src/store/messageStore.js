@@ -4,28 +4,28 @@ export const initState = {
     type: '',
     title: '',
     text: ''
-}
+};
 
-//useContext 跨元件傳遞
-export const MessageContext = createContext({})
+//  useContext 跨元件傳遞
+export const MessageContext = createContext({});
 
-//Reducer
+//  Reducer
 
 export const messageReducer = (state, action) => {
     switch (action.type) {
         case "POST_MESSAGE":
             return {
                 ...action.payload
-            }
+            };
         case "CLEAR_MESSAGE":
             return {
                 ...initState
-            }
+            };
 
         default:
             return state;
     }
-}
+};
 
 export function handleSuccessMessage(dispatch, res) {
     dispatch({
@@ -40,7 +40,7 @@ export function handleSuccessMessage(dispatch, res) {
         dispatch({
             type: 'CLEAR_MESSAGE',
         });
-    },3000)
+    },3000);
 
 }
 export function handleErrorMessage(dispatch, error) {
@@ -56,5 +56,5 @@ export function handleErrorMessage(dispatch, error) {
         dispatch({
             type: 'CLEAR_MESSAGE',
         });
-    },3000)
+    },3000);
 }

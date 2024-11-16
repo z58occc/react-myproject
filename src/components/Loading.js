@@ -22,6 +22,6 @@ function Loading({isLoading}) {
                 </div>
             )}
         </>
-    )
+    );
 }
 export default Loading;

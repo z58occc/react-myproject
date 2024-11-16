@@ -1,4 +1,4 @@
-import { useOutletContext, useParams, Link } from "react-router-dom"
+import { useOutletContext, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { Tooltip } from "bootstrap";
@@ -24,26 +24,25 @@ function Success() {
     const getOrder = async () => {
         const res = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/order/${orderId}`,
         );
-        setOrderData(res.data.order)
-    }
+        setOrderData(res.data.order);
+    };
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(orderData.id)
-        .then(()=>tooltipRef.current.show())
-        .catch((err)=>console.log(err));
+        .then(()=>tooltipRef.current.show());
         setTimeout(() => {
             if (tooltipRef.current) {
                 tooltipRef.current.hide(); // 调用hide方法
             }
         }, 3000);
-    }
+    };
 
 
 
     useEffect(() => {
         getCart();
         getOrder();
-    }, [orderId])
+    }, [orderId]);
     return (
         <div className="container min-vh-100">
             <div
@@ -54,8 +53,7 @@ function Success() {
                     backgroundPosition: "center center",
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover'
-                }}>
-            </div>
+                }}/>
             <div className="mt-5 mb-7">
                 <div className="row">
                     <div className="col-md-6">
@@ -79,7 +77,7 @@ function Success() {
                                     fontSize: '25px',
                                     cursor: 'pointer'
                                 }}
-                            ></i>
+                            />
                         </div>
                         <div>
                             <b className="text-primary">
@@ -102,8 +100,8 @@ function Success() {
                             </div>
                             <div className="card-body px-4 py-0">
                                 <ul className="list-group list-group-flush">
-                                    {Object.values(orderData?.products || {}).map((item) => {
-                                        return (
+                                    {Object.values(orderData?.products || {}).map((item) => 
+                                         (
 
                                             <li className="list-group-item px-0" key={item.id}>
                                                 <div className="d-flex mt-2">
@@ -117,7 +115,7 @@ function Success() {
                                                         </div>
                                                         <div className="d-flex justify-content-between mt-auto">
                                                             <p className="text-muted mb-0"><small>NT${item.product.price}</small></p>
-                                                            <p className={`${item.total != item.final_total
+                                                            <p className={`${item.total !== item.final_total
                                                                 ?
                                                                 'text-secondary fs-7 text-decoration-line-through'
                                                                 :
@@ -125,7 +123,7 @@ function Success() {
                                                                 }
                                                             mb-0`}>NT${item.total}</p>
                                                         </div>
-                                                        <div className={`${item.total == item.final_total
+                                                        <div className={`${item.total === item.final_total
                                                             ?
                                                             'd-none'
                                                             :
@@ -138,7 +136,7 @@ function Success() {
                                                 </div>
                                             </li>
                                         )
-                                    })}
+                                    )}
 
                                     <li className="list-group-item px-0 pb-0">
                                         <div className="d-flex justify-content-between mt-2">
@@ -154,6 +152,6 @@ function Success() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
-export default Success
+export default Success;

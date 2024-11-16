@@ -11,10 +11,10 @@ function Dashboard() {
     const reducer = useReducer(messageReducer, initState);
     const logout = () => {
         document.cookie = 'hextoken=;';
-        navigate('/')
-    }
+        navigate('/');
+    };
 
-    //取出token
+    //  取出token
     const token = document.cookie
         .split("; ")
         .find((row) => row.startsWith("hextoken="))
@@ -30,17 +30,16 @@ function Dashboard() {
             try {
                 await axios.post('/v2/api/user/check');
             } catch (error) {
-                console.log(error)
                 if (!error.response.data.success) {
-                    navigate('/login')
+                    navigate('/login');
                 }
             }
-        })()
+        })();
 
-    }, [navigate, token])
+    }, [navigate, token]);
     return (
         <MessageContext.Provider value={reducer}>
-            <Message></Message>
+            <Message/>
             <nav className="navbar navbar-expand-lg bg-dark">
                 <div className="container-fluid">
                     <Link to='/' style={{ textDecoration: 'none' }}>
@@ -93,11 +92,11 @@ function Dashboard() {
                     </ul>
                 </div>
                 <div className="w-100">
-                    {token && <Outlet></Outlet>}
+                    {token && <Outlet/>}
                 </div>
             </div>
         </MessageContext.Provider>
-    )
+    );
 }
 
 export default Dashboard;

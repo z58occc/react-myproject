@@ -40,6 +40,6 @@ function Pagination({pagination,changePage}) {
                     </li>
                 </ul>
             </nav>
-    )
+    );
 }
 export default Pagination;

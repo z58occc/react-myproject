@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useParams } from "react-router-dom";
 import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
-import { useParams } from "react-router-dom";
 
 
 function Products() {
@@ -20,21 +19,21 @@ function Products() {
 
     const search = (e) => {
         setReSearch(e.target.value);
-    }
+    };
 
 
     const getProductsAll = async () => {
         setLoading(true);
-        const productAllRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/products/all`)
+        const productAllRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/products/all`);
         const searchArr = productAllRes.data.products.filter((item) => regex.test(item.title));
-        if (searchArr.length == 0) {
+        if (searchArr.length === 0) {
             setSearchRes(false);
         } else {
             setSearchRes(true);
         }
         setProducts(searchArr);
         setLoading(false);
-    }
+    };
     const getProducts = async (page = 1) => {
         setSearchRes(true);
         setLoading(true);
@@ -42,23 +41,22 @@ function Products() {
         setProducts(productRes.data.products);
         setPagination(productRes.data.pagination);
         setLoading(false);
-    }
+    };
 
     const hadleChangeType = async (e) => {
         setLoading(true);
         const { htmlFor } = e.target;
         const category = htmlFor;
         const typeRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/products?category=${category}`);
-        console.log(typeRes.data);
         setProducts(typeRes.data.products);
         setPagination(typeRes.data.pagination);
         setLoading(false);
-    }
+    };
     const handleKeyEnter = (e) => {
-        if (e.code == 'Enter') {
-            navigate(`/products/${reSearch}`)
+        if (e.code === 'Enter') {
+            navigate(`/products/${reSearch}`);
         }
-    }
+    };
 
 
     useEffect(() => {
@@ -67,10 +65,10 @@ function Products() {
         } else {
             getProducts();
         }
-    }, [searchWord])
+    }, [searchWord]);
     return (
         <div className="container mt-md-5 mt-3 mb-7 ">
-            <Loading isLoading={isLoading}></Loading>
+            <Loading isLoading={isLoading}/>
             <div className="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" defaultChecked />
                 <label className="btn btn-outline-primary" htmlFor="btnradio1"
@@ -104,7 +102,7 @@ function Products() {
                             fontSize: '40px'
                         }}
                     >
-                        <i className="bi bi-emoji-surprise-fill me-3"></i>
+                        <i className="bi bi-emoji-surprise-fill me-3"/>
                         目前沒有符合搜尋的商品
                     </div>
                     <>
@@ -124,8 +122,8 @@ function Products() {
                 </>
                 :
                 <div className="row">
-                    {products.map((product) => {
-                        return (
+                    {products.map((product) => 
+                         (
                             <div key={product.id} className="col-md-3">
                                 <div className="card border-0 mb-4 position-relative position-relative">
                                     <Link style={{ textDecoration: 'none' }} to={`/product/${product.id}`}>
@@ -143,17 +141,16 @@ function Products() {
                                 </div>
                             </div>
                         )
-                    })}
+                    )}
                 </div>
             }
 
             <nav className="d-flex justify-content-center">
                 <Pagination
                     pagination={pagination}
-                    changePage={getProducts}>
-                </Pagination>
+                    changePage={getProducts}/>
             </nav>
         </div>
-    )
+    );
 }
 export default Products;

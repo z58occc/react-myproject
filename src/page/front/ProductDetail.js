@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useOutletContext, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createAsyncMessage } from "../../slice/messageSlice";
-import Loading from "../../components/Loading";
 import moment from "moment";
+import { createAsyncMessage } from "../../slice/messageSlice";
 import SameTypeCarousel from "../../components/SameTypeCarousel";
 
 
@@ -17,7 +16,7 @@ function ProdeuctDetail() {
     const [isLoadingCart, setIsLoadingCart] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const { getCart } = useOutletContext();
-    const [alreadyExists, setAlreadyExists] = useState(false)
+    const [alreadyExists, setAlreadyExists] = useState(false);
     const dispatch = useDispatch();
     const [sameProducts, setSameProducts] = useState([]);
     const imgRef = useRef('');
@@ -29,17 +28,17 @@ function ProdeuctDetail() {
         setLoading(true);
         const productRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/product/${id}`);
         setProducts(productRes.data.product);
-        setTempSrc(productRes.data.product.imagesUrl[0])
+        setTempSrc(productRes.data.product.imagesUrl[0]);
         for (let index = 0; index < favorites.length; index++) {
-            if (favorites[index].id == productRes.data.product.id) {
+            if (favorites[index].id === productRes.data.product.id) {
                 setAlreadyExists(true);
                 break;
             }
         }
-        const productAllRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/products/all`)
+        const productAllRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/products/all`);
         const similarArr = productAllRes.data.products
-            .filter((item) => item.category == productRes.data.product.category)
-            .filter((item) => item.id != productRes.data.product.id);
+            .filter((item) => item.category === productRes.data.product.category)
+            .filter((item) => item.id !== productRes.data.product.id);
 
         setSameProducts(similarArr);
         setLoading(false);
@@ -51,7 +50,7 @@ function ProdeuctDetail() {
                 product_id: product.id,
                 qty: cartQuantity,
             }
-        }
+        };
         setIsLoadingCart(true);
         try {
             const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/cart`,
@@ -65,7 +64,7 @@ function ProdeuctDetail() {
             dispatch(createAsyncMessage(error.response.data));
         }
 
-    }
+    };
     const addFavorite = (product) => {
         const createTime = new Date();
         const momentTime = moment(createTime).unix();
@@ -81,30 +80,27 @@ function ProdeuctDetail() {
         }
         localStorage.setItem('favorites', JSON.stringify(favorites));
         setAlreadyExists(true);
-    }
+    };
 
     const changeImg = (e) => {
         const { src } = e.target;
         setTempSrc(src);
         imgRef.current.src = src;
 
-    }
+    };
 
 
 
     useEffect(() => {
         getProduct(id);
-    }, [id, alreadyExists])
+    }, [id, alreadyExists]);
 
 
 
     return (
         <>
-            {/* <Loading isLoading={isLoading}></Loading> */}
             <div className="container">
                 <div className="row d-flex flex-row-reverse   m-1 ">
-
-                    
                     <div
                         className=" col-md-4 d-flex flex-column"
                         style={{
@@ -118,7 +114,7 @@ function ProdeuctDetail() {
                             <p className="fw-bold">NT$ {product.price}</p>
                         </div>
                         <div className="product-img">
-                            <img
+                            <img alt="product.jpg"
                                 src={product?.imageUrl} className="img-fluid object-cover w-100 mb-5"
                                 style={{
                                     height: '250px'
@@ -134,7 +130,7 @@ function ProdeuctDetail() {
                                     <button className="btn btn-outline-dark rounded-0 border-0 py-3" type="button" id="button-addon1"
                                         onClick={() => setCartQuantity((pre) => pre === 1 ? pre : pre - 1)}
                                     >
-                                        <i className="bi bi-dash-circle"></i>
+                                        <i className="bi bi-dash-circle"/>
                                     </button>
                                 </div>
                                 <input
@@ -145,7 +141,7 @@ function ProdeuctDetail() {
                                     <button className="btn btn-outline-dark rounded-0 border-0 py-3" type="button" id="button-addon2"
                                         onClick={() => setCartQuantity((pre) => pre + 1)}
                                     >
-                                        <i className="bi bi-plus-circle"></i>
+                                        <i className="bi bi-plus-circle"/>
                                     </button>
                                 </div>
                             </div>
@@ -166,7 +162,7 @@ function ProdeuctDetail() {
                                     加入購物車
                                 </button>
 
-                                <button
+                                <button type="button"
                                     className='btn btn-secondary mt-1 p-3'
                                     onClick={() => addFavorite(product)}
                                     style={{
@@ -181,7 +177,7 @@ function ProdeuctDetail() {
                     </div>
                     <div className="col-md-8" >
                         <div className="row">
-                            <img
+                            <img alt="product.jpg"
                                 src={product?.imagesUrl?.[0]} className="img-fluid object-cover "
                                 style={{
                                     height: '500px',
@@ -190,17 +186,17 @@ function ProdeuctDetail() {
                             />
                         </div>
                         <div className="row g-1  ">
-                            {product?.imagesUrl?.map((img, i) => {
-                                return (
+                            {product?.imagesUrl?.map((img, i) => 
+                                 (
                                     <div className="col position-relative" key={i}>
-                                        <div className={`${img != tempSrc
+                                        <div className={`${img !== tempSrc
                                             ?
                                             'opacity-0'
                                             :
                                             ''
                                             }
                                             triangle  position-absolute start-50 top-0 translate-middle`}
-                                        ></div>
+                                        />
                                         <img src={`${img}`} className={`${img == tempSrc ? "outline" : ""} w-100 mt-3 object-cover`}
                                             alt="..."
                                             style={{
@@ -211,7 +207,7 @@ function ProdeuctDetail() {
                                         />
                                     </div>
                                 )
-                            })}
+                            )}
                         </div>
 
 
@@ -226,7 +222,7 @@ function ProdeuctDetail() {
                                         <h4 className="mb-0">
                                             商品說明
                                         </h4>
-                                        <i className="bi bi-dash"></i>
+                                        <i className="bi bi-dash"/>
                                     </div>
                                 </div>
                                 <div id="collapseOne" className="collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample ">
@@ -241,7 +237,7 @@ function ProdeuctDetail() {
 
                                 <SameTypeCarousel
                                     sameProducts={sameProducts}
-                                ></SameTypeCarousel>
+                                />
                             </div>
 
 
@@ -251,6 +247,6 @@ function ProdeuctDetail() {
 
             </div >
         </>
-    )
+    );
 }
 export default ProdeuctDetail;

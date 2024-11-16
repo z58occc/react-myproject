@@ -19,7 +19,7 @@ function ArticleDetail() {
         } else {
             setContentSize(false);
         }
-    }
+    };
 
 
     const getArticle = async (id) => {
@@ -27,14 +27,14 @@ function ArticleDetail() {
         const articleRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/article/${id}`);
         setArticle(articleRes.data.article);
 
-        const articlesPage1 = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/articles`)
-        const articlesPage2 = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=2`)
+        const articlesPage1 = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/articles`);
+        const articlesPage2 = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=2`);
         const articlesArr = [...articlesPage1.data.articles, ...articlesPage2.data.articles];
         setArticleAll(articlesArr);
 
         for (let index = 0; index < articlesArr.length; index++) {
-            if (articlesArr[index].id == articleRes.data.article.id) {
-                setArticleNum(articlesArr[index].num)
+            if (articlesArr[index].id === articleRes.data.article.id) {
+                setArticleNum(articlesArr[index].num);
                 break;
             }
         }
@@ -44,11 +44,11 @@ function ArticleDetail() {
 
     useEffect(() => {
         getArticle(id);
-    }, [id])
+    }, [id]);
     return (
         <div className="container">
             <div className=" mb-5 row">
-                <Loading isLoading={isLoading}></Loading>
+                <Loading isLoading={isLoading} />
                 <div className="col-lg-9 mt-5">
                     <div>
                         {article?.tag?.map((item, i) => {
@@ -56,7 +56,7 @@ function ArticleDetail() {
                                 item
                                     ?
                                     <Link key={i} to={`/articles/${item}`}>
-                                        <button  type="button" className="me-3  pt-0 pb-0  btn btn-secondary tag"
+                                        <button type="button" className="me-3  pt-0 pb-0  btn btn-secondary tag"
                                             disabled
                                             style={{
                                                 maxWidth: "200px", /* 限制按鈕最大寬度 */
@@ -201,42 +201,42 @@ function ArticleDetail() {
                                 NEW ARTICLES
                             </b>
                         </h3>
-                        {articleAll?.slice(0, 5).map((article) => {
-                            return (
-                                <Link to={`/article/${article.id}`}
-                                    style={{
-                                        textDecoration: 'none',
-                                    }}
-                                    className="text-secondary"
-                                    key={article.id}
-                                >
-                                    <div className="row mb-5">
-                                        <div className="col-4">
-                                            <img src={article.image} alt=""
-                                                style={{
-                                                    width: '87px',
-                                                    height: '63px'
-                                                }}
-                                                className="object-cover w-100"
-                                            />
-                                        </div>
-                                        <div className="col-8"
+                        {articleAll?.slice(0, 5).map((article) =>
+                        (
+                            <Link to={`/article/${article.id}`}
+                                style={{
+                                    textDecoration: 'none',
+                                }}
+                                className="text-secondary"
+                                key={article.id}
+                            >
+                                <div className="row mb-5">
+                                    <div className="col-4">
+                                        <img src={article.image} alt=""
                                             style={{
-                                                fontSize: '12px'
+                                                width: '87px',
+                                                height: '63px'
                                             }}
-                                        >
-                                            {article.description}
-                                        </div>
+                                            className="object-cover w-100"
+                                        />
                                     </div>
-                                </Link>
-                            )
-                        })}
+                                    <div className="col-8"
+                                        style={{
+                                            fontSize: '12px'
+                                        }}
+                                    >
+                                        {article.description}
+                                    </div>
+                                </div>
+                            </Link>
+                        )
+                        )}
                     </div>
                 </div>
 
             </div>
         </div>
-    )
+    );
 }
 
-export default ArticleDetail
+export default ArticleDetail;

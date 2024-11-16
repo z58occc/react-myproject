@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import moment from "moment/moment";
 
 function QueryModal({ closeOrderModal, tempOrder }) {
@@ -30,7 +29,7 @@ function QueryModal({ closeOrderModal, tempOrder }) {
         setTempData({
             ...tempOrder,
             create_at: moment.unix(tempOrder?.create_at).format('ll')
-        })
+        });
         const { status } = tempOrder;
         switch (status) {
             case "未確認":
@@ -49,7 +48,7 @@ function QueryModal({ closeOrderModal, tempOrder }) {
             default:
                 break;
         }
-    }, [tempOrder])
+    }, [tempOrder]);
 
 
     return (
@@ -201,7 +200,7 @@ function QueryModal({ closeOrderModal, tempOrder }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 export default QueryModal;
 

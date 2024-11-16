@@ -1,20 +1,22 @@
-import { Link } from "react-router-dom"
-import { useRef } from "react"
+import { Link } from "react-router-dom";
+import { useRef } from "react";
+
+
 function Carousel({ products }) {
     const imgRef = useRef(null);
     const otherImgRef = useRef([]);
-    const oldImg = imgRef?.current?.src
-    const otherOldImg = otherImgRef?.current?.map((img) => {
-        return (
+    const oldImg = imgRef?.current?.src;
+    const otherOldImg = otherImgRef?.current?.map((img) => 
+         (
             img.src
         )
-    })
+    );
 
     const changeImg = (e) => {
         const { src, name } = e.target;
         if (name) {
             for (let index = 0; index < otherImgRef.current.length; index++) {
-                if (otherImgRef.current[index].id == name) {
+                if (otherImgRef.current[index].id === name) {
                     otherImgRef.current[index].src = src;
                 }
             }
@@ -24,18 +26,18 @@ function Carousel({ products }) {
         }
 
     }
-    const oriImg = (e) => {//滑鼠離開後 把原本的圖換回來
+    const oriImg = (e) => {//   滑鼠離開後 把原本的圖換回來
         const { name } = e.target;
         if (name) {
             for (let index = 0; index < otherImgRef.current.length; index++) {
-                if (otherImgRef.current[index].id == name) {
+                if (otherImgRef.current[index].id === name) {
                     otherImgRef.current[index].src = otherOldImg[index];
                 }
             }
         } else {
-            imgRef.current.src = oldImg
+            imgRef.current.src = oldImg;
         }
-    }
+    };
 
 
     return (
@@ -55,20 +57,19 @@ function Carousel({ products }) {
                     
                 }}
             >
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"/>
 
-                {products?.slice(1, products.length).map((_, i) => {
-                    return (
-                        <button key={i + 1} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={i + 1} aria-label={`Slide ${i + 1}`} ></button>
+                {products?.slice(1, products.length).map((_, i) => 
+                     (
+                        <button key={i + 1} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={i + 1} aria-label={`Slide ${i + 1}`} />
                     )
-                })}
+                )}
 
             </div>
 
             <div className="carousel-inner container"
             style={{
                 maxWidth:"1100px",
-                // margin:"0,auto"
             }}
              >
                 {/* 第一頁 */}
@@ -95,8 +96,8 @@ function Carousel({ products }) {
                                 </Link>
                             </div>
                             <div className="row m-1" >
-                                {products[0]?.imagesUrl?.slice(0, 4).map((img, i) => {
-                                    return (
+                                {products[0]?.imagesUrl?.slice(0, 4).map((img, i) => 
+                                     (
                                         <div className="col-6 g-3  " key={i} >
                                             <img src={img} alt=""
                                                 style={{
@@ -110,7 +111,7 @@ function Carousel({ products }) {
                                         </div>
 
                                     )
-                                })}
+                                )}
                             </div>
                             <div className="mt-7  w-25 "
                                 style={{ textAlign: 'center' }}  >
@@ -121,8 +122,8 @@ function Carousel({ products }) {
                 </div>
 
                 {/* 其他頁 */}
-                {products?.slice(1, products.length).map((product, i) => {
-                    return (
+                {products?.slice(1, products.length).map((product, i) => 
+                     (
                         <div className="carousel-item " key={product?.id} >
                             <div className="row g-0">
                                 <div className="col-8">
@@ -147,8 +148,8 @@ function Carousel({ products }) {
                                     </div>
 
                                     <div className="row m-1">
-                                        {product?.imagesUrl?.slice(0, 4).map((img, i) => {
-                                            return (
+                                        {product?.imagesUrl?.slice(0, 4).map((img, i) => 
+                                             (
                                                 <div className="col-6 g-3    " key={i}>
                                                     <img src={img} alt=""
                                                         style={{
@@ -163,7 +164,7 @@ function Carousel({ products }) {
                                                 </div>
 
                                             )
-                                        })}
+                                        )}
                                     </div>
                                     <div className="mt-7 w-25" style={{
                                         textAlign: 'center'
@@ -176,22 +177,22 @@ function Carousel({ products }) {
 
                         </div>
                     )
-                })}
+                )}
 
 
             </div>
 
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="carousel-control-prev-icon" aria-hidden="true"/>
                 <span className="visually-hidden">Previous</span>
             </button>
             <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="carousel-control-next-icon" aria-hidden="true"/>
                 <span className="visually-hidden">Next</span>
             </button>
 
         </div>
-    )
+    );
 }
 
-export default Carousel
+export default Carousel;

@@ -6,7 +6,7 @@ import { MessageContext, handleSuccessMessage, handleErrorMessage } from "../sto
 function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
 
 
-    //取出token
+    //  取出token
     const token = document.cookie
         .split("; ")
         .find((row) => row.startsWith("hextoken="))
@@ -60,38 +60,38 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
 
             });
         } else if (type === 'edit') {
-            setTempData(tempProduct)
+            setTempData(tempProduct);
         }
-    }, [type, tempProduct])
+    }, [type, tempProduct]);
 
     const handleChange = (e) => {
-        const { value, name } = e.target
+        const { value, name } = e.target;
         if (['price', 'origin_price'].includes(name)) {
             setTempData({
                 ...tempData,
                 [name]: Number(value)
-            })
+            });
         } else if (name === 'is_enabled') {
             setTempData({
                 ...tempData,
                 [name]: +e.target.checked,// boolean
-            })
+            });
         }
         else {
             setTempData({
                 ...tempData,
                 [name]: value
-            })
+            });
         }
-    }
+    };
     const hadleChangeImages = (e) => {
         const index = parseInt(e.target.name);
         setTempData({
             ...tempData,
             imagesUrl: tempData.imagesUrl.map((item, i) => i === index ? e.target.value : item)
-        })
+        });
 
-    }
+    };
 
     const submit = async () => {
         try {
@@ -113,41 +113,39 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
         } catch (error) {
             handleErrorMessage(dispatch, error);
         }
-    }
+    };
     const uploadFile = async (e) => {
-        const { name, files } = e.target
+        const { name, files } = e.target;
         const file = files[0];
         if (!file) {
             return;
         }
 
         const formData = new FormData();
-        formData.append('file-to-upload', file)
+        formData.append('file-to-upload', file);
         try {
             const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/upload`, formData, {
                 headers: {
                     authorization: token
                 }
-            })
+            });
             if (e.target.name === "imageUrl") {
                 setTempData({
                     ...tempData,
                     [name]: res.data.imageUrl
-                })
+                });
             } else {
                 const index = parseInt(e.target.name);
                 setTempData({
                     ...tempData,
                     imagesUrl: tempData.imagesUrl.map((item, i) => i === index ? res.data.imageUrl : item)
-                })
+                });
 
             }
         } catch (error) {
-            console.log(error);
         }
-    }
+    };
 
-    // const inputRef = useRef(null);
 
     useEffect(() => {
         const inputs = document.querySelectorAll('input[type="number"]');
@@ -499,7 +497,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 export default ProductModal;
 

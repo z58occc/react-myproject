@@ -1,21 +1,17 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import Loading from "../../components/Loading";
 import { Modal } from "bootstrap";
-import QueryModal from "../../components/QueryModal";
 import Swal from "sweetalert2";
-import search from '../../search.webp'
+import Loading from "../../components/Loading";
+import QueryModal from "../../components/QueryModal";
+import search from '../../search.webp';
 
 function OrderQuery() {
     const [order, setOrder] = useState({});
     const inputRef = useRef('');
     const [isLoading, setLoading] = useState(false);
     const queryModal = useRef(null);
-    const handleKeyEnter = (e) => {
-        if (e.code == 'Enter') {
-            getOrder(inputRef.current.value.trim())
-        }
-    }
+    
 
 
     const getOrder = async (e,id) => {
@@ -30,27 +26,32 @@ function OrderQuery() {
                 html: "<small>找不到資料，請確認訂單編號是否正確</small>",
                 icon: "error"
             });
-            return
+            return;
         }
         queryModal.current.show();
         setLoading(false);
-    }
+    };
+    const handleKeyEnter = (e) => {
+        if (e.code === 'Enter') {
+            getOrder(inputRef.current.value.trim());
+        }
+    };
     const closeQueryModal = () => {
         queryModal.current.hide();
-    }
+    };
     useEffect(() => {
         queryModal.current = new Modal('#queryModal', {
             backdrop: 'static'
-        })
-    }, [])
+        });
+    }, []);
 
     return (
         <div className="container vh-100 mt-5 ">
-            <Loading isLoading={isLoading}></Loading>
+            <Loading isLoading={isLoading}/>
             <QueryModal
                 tempOrder={order || {}}
                 closeOrderModal={closeQueryModal}
-            ></QueryModal>
+            />
             <form className="row justify-content-center justify-content-sm-start "
                 onSubmit={(e) => getOrder(e,inputRef.current.value.trim())}
             >
@@ -83,7 +84,7 @@ function OrderQuery() {
 
 
         </div>
-    )
+    );
 }
 
-export default OrderQuery
+export default OrderQuery;

@@ -1,11 +1,10 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useOutletContext, Link } from "react-router-dom";
+import { useOutletContext, Link,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createAsyncMessage } from "../../slice/messageSlice";
 import { Tooltip } from "bootstrap";
 import Swal from "sweetalert2";
+import { createAsyncMessage } from "../../slice/messageSlice";
 
 
 
@@ -22,16 +21,31 @@ function Cart() {
     const handleCoupon = (e) => {
         const { value } = e.target;
         setCouponCode(value);
-    }
+    };
+
+    const sendCoupon = async () => {
+        try {
+            const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/coupon`, {
+                data: {
+                    code: couponCode
+                }
+            });
+            getCart();
+            return true;
+        } catch (error) {
+            return false;
+        }
+
+    };
 
     const checkCoupon = () => {
-        if (couponCode == "") {
+        if (couponCode === "") {
             Swal.fire({
                 title: "發生錯誤",
                 html: "<small>欄位不得為空 請依照需求填寫折扣碼</small>",
                 icon: "error"
             });
-            return
+            return;
         }
         Swal.fire({
             title: "你決定好了嗎？",
@@ -63,39 +77,24 @@ function Cart() {
             }
         });
     }
-    const sendCoupon = async () => {
-        try {
-            const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/coupon`, {
-                data: {
-                    code: couponCode
-                }
-            })
-            getCart();
-            return true
-        } catch (error) {
-            console.log(error);
-            return false
-        }
-
-    }
+    
 
     const removeCartItem = async (id) => {
         try {
-            const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,)
+            const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,);
             getCart();
         } catch (error) {
-            console.log(error);
+
         }
-    }
+    };
     const removeCartAll = async () => {
         try {
-            const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`)
+            const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`);
             getCart();
 
         } catch (error) {
-            console.log(error);
         }
-    }
+    };
 
     const updateCartItem = async (item, quantity) => {
         const data = {
@@ -104,26 +103,26 @@ function Cart() {
                 qty: quantity
             }
         };
-        setLoadingItem([...loadingItems, item.id])
+        setLoadingItem([...loadingItems, item.id]);
         try {
             const res = await axios.put(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${item.id}`,
                 data,
-            )
+            );
             dispatch(createAsyncMessage(res.data));
             getCart();
-            setLoadingItem(loadingItems.filter((loadingObject) => loadingObject !== item.id))
+            setLoadingItem(loadingItems.filter((loadingObject) => loadingObject !== item.id));
         } catch (error) {
             dispatch(createAsyncMessage(error.response.data));
             setLoadingItem(loadingItems.filter((loadingObject) => loadingObject !== item.id));
 
         }
-    }
+    };
     const addFavorite = (item) => {
-        const { product, id } = item
+        const { product, id } = item;
         let alreadyExists = false;
         let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         for (let index = 0; index < favorites.length; index++) {
-            if (favorites[index].id == product.id) {
+            if (favorites[index].id === product.id) {
                 alreadyExists = true;
                 break;
             }
@@ -133,14 +132,14 @@ function Cart() {
         }
 
         localStorage.setItem('favorites', JSON.stringify(favorites));
-        removeCartItem(id)
-    }
+        removeCartItem(id);
+    };
 
     const checkCart = () => {
-        if (!cartData.carts.every(item => item.hasOwnProperty('coupon'))) {//cartData有資料沒套用coupon
-            if (cartData.carts.every(item => !item.hasOwnProperty('coupon'))) {//cartData全都沒套用coupon
-                navigate("./checkout")
-            } else {//cartData中coupon未全部套用
+        if (!cartData.carts.every(item => item.hasOwnProperty('coupon'))) {//   cartData有資料沒套用coupon
+            if (cartData.carts.every(item => !item.hasOwnProperty('coupon'))) {//   cartData全都沒套用coupon
+                navigate("./checkout");
+            } else {//  cartData中coupon未全部套用
                 Swal.fire({
                     title: "有商品還未使用優惠券喔！！",
                     html: '<div><small>目前購物車內有符合條件之商品尚未使用優惠券</small></div> <div><small>若要使用優惠 請清空購物車後重新操作</small></div>',
@@ -152,20 +151,20 @@ function Cart() {
                     confirmButtonText: "我要結帳"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate("./checkout")
+                        navigate("./checkout");
                     }
                 });
             }
-        } else {//cartData全都有套用coupon
-            navigate("./checkout")
+        } else {//  cartData全都有套用coupon
+            navigate("./checkout");
         }
-    }
+    };
     useEffect(() => {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new Tooltip(tooltipTriggerEl)
-        })
-    })
+        });
+    });
 
 
 
@@ -182,21 +181,21 @@ function Cart() {
                     </div>
 
 
-                    {cartData?.carts?.length == 0 || cartData?.carts?.length == undefined
+                    {cartData?.carts?.length === 0 || cartData?.carts?.length === undefined
                         ?
                         <div className="text-center  mt-5">
-                            <h1><i className="bi bi-emoji-surprise-fill me-3"></i>目前您的購物車沒有商品</h1>
+                            <h1><i className="bi bi-emoji-surprise-fill me-3"/>目前您的購物車沒有商品</h1>
                         </div>
                         :
                         <>
                             <div className="d-flex justify-content-end">
-                                <button
+                                <button type="button"
                                     className="btn btn-outline-danger rounded"
                                     onClick={removeCartAll}
                                 >清空購物車</button>
                             </div>
-                            {cartData?.carts?.map((item) => {
-                                return (
+                            {cartData?.carts?.map((item) => 
+                                 (
                                     <div className="d-flex mt-4 bg-light" key={item.id}>
                                         <div>
                                             <Link to={`/product/${item.product.id}`}>
@@ -254,7 +253,7 @@ function Cart() {
                                         </div>
                                     </div>
                                 )
-                            })}
+                            )}
                             <div className="  d-flex justify-content-end align-items-center mt-5"
                                 style={{
                                     height: '30px'
@@ -264,18 +263,20 @@ function Cart() {
                                 "
                                     placeholder="請輸入折扣碼"
                                     onChange={(e) => handleCoupon(e)}
-                                    disabled={cartData.total != cartData.final_total}
+                                    disabled={cartData.total !== cartData.final_total}
                                 />
                                 {/* 使用優惠券按鈕 */}
-                                <button className="btn btn-outline-primary
+                                <button 
+                                type="button"
+                                className="btn btn-outline-primary
                                  border-top-0 border-start-0 border-end-0 border-bottom-0 rounded-0
                                 "
                                     onClick={checkCoupon}
-                                    disabled={cartData.total != cartData.final_total}
+                                    disabled={cartData.total !== cartData.final_total}
                                 >
                                     <i className="bi bi-send"
                                         style={{ fontSize: '20px' }}
-                                    ></i>
+                                    />
                                 </button>
                             </div>
                             <button type="button" className="btn btn-primary float-end mt-3" data-bs-toggle="tooltip" data-bs-html="true" title="
@@ -295,17 +296,17 @@ function Cart() {
                             <span style={{
                                 fontSize: '15px'
                             }}>
-                                {cartData.total != cartData.final_total ? '（已使用優惠券）' : ''}
+                                {cartData.total !== cartData.final_total ? '（已使用優惠券）' : ''}
                             </span>
                         </p>
                     </div>
-                    <button
-                        className={`${cartData?.carts?.length == 0 ? 'disabled' : ''} btn btn-dark w-100 mt-4 rounded-0 py-3`}
+                    <button type="button"
+                        className={`${cartData?.carts?.length === 0 ? 'disabled' : ''} btn btn-dark w-100 mt-4 rounded-0 py-3`}
                         onClick={checkCart}
                     >確認商品正確</button>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 export default Cart;

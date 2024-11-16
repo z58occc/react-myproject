@@ -12,31 +12,31 @@ function Login() {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
 
-    }
-    const [loginState,setLoginState]=useState({})
+    };
+    const [loginState, setLoginState] = useState({});
 
-    const submit = async (e) => {
+    const submit = async () => {
         try {
-            const res = await axios.post('/v2/admin/signin', data)
-            const { token, expired } = res.data
+            const res = await axios.post('/v2/admin/signin', data);
+            const { token, expired } = res.data;
             document.cookie =
                 `hextoken=${token}; expires=${new Date(expired)}`;;
-            //儲存token
+            //  儲存token
             if (res.data.success) {
-                navigate('/admin/products')
+                navigate('/admin/products');
             }
         } catch (error) {
             setLoginState(error.response.data);
         }
 
 
-    }
-    const handleKeyEnter=(e)=>{
-        if (e.code =='Enter'){
+    };
+    const handleKeyEnter = (e) => {
+        if (e.code === 'Enter') {
             submit();
         }
-    }
-    
+    };
+
 
 
 
@@ -45,8 +45,8 @@ function Login() {
             <div className="col-md-6">
                 <h2>登入帳號</h2>
 
-                <div className={`alert alert-danger ${loginState.message ?'d-block':'d-none'}`} role="alert">
-                {loginState.message}
+                <div className={`alert alert-danger ${loginState.message ? 'd-block' : 'd-none'}`} role="alert">
+                    {loginState.message}
                 </div>
                 <div className="mb-2">
                     <label htmlFor="email" className="form-label w-100">
@@ -58,14 +58,15 @@ function Login() {
                     <label htmlFor="password" className="form-label w-100">
                         密碼
                         <input type="password" className="form-control" name="password" id="password" placeholder="name@example.com" onChange={handleChange}
-                        onKeyUp={(e)=>handleKeyEnter(e)}
+                            onKeyUp={(e) => handleKeyEnter(e)}
                         />
                     </label>
                 </div>
-                <button type="button" className="btn btn-primary"  onClick={submit}>登入</button>
+                <button type="button" className="btn btn-primary" onClick={submit}>登入</button>
             </div>
         </div>
-    </div>)
+    </div>
+    );
 }
 
 export default Login;

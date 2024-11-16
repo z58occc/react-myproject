@@ -1,19 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { Modal } from "bootstrap";
 import ProductModal from "../../components/ProductModal";
 import DeleteModal from "../../components/DeleteModal";
 import Pagination from "../../components/Pagination";
-import { Modal } from "bootstrap";
+
+
 function AdminProducts() {
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState({});
 
-    //type:決定 modal 展開的用途
-    const [type, setType] = useState('create');//edit
+    //  type:決定 modal 展開的用途
+    const [type, setType] = useState('create');//   edit
     const [tempProduct, setTempProduct] = useState({});
 
     const productModal = useRef(null);
     const deleteModal = useRef(null);
+
+
+    const getProducts = async (page = 1) => {
+        const productRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/products?page=${page}`);
+        setProducts(productRes.data.products);
+        setPagination(productRes.data.pagination);
+    };
 
     useEffect(() => {
         productModal.current = new Modal('#productModal', {
@@ -25,32 +34,28 @@ function AdminProducts() {
 
         getProducts();
 
-    }, [])
+    }, []);
 
-    const getProducts = async (page = 1) => {
-        const productRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/products?page=${page}`);
-        setProducts(productRes.data.products);
-        setPagination(productRes.data.pagination);
-    }
+    
     const openProductModal = (type, product) => {
         setType(type);
         setTempProduct(product);
         productModal.current.show();
 
-    }
+    };
     const closeProductModal = () => {
         productModal.current.hide();
 
-    }
+    };
     const openDeleteModal = (product) => {
         setTempProduct(product);
         deleteModal.current.show();
 
-    }
+    };
     const closeDeleteModal = () => {
         deleteModal.current.hide();
 
-    }
+    };
     const deleteProduct = async (id) => {
         try {
             const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/product/${id}`);
@@ -59,20 +64,19 @@ function AdminProducts() {
                 deleteModal.current.hide();
             }
         } catch (error) {
-            console.log(error);
         }
-    }
+    };
     return (
         <div className="p-3">
             <ProductModal closeProductModal={closeProductModal} getProducts={getProducts}
                 tempProduct={tempProduct}
                 type={type}
-            ></ProductModal>
+            />
             <DeleteModal
                 close={closeDeleteModal}
                 text={tempProduct.title}
                 handleDelete={deleteProduct}
-                id={tempProduct.id}></DeleteModal>
+                id={tempProduct.id}/>
             <h3>產品列表</h3>
             <hr />
             <div className="text-end">
@@ -95,8 +99,8 @@ function AdminProducts() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => {
-                        return (
+                    {products.map((product) => 
+                         (
                             <tr key={product.id}>
                                 <td>{product.category}</td>
                                 <td>{product.title}</td>
@@ -119,14 +123,14 @@ function AdminProducts() {
                                 </td>
                             </tr>
                         )
-                    })}
+                    )}
 
                 </tbody>
             </table>
 
             <Pagination pagination={pagination}
-            changePage={getProducts}></Pagination>
+            changePage={getProducts}/>
         </div>
-    )
+    );
 }
 export default AdminProducts;

@@ -12,13 +12,27 @@
     "rules": {
       "semi": ["error", "always"],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      // "prettier/prettier": [
-      //   "error", {
-      //     "semi": false
-      //   }
-      // ]
       "react/react-in-jsx-scope": "off",
-      "react/jsx-no-useless-fragment": "off"
+      "react/jsx-no-useless-fragment": "off",
+      "no-plusplus": "off",
+      "no-empty": "off",
+      "jsx-a11y/label-has-associated-control": "off",
+      "func-names": "off",
+      "dot-notation": "off",
+      "react/prop-types": "off",
+      "react/jsx-no-constructed-context-values": "off",
+      "import/prefer-default-export": "off",
+      "radix": "off",
+      "react/function-component-definition": "off"
+
+      // "namedComponents": "arrow-function",
+      // "unnamedComponents": "arrow-function"
+
+
+
+
+
+
 
 
     }

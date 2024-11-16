@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import ArticleModal from "../../components/ArticleModal";
-import DeleteModal from "../../components/DeleteModal";
 import { Modal } from "bootstrap";
 import axios from "axios";
 import moment from "moment";
+import ArticleModal from "../../components/ArticleModal";
+import DeleteModal from "../../components/DeleteModal";
 import 'moment/locale/zh-tw';
 import Pagination from "../../components/Pagination";
 
@@ -15,8 +15,8 @@ function AdminArticle() {
     const [pagination, setPagination] = useState({});
 
 
-    //type:決定 modal 展開的用途
-    const [type, setType] = useState('create');//edit
+    //  type:決定 modal 展開的用途
+    const [type, setType] = useState('create');//   edit
     const [tempArticle, setTempArticle] = useState({});
 
     const articleModal = useRef(null);
@@ -30,25 +30,24 @@ function AdminArticle() {
             setTempArticle(response.data.article);
             articleModal.current.show();
         } catch (error) {
-            console.log(error);
         }   
-    }
+    };
     const closeArticleModal = () => {
         articleModal.current.hide();
-    }
+    };
     const openDeleteModal = (article) => {
         setTempArticle(article);
         deleteModal.current.show();
-    }
+    };
     const closeDeleteModal = () => {
         deleteModal.current.hide();
 
-    }
+    };
     const getArticles = async (page=1) => {
         const articleRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/articles?page=${page}`);
         setArticles(articleRes.data.articles);
         setPagination(articleRes.data.pagination);
-    }
+    };
     const deleteArticle = async (id) => {
         try {
             const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/article/${id}`);
@@ -59,7 +58,7 @@ function AdminArticle() {
         } catch (error) {
 
         }
-    }
+    };
 
     useEffect(() => {
         moment.locale('zh-tw');
@@ -70,7 +69,7 @@ function AdminArticle() {
         deleteModal.current = new Modal('#deleteModal', {
             backdrop: 'static'
         });
-    }, [])
+    }, []);
 
     return (
         <div className="p-3">
@@ -79,13 +78,12 @@ function AdminArticle() {
                 type={type}
                 tempArticle={tempArticle}
                 getArticles={getArticles}
-            ></ArticleModal>
+            />
             <DeleteModal
                 close={closeDeleteModal}
                 text={tempArticle?.title}
                 handleDelete={deleteArticle}
-                id={tempArticle?.id}>
-            </DeleteModal>
+                id={tempArticle?.id}/>
             <h3>文章列表</h3>
             <hr />
             <div className="text-end">
@@ -109,8 +107,8 @@ function AdminArticle() {
                     </tr>
                 </thead>
                 <tbody>
-                    {articles.map((article) => {
-                        return (
+                    {articles.map((article) => 
+                         (
                             <tr key={article.id}>
                                 <td>{article.num}</td>
                                 <td>{article.title}</td>
@@ -135,15 +133,15 @@ function AdminArticle() {
                                 </td>
                             </tr>
                         )
-                    })}
+                    )}
 
                 </tbody>
             </table>
 
             <Pagination pagination={pagination}
-            changePage={getArticles}></Pagination>
+            changePage={getArticles}/>
         </div>
-    )
+    );
 }
 
-export default AdminArticle
+export default AdminArticle;

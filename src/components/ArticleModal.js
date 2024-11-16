@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
-import { MessageContext, handleSuccessMessage, handleErrorMessage } from "../store/messageStore";
 import moment from "moment";
-// import Editor from "./Editor";
+import { MessageContext, handleSuccessMessage, handleErrorMessage } from "../store/messageStore";
 
 
 
@@ -20,7 +19,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
         content: "",
     });
     // const [tempQuill, setTempQuill] = useState({});
-    //取出token
+    //  取出token
     const token = document.cookie
         .split("; ")
         .find((row) => row.startsWith("hextoken="))
@@ -29,36 +28,36 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
 
 
     const uploadFile = async (e) => {
-        const { name, files } = e.target
+        const { name, files } = e.target;
         const file = files[0];
         if (!file) {
             return;
         }
 
         const formData = new FormData();
-        formData.append('file-to-upload', file)
+        formData.append('file-to-upload', file);
         try {
             const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/admin/upload`, formData, {
                 headers: {
                     authorization: token
                 }
-            })
+            });
             if (e.target.name === "image") {
                 setTempData({
                     ...tempData,
                     [name]: res.data.imageUrl
-                })
+                });
             } else {
                 const index = parseInt(e.target.name);
                 setTempData({
                     ...tempData,
                     imagesUrl: tempData.imagesUrl.map((item, i) => i === index ? res.data.imageUrl : item)
-                })
+                });
             }
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
 
 
@@ -81,12 +80,12 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
             imgRef.current.value = "";
         } else if (type === 'edit') {
             setTempData(tempArticle);
-            imgRef.current.value=tempData.image
+            imgRef.current.value=tempData.image;
         }
-    }, [type, tempArticle])
+    }, [type, tempArticle]);
 
     const handleChange = (e) => {
-        const { value, name, checked } = e.target
+        const { value, name, checked } = e.target;
         if (name === 'tag') {
             setTag(value);
         } else if (!name) {
@@ -94,20 +93,20 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                 ...tempData,
                 tag: [...tempData.tag, tag.trim()] // 新增value到陣列中
             });
-            setTag('')
+            setTag('');
         } else if (name === "isPublic") {
             setTempData({
                 ...tempData,
                 isPublic: checked
-            })
+            });
         }
         else {
             setTempData({
                 ...tempData,
                 [name]: value.trim()
-            })
+            });
         }
-    }
+    };
 
 
     const submit = async () => {
@@ -131,20 +130,14 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
         }
     }
     const removeTag = (index) => {
-        let removeTags = [...tempData.tag]
+        let removeTags = [...tempData.tag];
         removeTags.splice(index, 1);
         setTempData({
             ...tempData,
             tag: removeTags
-        })
-    }
-    // useEffect(() => {
-    //     setTempData({
-    //         ...tempData,
-    //         content:tempQuill
-
-    //     })
-    // }, [tempQuill])
+        });
+    };
+    
 
 
 
@@ -206,8 +199,8 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                                     }}
 
                                     >
-                                        {tempData?.tag?.map((item, i) => {
-                                            return (
+                                        {tempData?.tag?.map((item, i) => 
+                                             (
                                                 item
                                                     ?
                                                     <button onClick={() => removeTag(i)} key={i} type="button" className={`
@@ -227,14 +220,13 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                                                             style={{
                                                                 opacity: '0.5',
                                                             }}
-                                                        >
-                                                        </span>
+                                                        />
                                                     </button>
                                                     :
                                                     ''
 
                                             )
-                                        })}
+                                        )}
                                     </div>
 
                                 </div>
@@ -313,7 +305,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                                         <i className="bi bi-plus-lg float-end btn "
                                             onClick={handleChange}
                                             name='plus'
-                                        ></i>
+                                        />
                                         <input
                                             type='text'
                                             id='tag'
@@ -362,7 +354,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                 </div>
             </div >
         </div >
-    )
+    );
 }
 export default ArticleModal;
 

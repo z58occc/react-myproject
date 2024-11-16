@@ -1,8 +1,7 @@
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
-import { useForm } from "react-hook-form"
-import { Input } from "../../components/FontElements";
-import { Textarea } from "../../components/FontElements";
+import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Textarea,Input } from "../../components/FontElements";
 
 
 function Checkout() {
@@ -30,11 +29,11 @@ function Checkout() {
                     message,
                 },
             }
-        }
+        };
         const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/order`,
             form,
         );
-        navigate(`/success/${res.data.orderId}`)
+        navigate(`/success/${res.data.orderId}`);
     };
 
 
@@ -60,7 +59,7 @@ function Checkout() {
                                                 message: 'Email 格式不正確',
                                             },
                                         }}
-                                    ></Input>
+                                    />
                                 </div>
 
                                 <div className="mb-2">
@@ -77,7 +76,7 @@ function Checkout() {
                                                 message: '使用者名稱長度不超過 10',
                                             },
                                         }}
-                                    ></Input>
+                                    />
                                 </div>
                                 <div className="">
                                     <Input
@@ -97,7 +96,7 @@ function Checkout() {
                                                 message: '電話不超過 12 碼'
                                             }
                                         }}
-                                    ></Input>
+                                    />
                                 </div>
                                 <div className="">
                                     <Input
@@ -109,7 +108,7 @@ function Checkout() {
                                         rules={{
                                             required: '地址為必填',
                                         }}
-                                    ></Input>
+                                    />
                                 </div>
                                 <div className="">
                                     <Textarea
@@ -124,7 +123,7 @@ function Checkout() {
                                                 message: '留言最大字數為100',
                                             },
                                         }}
-                                    ></Textarea>
+                                    />
 
                                 </div>
                             </div>
@@ -132,15 +131,15 @@ function Checkout() {
 
                         <div className="checkout-button d-flex flex-column-reverse flex-md-row mt-4 justify-content-between align-items-md-center align-items-md-end w-100">
                             <Link to='/products' className="text-dark mt-md-0 mt-3"
-                            ><i className="fas fa-chevron-left me-2"></i> 繼續購物</Link>
+                            ><i className="fas fa-chevron-left me-2"/> 繼續購物</Link>
                             <button type="submit" className="btn btn-dark py-3 px-7 rounded-0">送出表單</button>
                         </div>
                     </form>
                     <div className="col-md-4">
                         <div className="border p-4 mb-4">
                             <h4 className="mb-4">選購項目</h4>
-                            {cartData?.carts?.map((item) => {
-                                return (
+                            {cartData?.carts?.map((item) => 
+                                 (
                                     <div className="d-flex m-3 mt-5" key={item.id}>
                                         <div>
                                             <img src={item.product.imageUrl} alt="..." className="me-2 " style={{ width: '48px', height: "48px", objectFit: "cover" }} />
@@ -164,7 +163,7 @@ function Checkout() {
                                                  flex-md-column 介於768~992px排列方向col(直)
                                                  */}
                                                 <p className="text-muted mb-0"><small>NT${item.product.price}</small></p>
-                                                <p className={`${item.total != item.final_total
+                                                <p className={`${item.total !== item.final_total
                                                     ?
                                                     'text-secondary fs-7 text-decoration-line-through'
                                                     :
@@ -172,7 +171,7 @@ function Checkout() {
                                                     }
                                                             mb-0`}>NT${item.total}</p>
                                             </div>
-                                            <div className={`${item.total == item.final_total
+                                            <div className={`${item.total === item.final_total
                                                 ?
                                                 'd-none'
                                                 :
@@ -185,7 +184,7 @@ function Checkout() {
                                     </div>
 
                                 )
-                            })}
+                            )}
 
                             <hr />
                             <div className="d-flex justify-content-between mt-4">
@@ -197,7 +196,7 @@ function Checkout() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Checkout;
