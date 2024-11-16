@@ -24,8 +24,7 @@ function Carousel({ products }) {
         } else {
             imgRef.current.src = src;
         }
-
-    }
+    };
     const oriImg = (e) => {//   滑鼠離開後 把原本的圖換回來
         const { name } = e.target;
         if (name) {
@@ -129,7 +128,10 @@ function Carousel({ products }) {
                                 <div className="col-8">
                                     <Link to={`./product/${product?.id}`}>
                                         <img src={product.imageUrl} className="object-cover d-block w-100" alt="..."
-                                            ref={(e) => otherImgRef.current[i] = e}
+                                            ref={(e) => { 
+                                                otherImgRef.current[i] = e;
+                                                return otherImgRef.current[i];
+                                            }}
                                             id={product?.id}
                                         />
                                     </Link>

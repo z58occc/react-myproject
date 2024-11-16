@@ -18,7 +18,6 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
         isPublic: true,
         content: "",
     });
-    // const [tempQuill, setTempQuill] = useState({});
     //  取出token
     const token = document.cookie
         .split("; ")
@@ -55,7 +54,6 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                 });
             }
         } catch (error) {
-            console.log(error);
         }
     };
 
@@ -85,10 +83,10 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
     }, [type, tempArticle]);
 
     const handleChange = (e) => {
-        const { value, name, checked } = e.target;
+        const { value, name, checked } = e.target;        
         if (name === 'tag') {
             setTag(value);
-        } else if (!name) {
+        } else if (name=== 'plus') {
             setTempData({
                 ...tempData,
                 tag: [...tempData.tag, tag.trim()] // 新增value到陣列中
@@ -128,9 +126,9 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
         } catch (error) {
             handleErrorMessage(dispatch, error);
         }
-    }
+    };
     const removeTag = (index) => {
-        let removeTags = [...tempData.tag];
+        const removeTags = [...tempData.tag];
         removeTags.splice(index, 1);
         setTempData({
             ...tempData,
@@ -150,6 +148,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
             aria-labelledby='exampleModalLabel'
             aria-hidden='true'
         >
+            {JSON.stringify(tempData)}
 
             <div className='modal-dialog modal-lg'>
                 <div className='modal-content'>
@@ -281,9 +280,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                                     </label>
                                 </div>
                                 <div className='form-group mb-2'>
-                                    {/* <Editor
-                                        setTempQuill={setTempQuill}
-                                    ></Editor> */}
+                                   
                                     <label className='w-100' htmlFor='content'>
                                         文章內容
                                         <textarea
@@ -302,7 +299,9 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
 
                                 <div className='form-group mb-2'>
                                     <div className='form-group mb-2'>
-                                        <i className="bi bi-plus-lg float-end btn "
+                                        <button 
+                                        type="button"
+                                         className="bi bi-plus-lg float-end btn "
                                             onClick={handleChange}
                                             name='plus'
                                         />

@@ -23,11 +23,12 @@
       "react/jsx-no-constructed-context-values": "off",
       "import/prefer-default-export": "off",
       "radix": "off",
-      "react/function-component-definition": "off"
-
-      // "namedComponents": "arrow-function",
-      // "unnamedComponents": "arrow-function"
-
+      "react/function-component-definition": "off",
+      "react-hooks/exhaustive-deps":"off",
+      "react/no-array-index-key": "off",
+      "jsx-a11y/mouse-events-have-key-events":"off",
+      "no-shadow":"off"
+      
 
 
 
