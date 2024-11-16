@@ -12,7 +12,7 @@ function Pagination({pagination,changePage}) {
                         </a>
                     </li>
                     {
-                        [...new Array(pagination.total_pages)].map((_, i) => (//索引位置
+                        [...new Array(pagination.total_pages)].map((_, i) => (//    索引位置
                             <li className="page-item" key={`${i}_page`}>
                                 <a
                                     className={`page-link ${(i + 1 === pagination.current_page) && 'active'}`}

@@ -14,7 +14,6 @@ function ProdeuctDetail() {
     const [cartQuantity, setCartQuantity] = useState(1);
     const { id } = useParams();
     const [isLoadingCart, setIsLoadingCart] = useState(false);
-    const [isLoading, setLoading] = useState(false);
     const { getCart } = useOutletContext();
     const [alreadyExists, setAlreadyExists] = useState(false);
     const dispatch = useDispatch();
@@ -23,9 +22,8 @@ function ProdeuctDetail() {
     const [tempSrc, setTempSrc] = useState('');
 
 
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     const getProduct = async (id) => {
-        setLoading(true);
         const productRes = await axios.get(`/v2/api/${process.env.REACT_APP_API_PATH}/product/${id}`);
         setProducts(productRes.data.product);
         setTempSrc(productRes.data.product.imagesUrl[0]);
@@ -41,7 +39,6 @@ function ProdeuctDetail() {
             .filter((item) => item.id !== productRes.data.product.id);
 
         setSameProducts(similarArr);
-        setLoading(false);
     };
 
     const addToCart = async () => {
@@ -65,7 +62,7 @@ function ProdeuctDetail() {
         }
 
     };
-    const addFavorite = (product) => {
+    const addFavorite = (product) => {        
         const createTime = new Date();
         const momentTime = moment(createTime).unix();
         dispatch(createAsyncMessage({
@@ -75,8 +72,9 @@ function ProdeuctDetail() {
             message: '已加入下次再買清單'
         }));
         if (!alreadyExists) {
-            product.create_at = momentTime;
-            favorites.push(product);
+            const favoriteItem=product;
+            favoriteItem.create_at = momentTime;
+            favorites.push(favoriteItem);
         }
         localStorage.setItem('favorites', JSON.stringify(favorites));
         setAlreadyExists(true);
@@ -197,7 +195,7 @@ function ProdeuctDetail() {
                                             }
                                             triangle  position-absolute start-50 top-0 translate-middle`}
                                         />
-                                        <img src={`${img}`} className={`${img == tempSrc ? "outline" : ""} w-100 mt-3 object-cover`}
+                                        <img src={`${img}`} className={`${img === tempSrc ? "outline" : ""} w-100 mt-3 object-cover`}
                                             alt="..."
                                             style={{
                                                 height: '100px',

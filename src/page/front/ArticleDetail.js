@@ -51,28 +51,28 @@ function ArticleDetail() {
                 <Loading isLoading={isLoading} />
                 <div className="col-lg-9 mt-5">
                     <div>
-                        {article?.tag?.map((item, i) => {
-                            return (
-                                item
-                                    ?
-                                    <Link key={i} to={`/articles/${item}`}>
-                                        <button type="button" className="me-3  pt-0 pb-0  btn btn-secondary tag"
-                                            disabled
-                                            style={{
-                                                maxWidth: "200px", /* 限制按鈕最大寬度 */
-                                                overflow: 'hidden', /* 隱藏超出部分 */
-                                                textOverflow: 'ellipsis', /* 顯示省略號 */
-                                                whiteSpace: 'nowrap' /* 強制單行顯示 */
-                                            }}
-                                        >
-                                            {item}
-                                        </button>
-                                    </Link>
-                                    :
-                                    ""
+                        {article?.tag?.map((item, i) =>
+                        (
+                            item
+                                ?
+                                <Link key={i} to={`/articles/${item}`}>
+                                    <button type="button" className="me-3  pt-0 pb-0  btn btn-secondary tag"
+                                        disabled
+                                        style={{
+                                            maxWidth: "200px", /* 限制按鈕最大寬度 */
+                                            overflow: 'hidden', /* 隱藏超出部分 */
+                                            textOverflow: 'ellipsis', /* 顯示省略號 */
+                                            whiteSpace: 'nowrap' /* 強制單行顯示 */
+                                        }}
+                                    >
+                                        {item}
+                                    </button>
+                                </Link>
+                                :
+                                ""
 
-                            )
-                        })}
+                        )
+                        )}
                     </div>
                     <div className="mt-3">
                         <h1>
@@ -126,8 +126,9 @@ function ArticleDetail() {
                         >
                             {article.content}
                         </div>
-                        <Link to={`/articles`}>
-                            <button className="btn btn-outline-secondary
+                        <Link to='/articles'>
+                            <button type="button"
+                            className="btn btn-outline-secondary
                 position-absolute botton-0 end-0 mt-3    
                 "
                             >回文章列表</button>
@@ -150,7 +151,7 @@ function ArticleDetail() {
                                     <div className="d-flex justify-content-between me-5 ">
                                         <i className="bi bi-chevron-double-left text-secondary"
                                             style={{ fontSize: '80px' }}
-                                        ></i>
+                                        />
                                         <div className="mt-3 next-article text-black">
                                             {articleAll[articleNum - 2]?.title}
                                         </div>
@@ -174,7 +175,7 @@ function ArticleDetail() {
                                         </div>
                                         <i className="bi bi-chevron-double-right text-secondary"
                                             style={{ fontSize: '80px' }}
-                                        ></i>
+                                        />
                                     </div>
                                 </Link>
 

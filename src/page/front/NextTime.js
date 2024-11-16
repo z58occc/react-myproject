@@ -42,14 +42,16 @@ function NextTime() {
             setMyFavorites(remain);
             localStorage.setItem('favorites', JSON.stringify(remain));
         }
-    }
+    };
 
     const addToCartAll = async () => {
+        const tasks = [];
         for (let index = checked.current.length - 1; index >= 0; index--) {
             if (checked?.current[index]?.checked) {
-                await addToCart(myFavorites[index], true);
+                tasks.push(addToCart(myFavorites[index], true));
             }
         }
+        await Promise.all(tasks);
         const remain = myFavorites.filter((_, index) => !checked?.current[index]?.checked);
         setMyFavorites(remain);
         localStorage.setItem('favorites', JSON.stringify(remain));
@@ -66,7 +68,7 @@ function NextTime() {
 
     const deleteFavorite = (id) => {
 
-        const filterFavorites = myFavorites.filter((item) => item.id != id);
+        const filterFavorites = myFavorites.filter((item) => item.id !== id);
         localStorage.setItem('favorites', JSON.stringify(filterFavorites));
         if (filterFavorites.length === 0) {
             localStorage.clear();
@@ -268,81 +270,84 @@ function NextTime() {
                                         <th className="col favorite-th" />
                                         <th className="col favorite-th" />
                                         <th className="col text-center">商品明細</th>
-                                        <th className="col "/>
+                                        <th className="col " />
                                         <th className="col text-center">變更</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {myFavorites?.map((myFavorite, i) => 
-                                         (
-                                            <tr key={myFavorite.id}>
-                                                <th className="favorite-checkbox" scope="row">
-                                                    <input type="checkbox"
-                                                        ref={(e) => checked.current[i] = e}
-                                                        onChange={handleDisabled}
+                                    {myFavorites?.map((myFavorite, i) =>
+                                    (
+                                        <tr key={myFavorite.id}>
+                                            <th className="favorite-checkbox" scope="row">
+                                                <input type="checkbox"
+                                                    ref={(e) => {
+                                                        checked.current[i] = e;
+                                                        return checked.current[i];
+                                                    }}
+                                                    onChange={handleDisabled}
+                                                />
+                                            </th>
+                                            <td className="favorite-img" >
+                                                <Link to={`/product/${myFavorite.id}`}>
+                                                    <img src={myFavorite.imageUrl}
+                                                        alt=""
+                                                        style={{
+                                                            height: '100px',
+                                                            width: '100px'
+                                                        }}
+                                                        className="object-cover"
                                                     />
-                                                </th>
-                                                <td className="favorite-img" >
-                                                    <Link to={`/product/${myFavorite.id}`}>
-                                                        <img src={myFavorite.imageUrl}
-                                                            alt=""
-                                                            style={{
-                                                                height: '100px',
-                                                                width: '100px'
-                                                            }}
-                                                            className="object-cover"
-                                                        />
-                                                    </Link>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <Link to={`/product/${myFavorite.id}`}
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                color: 'black'
-                                                            }}
-                                                        >
-                                                            <h4>
-                                                                {myFavorite.title}
-                                                            </h4>
-                                                        </Link>
-                                                    </div>
-                                                    <div className="favorite-description">
-                                                        <small>
-                                                            {myFavorite.description}
-                                                        </small>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div style={{
-                                                        width: '100px'
-                                                    }}>
-                                                        NT$ {myFavorite.price}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        className="d-sm-flex  mt-0 mt-md-3 "
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <Link to={`/product/${myFavorite.id}`}
+                                                        style={{
+                                                            textDecoration: 'none',
+                                                            color: 'black'
+                                                        }}
                                                     >
-                                                        <button
-                                                            type="button"
-                                                            href="./checkout.html" className="nexttime-button w-50 btn btn-dark  rounded py-3"
-                                                            onClick={() => addToCart(myFavorite)}
-                                                            disabled={isLoadingCart}
-                                                        >
-                                                            加入購物車
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            className="nexttime-button w-50 btn btn-secondary m-sm-0  rounded py-3"
-                                                            onClick={() => deleteFavorite(myFavorite.id)}
-                                                        >
-                                                            刪除商品
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        )
+                                                        <h4>
+                                                            {myFavorite.title}
+                                                        </h4>
+                                                    </Link>
+                                                </div>
+                                                <div className="favorite-description">
+                                                    <small>
+                                                        {myFavorite.description}
+                                                    </small>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style={{
+                                                    width: '100px'
+                                                }}>
+                                                    NT$ {myFavorite.price}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div
+                                                    className="d-sm-flex  mt-0 mt-md-3 "
+                                                >
+                                                    <button
+                                                        type="button"
+                                                        href="./checkout.html" className="nexttime-button w-50 btn btn-dark  rounded py-3"
+                                                        onClick={() => addToCart(myFavorite)}
+                                                        disabled={isLoadingCart}
+                                                    >
+                                                        加入購物車
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        className="nexttime-button w-50 btn btn-secondary m-sm-0  rounded py-3"
+                                                        onClick={() => deleteFavorite(myFavorite.id)}
+                                                    >
+                                                        刪除商品
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
                                     )}
                                 </tbody>
                             </table>

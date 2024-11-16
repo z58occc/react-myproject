@@ -60,8 +60,8 @@ function OrderModal({ closeOrderModal, getOrders, tempOrder  }) {
 
     const submit = async () => {
         try {
-            let api = `/v2/api/${process.env.REACT_APP_API_PATH}/admin/order/${tempOrder.id}`;
-            let method = 'put';
+            const api = `/v2/api/${process.env.REACT_APP_API_PATH}/admin/order/${tempOrder.id}`;
+            const method = 'put';
 
             const res = await axios[method](
                 api, {

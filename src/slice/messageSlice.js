@@ -28,23 +28,23 @@ export const messageSlice = createSlice({
             state.splice(index, 1);
         }
     }
-})
+});
 // 這裡建立的方法 可以被其他元件使用
 // 自定義名稱 async function
 export const createAsyncMessage = createAsyncThunk(
     'message/createAsyncMessage',
-    async function (payload, { dispatch, requestId }) {
+    async  (payload, { dispatch, requestId }) =>{
         dispatch(messageSlice.actions.createMessage({
             ...payload,
             id: requestId,
         }));
         setTimeout(() => {
-            dispatch(messageSlice.actions.removeMessage(requestId))
-        }, 3000)
+            dispatch(messageSlice.actions.removeMessage(requestId));
+        }, 3000);
     }
 );
 
-export const { createMessage } = messageSlice.actions
+export const { createMessage } = messageSlice.actions;
 
 
 export default messageSlice.reducer;

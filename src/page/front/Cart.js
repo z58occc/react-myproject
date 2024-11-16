@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useOutletContext, Link,useNavigate } from "react-router-dom";
+import { useOutletContext, Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Tooltip } from "bootstrap";
 import Swal from "sweetalert2";
@@ -25,7 +25,7 @@ function Cart() {
 
     const sendCoupon = async () => {
         try {
-            const res = await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/coupon`, {
+            await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/coupon`, {
                 data: {
                     code: couponCode
                 }
@@ -76,12 +76,12 @@ function Cart() {
 
             }
         });
-    }
-    
+    };
+
 
     const removeCartItem = async (id) => {
         try {
-            const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,);
+            await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,);
             getCart();
         } catch (error) {
 
@@ -89,7 +89,7 @@ function Cart() {
     };
     const removeCartAll = async () => {
         try {
-            const res = await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`);
+            await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`);
             getCart();
 
         } catch (error) {
@@ -120,7 +120,7 @@ function Cart() {
     const addFavorite = (item) => {
         const { product, id } = item;
         let alreadyExists = false;
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         for (let index = 0; index < favorites.length; index++) {
             if (favorites[index].id === product.id) {
                 alreadyExists = true;
@@ -161,9 +161,12 @@ function Cart() {
     };
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new Tooltip(tooltipTriggerEl)
-        });
+        const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) =>
+            new Tooltip(tooltipTriggerEl)
+        );
+        return () => {
+            tooltipList.forEach(tooltip => tooltip.dispose());
+        };
     });
 
 
@@ -184,7 +187,7 @@ function Cart() {
                     {cartData?.carts?.length === 0 || cartData?.carts?.length === undefined
                         ?
                         <div className="text-center  mt-5">
-                            <h1><i className="bi bi-emoji-surprise-fill me-3"/>目前您的購物車沒有商品</h1>
+                            <h1><i className="bi bi-emoji-surprise-fill me-3" />目前您的購物車沒有商品</h1>
                         </div>
                         :
                         <>
@@ -194,65 +197,65 @@ function Cart() {
                                     onClick={removeCartAll}
                                 >清空購物車</button>
                             </div>
-                            {cartData?.carts?.map((item) => 
-                                 (
-                                    <div className="d-flex mt-4 bg-light" key={item.id}>
-                                        <div>
-                                            <Link to={`/product/${item.product.id}`}>
-                                                <img
-                                                    className="object-cover"
-                                                    src={item.product.imageUrl} alt="" style={{ width: "100px", height: '120px' }} />
-                                            </Link>
-                                        </div>
-                                        <div className="w-100 p-3 position-relative ">
-                                            <button
-                                                type="button"
-                                                className="position-absolute btn"
-                                                style={{ top: "10px", right: "10px", }}
-                                                onClick={() => { removeCartItem(item.id) }}
-                                            >
-                                                <i className="bi bi-x-circle-fill"></i>
-                                            </button>
-                                            <Link to={`/product/${item.product.id}`}
-                                                style={{
-                                                    textDecoration: 'none',
-                                                    color: 'black'
+                            {cartData?.carts?.map((item) =>
+                            (
+                                <div className="d-flex mt-4 bg-light" key={item.id}>
+                                    <div>
+                                        <Link to={`/product/${item.product.id}`}>
+                                            <img
+                                                className="object-cover"
+                                                src={item.product.imageUrl} alt="" style={{ width: "100px", height: '120px' }} />
+                                        </Link>
+                                    </div>
+                                    <div className="w-100 p-3 position-relative ">
+                                        <button
+                                            type="button"
+                                            className="position-absolute btn"
+                                            style={{ top: "10px", right: "10px", }}
+                                            onClick={() => { removeCartItem(item.id); }}
+                                        >
+                                            <i className="bi bi-x-circle-fill" />
+                                        </button>
+                                        <Link to={`/product/${item.product.id}`}
+                                            style={{
+                                                textDecoration: 'none',
+                                                color: 'black'
+                                            }}
+                                        >
+                                            <p className="mb-0 fw-bold">{item.product.title}</p>
+                                        </Link>
+                                        <p className="mb-1 text-muted" style={{ fontSize: "14px" }}>{item.product.description}</p>
+                                        <div className="d-flex justify-content-between align-items-center w-100">
+                                            <select name="" id="" className="form-select"
+                                                value={item.qty}
+                                                disabled={loadingItems.includes(item.id)}
+                                                onChange={(e) => {
+                                                    updateCartItem(item, e.target.value * 1);
                                                 }}
                                             >
-                                                <p className="mb-0 fw-bold">{item.product.title}</p>
-                                            </Link>
-                                            <p className="mb-1 text-muted" style={{ fontSize: "14px" }}>{item.product.description}</p>
-                                            <div className="d-flex justify-content-between align-items-center w-100">
-                                                <select name="" id="" className="form-select"
-                                                    value={item.qty}
-                                                    disabled={loadingItems.includes(item.id)}
-                                                    onChange={(e) => {
-                                                        updateCartItem(item, e.target.value * 1);
-                                                    }}
-                                                >
-                                                    {[...(new Array(20))].map((i, num) => {
-                                                        return (
-                                                            <option value={num + 1} key={num}>{num + 1}</option>
-                                                        )
-                                                    })
-                                                    }
-                                                </select>
-                                            </div>
-                                            <p style={{ float: 'right' }} className="mb-0 ms-auto mt-3">NT$ {item.total}</p>
-                                            <p style={{
-                                                float: 'left',
-                                                fontSize: '12px',
-                                                textDecoration: 'underline',
-                                                cursor: 'pointer'
-                                            }}
-                                                className="mb-0 ms-auto mt-3 text-secondary"
-                                                onClick={() => addFavorite(item)}
-                                            >
-                                                放回下次再買
-                                            </p>
+                                                {[...(new Array(20))].map((i, num) =>
+                                                (
+                                                    <option value={num + 1} key={num}>{num + 1}</option>
+                                                )
+                                                )
+                                                }
+                                            </select>
                                         </div>
+                                        <p style={{ float: 'right' }} className="mb-0 ms-auto mt-3">NT$ {item.total}</p>
+                                        <p style={{
+                                            float: 'left',
+                                            fontSize: '12px',
+                                            textDecoration: 'underline',
+                                            cursor: 'pointer'
+                                        }}
+                                            className="mb-0 ms-auto mt-3 text-secondary"
+                                            onClick={() => addFavorite(item)}
+                                        >
+                                            放回下次再買
+                                        </p>
                                     </div>
-                                )
+                                </div>
+                            )
                             )}
                             <div className="  d-flex justify-content-end align-items-center mt-5"
                                 style={{
@@ -266,9 +269,9 @@ function Cart() {
                                     disabled={cartData.total !== cartData.final_total}
                                 />
                                 {/* 使用優惠券按鈕 */}
-                                <button 
-                                type="button"
-                                className="btn btn-outline-primary
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-primary
                                  border-top-0 border-start-0 border-end-0 border-bottom-0 rounded-0
                                 "
                                     onClick={checkCoupon}

@@ -63,7 +63,7 @@ function AdminCoupons() {
                 deleteModal.current.hide();
             }
         } catch (error) {
-            console.log(error);
+            
         }
     };
     return (
