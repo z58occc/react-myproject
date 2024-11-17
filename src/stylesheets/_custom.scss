@@ -2,22 +2,21 @@
   object-fit: cover;
 }
 
-
 //productDetail 下方的類似商品區塊
 .sameType {
   z-index: 0;
 }
 
-.sameType>button {
+.sameType > button {
   width: 10px !important;
   /* 小圆点的宽度 */
   height: 10px !important;
   /* 小圆点的高度 */
-  border-radius: 50% !important
-    /* 设为圆形 */
+  border-radius: 50% !important;
+  /* 设为圆形 */
 }
 
-.sameType>.carousel-control-prev-icon {
+.sameType > .carousel-control-prev-icon {
   position: absolute;
   bottom: 100px;
 }
@@ -59,9 +58,7 @@
   top: 190px;
 }
 
-
-
-ul>li.option {
+ul > li.option {
   display: table-cell;
   padding: 8px 25px 8px 0;
 }
@@ -75,7 +72,7 @@ ul>li.option {
 }
 
 .tag {
-  cursor: not-allowed
+  cursor: not-allowed;
 }
 
 .font-size:hover {
@@ -107,16 +104,16 @@ ul>li.option {
   z-index: 100;
 }
 
-li>.nav-link {
+li > .nav-link {
   margin-right: 3rem;
   color: white !important;
 }
 
-li>.nav-link:hover {
+li > .nav-link:hover {
   color: black !important;
 }
 
-li>.active {
+li > .active {
   color: black !important;
 }
 
@@ -136,26 +133,26 @@ li>.active {
   margin-left: 30px;
 }
 
-@media(max-width:990px) {
+@media (max-width: 990px) {
   //RWD
 
-  .checkout-button{
+  .checkout-button {
     text-align: center;
   }
-  .favorite-checkbox{
+  .favorite-checkbox {
     display: none;
   }
-  .favorite-img{
+  .favorite-img {
     display: none;
   }
-  .favorite-description{
+  .favorite-description {
     display: none;
   }
-  .favorite-th{
+  .favorite-th {
     display: none;
   }
 
-  li>.nav-link {
+  li > .nav-link {
     border-bottom: solid;
     margin-right: 0px;
     color: black !important;
@@ -184,7 +181,6 @@ li>.active {
   .product-description,
   .article-title,
   .article-description {
-
     max-width: 400px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -228,15 +224,13 @@ li>.active {
     width: 100px;
   }
 
-  
-  .slogan{
+  .slogan {
     height: 100px;
     width: 300px;
   }
-  .favorite-all-choose{
+  .favorite-all-choose {
     display: none;
   }
-
 }
 
 .navbar-custom-scroll::-webkit-scrollbar {
@@ -247,7 +241,8 @@ li>.active {
   -ms-overflow-style: none;
 }
 
-@include media-breakpoint-down(lg) {//當螢幕小於等於 lg (992px) 時
+@include media-breakpoint-down(lg) {
+  //當螢幕小於等於 lg (992px) 時
   .custom-header-md-open {
     position: absolute;
     top: 100%;
@@ -260,8 +255,7 @@ li>.active {
   transition: none !important;
 }
 
-.homepage-carousel>.carousel-item {
-
+.homepage-carousel > .carousel-item {
   background-size: cover;
   background-attachment: fixed;
   background-position: top center;
@@ -271,7 +265,7 @@ li>.active {
 .bi-star-fill {
   color: #ffd700;
 }
-.countdown>span{
+.countdown > span {
   background-color: gray;
   margin: 10px;
   border-radius: 10px;
@@ -284,11 +278,7 @@ li>.active {
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
- .checkout-order-data{
-  // font-size: 8px;
- }
+  .checkout-order-data {
+    // font-size: 8px;
+  }
 }
-
-
-
-

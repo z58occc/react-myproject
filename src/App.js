@@ -16,39 +16,35 @@ import Cart from "./page/front/Cart";
 import Checkout from "./page/front/Checkout";
 import Success from "./page/front/Success";
 import ScrollToTop from "./components/ScrollToTop";
-import NextTime from "./page/front/NextTime";
-
-
+import BuyLater from "./page/front/BuyLater";
 
 function App() {
   return (
     <div className="App">
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<FrountLayout />}>
-          <Route path="" element={<Home/>}/>
-          <Route path="products" element={<Products/>}/>
-          <Route path="articles" element={<Articles/>}/>
-          <Route path="articles/:tag" element={<Articles/>}/>
-          <Route path="orderQuery" element={<OrderQuery/>}/>
-          <Route path="nexttime" element={<NextTime/>}/>
-          <Route path="products/:searchWord" element={<Products/>}/>
-          <Route path="product/:id" element={<ProdeuctDetail/>}/>
-          <Route path="article/:id" element={<ArticleDetail/>}/>
-          <Route path="cart" element={<Cart/>}/>
-          <Route path="/cart/checkout" element={<Checkout/>}/>
-          <Route path="success/:orderId" element={<Success/>}/>
+          <Route path="" element={<Home />} />
+          <Route path="products" element={<Products />} />
+          <Route path="articles" element={<Articles />} />
+          <Route path="articles/:tag" element={<Articles />} />
+          <Route path="orderQuery" element={<OrderQuery />} />
+          <Route path="BuyLater" element={<BuyLater />} />
+          <Route path="products/:searchWord" element={<Products />} />
+          <Route path="product/:id" element={<ProdeuctDetail />} />
+          <Route path="article/:id" element={<ArticleDetail />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="/cart/checkout" element={<Checkout />} />
+          <Route path="success/:orderId" element={<Success />} />
         </Route>
-        <Route path="/login" element={<Login />}/>
+        <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Dashboard />}>
-          <Route path="products" element={<AdminProducts/>}/>
-          <Route path="coupons" element={<AdminCoupons/>}/>
-          <Route path="orders" element={<AdminOrders/>}/>
-          <Route path="articles" element={<AdminArticle/>}/>
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="coupons" element={<AdminCoupons />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="articles" element={<AdminArticle />} />
         </Route>
       </Routes>
-
-
     </div>
   );
 }
