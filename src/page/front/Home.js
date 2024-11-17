@@ -108,7 +108,6 @@ function Home() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            // width:'500px'
           }}
         >
           <Carousel products={products} />
@@ -140,7 +139,6 @@ function Home() {
             </div>
           ))}
 
-          <div className={isMobile ? "" : "container"}>
             <div className="row   ">
               {articles.slice(randomNum, randomNum + 3).map((article) => (
                 <div className="col-md-4" key={article.id}>
@@ -311,7 +309,6 @@ function Home() {
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </>

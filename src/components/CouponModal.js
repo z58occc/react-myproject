@@ -98,7 +98,10 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
               type="button"
               className="btn-close"
               aria-label="Close"
-              onClick={closeModal}
+              onClick={() => {
+                closeModal();
+                setTempData(tempCoupon);
+              }}
             />
           </div>
           <div className="modal-body">
@@ -145,9 +148,9 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
                     )
                       .toString()
                       .padStart(2, 0)}-${date
-                      .getDate()
-                      .toString()
-                      .padStart(2, 0)}`}
+                        .getDate()
+                        .toString()
+                        .padStart(2, 0)}`}
                     onChange={(e) => {
                       setDate(new Date(e.target.value));
                     }}
@@ -185,7 +188,10 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
             <button
               type="button"
               className="btn btn-secondary"
-              onClick={closeModal}
+              onClick={() => {
+                closeModal();
+                setTempData(tempCoupon);
+              }}
             >
               關閉
             </button>

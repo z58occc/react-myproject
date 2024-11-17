@@ -128,7 +128,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
           ),
         });
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -168,7 +168,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
               type="button"
               className="btn-close"
               aria-label="Close"
-              onClick={closeProductModal}
+              onClick={() => {
+                closeProductModal();
+                setTempData(tempProduct);
+              }}
             />
           </div>
           <div className="modal-body">
@@ -408,7 +411,6 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                         className="form-control noscroll"
                         onChange={handleChange}
                         value={tempData.origin_price}
-                        // ref={inputRef}
                       />
                     </label>
                   </div>
@@ -480,7 +482,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    onClick={closeProductModal}
+                    onClick={() => {
+                      closeProductModal();
+                      setTempData(tempProduct);
+                    }}
                   >
                     關閉
                   </button>

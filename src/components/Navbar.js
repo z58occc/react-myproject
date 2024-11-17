@@ -1,6 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Collapse } from "bootstrap";
+import SearchBar from "./searchBar";
 import logo from "../assets/images/logo.png";
 
 function Navbar({ cartData }) {
@@ -40,7 +41,7 @@ function Navbar({ cartData }) {
     <div
       className=" sticky-top "
       style={{
-        backgroundColor: "lightcoral",
+        backgroundColor: "gray",
       }}
     >
       <nav
@@ -114,6 +115,7 @@ function Navbar({ cartData }) {
           </ul>
         </div>
         <div className="d-flex me-5">
+          
           <NavLink to="/cart" className="nav-link position-relative  me-5">
             <i
               className="bi bi-cart-x-fill"

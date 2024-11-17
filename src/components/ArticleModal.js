@@ -60,7 +60,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
           ),
         });
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const [, dispatch] = useContext(MessageContext);
@@ -152,7 +152,10 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
               type="button"
               className="btn-close"
               aria-label="Close"
-              onClick={closeArticleModal}
+              onClick={() => {
+                closeArticleModal();
+                setTempData(tempArticle);
+              }}
             />
           </div>
           <div className="modal-body">
@@ -329,7 +332,10 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    onClick={closeArticleModal}
+                    onClick={() => {
+                      closeArticleModal();
+                      setTempData(tempArticle);
+                    }}
                   >
                     關閉
                   </button>
