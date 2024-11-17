@@ -42,6 +42,7 @@ function Products() {
     const productRes = await axios.get(
       `/v2/api/${process.env.REACT_APP_API_PATH}/products?page=${page}  `,
     );
+
     setProducts(productRes.data.products);
     setPagination(productRes.data.pagination);
     setLoading(false);
@@ -72,7 +73,11 @@ function Products() {
     }
   }, [searchWord]);
   return (
-    <div className="container mt-md-5 mt-3 mb-7 ">
+    <div className="container mt-md-5 mt-3 mb-7"
+      style={{
+        minHeight: '100vh'
+      }}
+    >
       <Loading isLoading={isLoading} />
       <div
         className="btn-group mb-3"
@@ -201,9 +206,14 @@ function Products() {
                     alt="..."
                   />
 
-                  <div className="card-body p-0">
-                    <h4 className="mb-0 mt-2 text-center">{product.title}</h4>
+                  <div className="d-flex justify-content-between card-body p-0">
+                    <h3 className="mb-0 mt-2 ">{product.title}</h3>
+                    <h5 className=" mb-0 mt-2 ">
+                      ${product.price}
+                    </h5>
                   </div>
+                  <div className="text-black "
+                  >{product.description}</div>
                 </Link>
               </div>
             </div>

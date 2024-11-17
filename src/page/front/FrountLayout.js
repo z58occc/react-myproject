@@ -24,7 +24,7 @@ function FrountLayout() {
       <Navbar cartData={cartData} />
       <MessageToast />
       <Outlet context={{ getCart, cartData }} />
-      <div className="bg-dark">
+      <div className="bg-dark ">
         <div className="container">
           <div className="d-flex align-items-center justify-content-between text-white py-4">
             <p className="mb-0">© 2024 LOGO All Rights Reserved.</p>

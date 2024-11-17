@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { createAsyncMessage } from "../../slice/messageSlice";
 import SameTypeCarousel from "../../components/SameTypeCarousel";
+import Loading from "../../components/Loading";
 
 function ProdeuctDetail() {
   const [product, setProducts] = useState({});
@@ -17,6 +18,8 @@ function ProdeuctDetail() {
   const [sameProducts, setSameProducts] = useState([]);
   const imgRef = useRef("");
   const [tempSrc, setTempSrc] = useState("");
+  const [isLoading, setLoading] = useState(false);
+
 
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
@@ -68,10 +71,13 @@ function ProdeuctDetail() {
   };
 
   useEffect(() => {
+    setLoading(true);
     const getProduct = async (id) => {
       const productRes = await axios.get(
         `/v2/api/${process.env.REACT_APP_API_PATH}/product/${id}`,
       );
+      setLoading(false);
+
       setProducts(productRes.data.product);
       setTempSrc(productRes.data.product.imagesUrl[0]);
       for (let index = 0; index < favorites.length; index++) {
@@ -94,6 +100,7 @@ function ProdeuctDetail() {
 
   return (
     <>
+      <Loading isLoading={isLoading} />
       <div className="container">
         <div className="row d-flex flex-row-reverse   m-1 ">
           <div
