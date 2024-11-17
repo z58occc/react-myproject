@@ -63,7 +63,7 @@ function Home() {
             justifyContent: "flex-end",
           }}
         />
-        <div className="hero-image row flex-md-row-reverse flex-column m-5 mb-10">
+        <div className="hero-image row flex-md-row-reverse flex-column mt-5  mb-10">
           <div className="col-md-8">
             <img
               alt=""

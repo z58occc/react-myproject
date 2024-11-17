@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Collapse } from "bootstrap";
 import SearchBar from "./searchBar";
@@ -115,10 +115,17 @@ function Navbar({ cartData }) {
           </ul>
         </div>
         <div className="d-flex me-5">
-          
-          <NavLink to="/cart" className="nav-link position-relative  me-5">
+          <SearchBar />        
+          <NavLink to="./buylater" >
+            <i className="bi bi-bookmark-star-fill ms-5  me-5 text-black"
+              style={{
+                fontSize: "25px",
+              }}
+            />
+          </NavLink>
+          <NavLink to="/cart" className="nav-link position-relative me-5">
             <i
-              className="bi bi-cart-x-fill"
+              className="bi bi-cart-fill "
               style={{
                 fontSize: "25px",
               }}
@@ -127,9 +134,6 @@ function Navbar({ cartData }) {
               {cartData?.carts?.length}
             </span>
           </NavLink>
-          <Link to="./nexttime" className="  btn btn-primary    ">
-            下次再買
-          </Link>
         </div>
       </nav>
     </div>

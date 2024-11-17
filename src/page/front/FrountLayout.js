@@ -27,7 +27,7 @@ function FrountLayout() {
       <div className="bg-dark">
         <div className="container">
           <div className="d-flex align-items-center justify-content-between text-white py-4">
-            <p className="mb-0">© 2020 LOGO All Rights Reserved.</p>
+            <p className="mb-0">© 2024 LOGO All Rights Reserved.</p>
             <ul className="d-flex list-unstyled mb-0 h4">
               <li>
                 <div className="text-white mx-3">

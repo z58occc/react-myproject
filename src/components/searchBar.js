@@ -21,17 +21,22 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <>
       <input
-        className="form-control w-50 me-2"
+        className="form-control  me-2"
         type="search"
-        placeholder="今天想來點..."
+        placeholder="搜尋..."
         aria-label="Search"
         onChange={search}
         ref={mySearch}
         onKeyUp={(e) => handleKeyEnter(e)}
+        style={{
+          border:'black solid',
+          width:'150px',
+          borderRadius:'10px'
+        }}
       />
-    </div>
+    </>
   );
 }
 
