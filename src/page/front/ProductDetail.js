@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { createAsyncMessage } from "../../slice/messageSlice";
@@ -69,14 +69,35 @@ function ProdeuctDetail() {
     setTempSrc(src);
     imgRef.current.src = src;
   };
+  const nextImg = () => {
+    let index=product.imagesUrl.findIndex((imageUrl) => imageUrl === imgRef.current.src);
+    if(index+1>4){
+      index=-1;
+    }    
+    setTempSrc(product.imagesUrl[index+1]);
+    imgRef.current.src=product.imagesUrl[index+1];
+  };
+  const lastImg = () => {
+    let index=product.imagesUrl.findIndex((imageUrl) => imageUrl === imgRef.current.src);
+    
+    if(index===0){
+      index=5;
+    }
+    setTempSrc(product.imagesUrl[index-1]);
+    imgRef.current.src=product.imagesUrl[index-1];
+  };
+
+
 
   useEffect(() => {
-    setLoading(true);
     const getProduct = async (id) => {
+      setLoading(true);
       const productRes = await axios.get(
         `/v2/api/${process.env.REACT_APP_API_PATH}/product/${id}`,
       );
       setLoading(false);
+      
+      
 
       setProducts(productRes.data.product);
       setTempSrc(productRes.data.product.imagesUrl[0]);
@@ -102,20 +123,32 @@ function ProdeuctDetail() {
     <>
       <Loading isLoading={isLoading} />
       <div className="container">
-        <div className="row d-flex flex-row-reverse   m-1 ">
+        <nav aria-label="breadcrumb"
+          style={{
+            marginTop: '40px'
+          }}
+        >
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item"><Link className="text-decoration-none" to="/">首頁</Link></li>
+            <li className="breadcrumb-item "><Link className="text-decoration-none" to="/products">產品列表</Link></li>
+            <li className="breadcrumb-item active " aria-current="page">產品詳細</li>
+          </ol>
+        </nav>
+        <div className="row d-flex flex-row-reverse"
+        >
           <div
             className=" col-md-4 d-flex flex-column"
             style={{
               textDecoration: "none",
-              color: "black",
+              color: "black"
             }}
             to={`./product/${product?.id}`}
           >
             <div className="product-title">
-              <h2 className=" mb-0">{product.title}</h2>
-              <p className="fw-bold">NT$ {product.price}</p>
+              <h2 className=" mb-0 text-primary">{product.title}</h2>
+              <h1 className="fw-bold text-primary">NT$ {product?.price?.toLocaleString()}</h1>
             </div>
-            <div className="product-img">
+            {/* <div className="product-img">
               <img
                 alt="product.jpg"
                 src={product?.imageUrl}
@@ -124,7 +157,7 @@ function ProdeuctDetail() {
                   height: "250px",
                 }}
               />
-            </div>
+            </div> */}
             <div className="add-to-cart">
               <p>{product.description}</p>
               <div className="input-group mb-3 border mt-3">
@@ -169,39 +202,57 @@ function ProdeuctDetail() {
               >
                 <button
                   type="button"
-                  className="btn btn-primary w-100 rounded-0 py-3"
+                  className="btn btn-primary w-100 rounded-0 "
                   onClick={() => addToCart()}
                   disabled={isLoadingCart}
-                  style={{
-                    fontSize: "25px",
-                  }}
+                  
                 >
                   加入購物車
                 </button>
 
                 <button
                   type="button"
-                  className="btn btn-secondary mt-1 p-3"
+                  className="btn btn-secondary mt-1 "
                   onClick={() => addFavorite(product)}
                   style={{
-                    fontSize: "15px",
+                    borderRadius:'100px'
                   }}
                 >
-                  加入下次再買清單
+                  加入收藏
                 </button>
               </div>
             </div>
           </div>
           <div className="col-md-8">
-            <div className="row">
+            <div className="d-flex
+            justify-content-center
+            "
+            >
+              <i className="bi bi-caret-left-fill text-primary"
+                style={{
+                  marginTop:'220px',
+                  fontSize: '60px',
+                  cursor:'pointer'
+                }}
+                onClick={lastImg}
+              />
               <img
                 alt="product.jpg"
                 src={product?.imagesUrl?.[0]}
-                className="img-fluid object-cover "
+                className=" object-cover "
                 style={{
                   height: "500px",
+                  minWidth: "750px"
                 }}
                 ref={imgRef}
+              />
+              <i className="bi bi-caret-right-fill text-primary"
+                style={{
+                  marginTop:'220px',
+                  fontSize: '60px',
+                  cursor:'pointer'
+                }}
+                onClick={nextImg}
               />
             </div>
             <div className="row g-1  ">

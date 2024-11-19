@@ -29,28 +29,30 @@ function Home() {
     setSearchWord(e.target.value);
   };
 
-  const getArticles = async (page = 1) => {
-    const articleRes = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=${page}`,
-    );
-    setArticles(articleRes.data.articles);
-    setLoading(false);
-  };
 
-  const getProducts = async (page = 1) => {
-    setLoading(true);
-    const productRes = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/products?page=${page}`,
-    );
-    setProducts(productRes.data.products);
-  };
+
+
   const handleKeyEnter = (e) => {
     if (e.code === "Enter") {
       navigate(`/products/${searchWord}`);
     }
   };
   useEffect(() => {
+    const getProducts = async (page = 1) => {
+      setLoading(true);
+      const productRes = await axios.get(
+        `/v2/api/${process.env.REACT_APP_API_PATH}/products?page=${page}`,
+      );
+      setProducts(productRes.data.products);
+    };
     getProducts();
+    const getArticles = async (page = 1) => {
+      const articleRes = await axios.get(
+        `/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=${page}`,
+      );
+      setArticles(articleRes.data.articles);
+      setLoading(false);
+    };
     getArticles();
   }, []);
   return (
@@ -139,64 +141,63 @@ function Home() {
             </div>
           ))}
 
-            <div className="row   ">
-              {articles.slice(randomNum, randomNum + 3).map((article) => (
-                <div className="col-md-4" key={article.id}>
-                  <Link to={`/article/${article.id}`}>
-                    <img
-                      src={article.image}
-                      alt=""
-                      style={{
-                        width: "100px",
-                        height: "100px",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </Link>
-                  <Link
-                    to={`/article/${article.id}`}
+          <div className="row   ">
+            {articles.slice(randomNum, randomNum + 3).map((article) => (
+              <div className="col-md-4" key={article.id}>
+                <Link to={`/article/${article.id}`}>
+                  <img
+                    src={article.image}
+                    alt=""
                     style={{
-                      textDecoration: "none",
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
                     }}
-                  >
-                    <h4 className="article-title mt-4">{article.title}</h4>
-                  </Link>
-                  <p className="home-article-description ">
-                    {article.description}
-                  </p>
-                </div>
-              ))}
-              <div className="bg-light mt-7">
-                <div className={isMobile ? "" : "container"}>
-                  <div id="carouselExampleControls" data-ride="carousel">
-                    <div className="homepage-carousel carousel-inner">
-                      <div
-                        className="carousel-item active"
-                        style={{
-                          backgroundImage:
-                            'url("https://images.unsplash.com/photo-1468436139062-f60a71c5c892?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-                        }}
-                      >
-                        <div className="row justify-content-center py-7 ">
-                          <div className=" col-md-8 d-flex ">
-                            <img
-                              src="https://images.unsplash.com/photo-1712847333437-f9386beb83e4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGh1bWFufGVufDB8fDB8fHww"
-                              alt=""
-                              className="rounded-circle me-5"
-                              style={{
-                                width: "160px",
-                                height: "160px",
-                                objectFit: "cover",
-                              }}
-                            />
-                            <div className="d-flex flex-column">
-                              <p className="h5">
-                                “科技的真正目的，是讓我們的生活更簡單，而不是更複雜”
-                              </p>
-                              <p className="mt-auto ">
-                                ——喬納森·韋斯特 (Jonathan West)
-                              </p>
-                            </div>
+                  />
+                </Link>
+                <Link
+                  to={`/article/${article.id}`}
+                  style={{
+                    textDecoration: "none",
+                  }}
+                >
+                  <h4 className="article-title mt-4">{article.title}</h4>
+                </Link>
+                <p className="home-article-description ">
+                  {article.description}
+                </p>
+              </div>
+            ))}
+            <div className="bg-light mt-7">
+              <div className={isMobile ? "" : "container"}>
+                <div id="carouselExampleControls" data-ride="carousel">
+                  <div className="homepage-carousel carousel-inner">
+                    <div
+                      className="carousel-item active"
+                      style={{
+                        backgroundImage:
+                          'url("https://images.unsplash.com/photo-1468436139062-f60a71c5c892?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
+                      }}
+                    >
+                      <div className="row justify-content-center py-7 ">
+                        <div className=" col-md-8 d-flex ">
+                          <img
+                            src="https://images.unsplash.com/photo-1712847333437-f9386beb83e4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGh1bWFufGVufDB8fDB8fHww"
+                            alt=""
+                            className="rounded-circle me-5"
+                            style={{
+                              width: "160px",
+                              height: "160px",
+                              objectFit: "cover",
+                            }}
+                          />
+                          <div className="d-flex flex-column">
+                            <p className="h5">
+                              “科技的真正目的，是讓我們的生活更簡單，而不是更複雜”
+                            </p>
+                            <p className="mt-auto ">
+                              ——喬納森·韋斯特 (Jonathan West)
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -204,111 +205,112 @@ function Home() {
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="container my-7">
-                <div className="row">
-                  <div className="col-md-4">
-                    <div className="d-flex align-items-end">
-                      <img
-                        src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZHxlbnwwfHwwfHx8Mg%3D%3D"
-                        alt=""
-                        style={{
-                          width: "48px",
-                          height: "48px",
-                          objectFit: " cover",
-                          borderRadius: "100%",
-                        }}
-                      />
-                      <small className="ms-2">
-                        <b>王小明</b>
-                      </small>
-                    </div>
-                    <Link
-                      to="/product/-O3s3uJKoIC7mxJwGfbN"
+            <div className="container my-7">
+              <div className="row">
+                <div className="col-md-4">
+                  <div className="d-flex align-items-end">
+                    <img
+                      src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZHxlbnwwfHwwfHx8Mg%3D%3D"
+                      alt=""
                       style={{
-                        textDecoration: "none",
+                        width: "48px",
+                        height: "48px",
+                        objectFit: " cover",
+                        borderRadius: "100%",
                       }}
-                      className="text-secondary"
-                    >
-                      <h4 className="mt-4">PS5</h4>
-                    </Link>
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <p className="text-muted">
-                      PS5表現超棒，畫質細膩，遊戲體驗升級，強烈推薦！
-                    </p>
+                    />
+                    <small className="ms-2">
+                      <b>王小明</b>
+                    </small>
                   </div>
-                  <div className="col-md-4">
-                    <div className="d-flex align-items-end">
-                      <img
-                        src="https://images.unsplash.com/photo-1727294810303-b7be05458d1e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt=""
-                        style={{
-                          width: "48px",
-                          height: "48px",
-                          objectFit: " cover",
-                          borderRadius: "100%",
-                        }}
-                      />
-                      <small className="ms-2">
-                        <b>李佳恩</b>
-                      </small>
-                    </div>
-                    <Link
-                      to="/product/-O3s2ve-xHIUe_IzlBjW"
+                  <Link
+                    to="/product/-O3s3uJKoIC7mxJwGfbN"
+                    style={{
+                      textDecoration: "none",
+                    }}
+                    className="text-secondary"
+                  >
+                    <h4 className="mt-4">PS5</h4>
+                  </Link>
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <p className="text-muted">
+                    PS5表現超棒，畫質細膩，遊戲體驗升級，強烈推薦！
+                  </p>
+                </div>
+                <div className="col-md-4">
+                  <div className="d-flex align-items-end">
+                    <img
+                      src="https://images.unsplash.com/photo-1727294810303-b7be05458d1e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt=""
                       style={{
-                        textDecoration: "none",
+                        width: "48px",
+                        height: "48px",
+                        objectFit: " cover",
+                        borderRadius: "100%",
                       }}
-                      className="text-secondary"
-                    >
-                      <h4 className="mt-4">Nintendo Switch</h4>
-                    </Link>
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <p className="text-muted">
-                      Switch遊戲多樣，適合全家一起玩，但Joy-Con靈敏度略有不足。
-                    </p>
+                    />
+                    <small className="ms-2">
+                      <b>李佳恩</b>
+                    </small>
                   </div>
-                  <div className="col-md-4">
-                    <div className="d-flex align-items-end">
-                      <img
-                        src="https://images.unsplash.com/photo-1727162334483-64741c31f45e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt=""
-                        style={{
-                          width: "48px",
-                          height: "48px",
-                          objectFit: " cover",
-                          borderRadius: "100%",
-                        }}
-                      />
-                      <small className="ms-2">
-                        <b>張宇哲</b>
-                      </small>
-                    </div>
-                    <Link
-                      to="/product/-O3s5qG96KDTAETy0LKy"
+                  <Link
+                    to="/product/-O3s2ve-xHIUe_IzlBjW"
+                    style={{
+                      textDecoration: "none",
+                    }}
+                    className="text-secondary"
+                  >
+                    <h4 className="mt-4">Nintendo Switch</h4>
+                  </Link>
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <p className="text-muted">
+                    Switch遊戲多樣，適合全家一起玩，但Joy-Con靈敏度略有不足。
+                  </p>
+                </div>
+                <div className="col-md-4">
+                  <div className="d-flex align-items-end">
+                    <img
+                      src="https://images.unsplash.com/photo-1727162334483-64741c31f45e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt=""
                       style={{
-                        textDecoration: "none",
+                        width: "48px",
+                        height: "48px",
+                        objectFit: " cover",
+                        borderRadius: "100%",
                       }}
-                      className="text-secondary"
-                    >
-                      <h4 className="mt-4">Steam Deck</h4>
-                    </Link>
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <i className="bi bi-star-fill" />
-                    <p className="text-muted">
-                      Steam Deck概念不錯，但性能不足，續航力需改進。
-                    </p>
+                    />
+                    <small className="ms-2">
+                      <b>張宇哲</b>
+                    </small>
                   </div>
+                  <Link
+                    to="/product/-O3s5qG96KDTAETy0LKy"
+                    style={{
+                      textDecoration: "none",
+                    }}
+                    className="text-secondary"
+                  >
+                    <h4 className="mt-4">Steam Deck</h4>
+                  </Link>
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <i className="bi bi-star-fill" />
+                  <p className="text-muted">
+                    Steam Deck概念不錯，但性能不足，續航力需改進。
+                  </p>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </>

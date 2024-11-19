@@ -6,42 +6,14 @@ function SameTypeCarousel({ sameProducts }) {
       id="carouselExampleIndicators"
       className=" carousel slide position-relative mt-5"
     >
-      <div
-        className=" carousel-indicators    sameType"
-        style={{
-          position: "absolute",
-          top: "clamp(0px, 0%, 100%)",
-          left: "clamp(0px, 90%, 100%)",
-          zIndex: "100",
-        }}
-      >
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="0"
-          className="active  "
-          aria-current="true"
-          aria-label="Slide 1"
-        />
-        {sameProducts?.slice(4, 8).length > 0 ? (
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          />
-        ) : (
-          ""
-        )}
-      </div>
+
       <div className="carousel-inner">
         <div className="text-primary mb-1 ">
           <b>你可能會有興趣的同類商品</b>
         </div>
         <div className="carousel-item active">
           <div
-            className="row
-                            border border-bottom-0 border-top border-start-0 border-end-0"
+            className="row border border-bottom-0 border-top border-start-0 border-end-0"
           >
             {sameProducts?.slice(0, 4).map((product) => (
               <div key={product.id} className="col-md-3 mt-3">

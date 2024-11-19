@@ -25,6 +25,7 @@ function Navbar({ cartData }) {
   const style = {
     backgroundColor: windowWidth < 990 ? "rgb(211, 211, 211, 0.8)" : "",
     textAlign: windowWidth < 990 ? "center" : "",
+    display:windowWidth>990?'none':''
   };
 
   const hideCollapse = () => {

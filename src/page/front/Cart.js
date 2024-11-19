@@ -14,6 +14,10 @@ function Cart() {
   const navigate = useNavigate();
   const removeBtnRef = useRef(null);
   const clearCartRef = useRef(null);
+  const cartQuantityRef = useRef(null);
+  const addBtnRef = useRef(null);
+  const reduceBtnRef = useRef(null);
+  const couponCodeRef = useRef(null);
 
   const handleCoupon = (e) => {
     const { value } = e.target;
@@ -28,9 +32,25 @@ function Cart() {
         },
       });
       getCart();
-      return true;
     } catch (error) {
-      return false;
+      Swal.fire({
+        title: "發生錯誤",
+        html: "<small>無法使用優惠券，請查看折扣碼是否正確</small>",
+        icon: "error",
+      });
+    }
+  };
+  const removeCoupon = async () => {
+    try {
+      await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/coupon`, {
+        data: {
+          code: 'return',
+        },
+      });
+      couponCodeRef.current.value = '';
+      getCart();
+    } catch (error) {
+
     }
   };
 
@@ -43,33 +63,8 @@ function Cart() {
       });
       return;
     }
-    Swal.fire({
-      title: "你決定好了嗎？",
-      html: "<div><small>優惠券將套用到當前購物車內所有商品上</small></div> <div><small>若還有想購買之商品 請按繼續購物</small></div>",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      cancelButtonText: "繼續購物",
-      confirmButtonText: "我決定好了!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const success = await sendCoupon();
-        if (success) {
-          Swal.fire({
-            title: "已使用優惠券",
-            html: "<small>若要取消請清空購物車</small>",
-            icon: "success",
-          });
-        } else {
-          Swal.fire({
-            title: "發生錯誤",
-            html: "<small>無法使用優惠券，請查看折扣碼是否正確</small>",
-            icon: "error",
-          });
-        }
-      }
-    });
+    sendCoupon();
+
   };
 
   const removeCartItem = async (id) => {
@@ -96,6 +91,7 @@ function Cart() {
         qty: quantity,
       },
     };
+
     setLoadingItem([...loadingItems, item.id]);
     try {
       const res = await axios.put(
@@ -133,6 +129,8 @@ function Cart() {
   };
 
   const checkCart = () => {
+    console.log(cartData.carts);
+    
     if (!cartData.carts.every((item) => item.hasOwnProperty("coupon"))) {
       //   cartData有資料沒套用coupon
       if (cartData.carts.every((item) => !item.hasOwnProperty("coupon"))) {
@@ -171,6 +169,23 @@ function Cart() {
       tooltipList.forEach((tooltip) => tooltip.dispose());
     };
   });
+
+  const adjustQty = async (item, boolean) => {
+    if (boolean) {
+      addBtnRef.current.setAttribute('disabled', '');
+      cartQuantityRef.current.value++;
+    } else {
+      if (cartQuantityRef.current.value === '1') {
+        return;
+      }
+      reduceBtnRef.current.setAttribute('disabled', '');
+      cartQuantityRef.current.value--;
+    }
+    await updateCartItem(item, cartQuantityRef.current.value * 1);
+    addBtnRef.current.removeAttribute('disabled');
+    reduceBtnRef.current.removeAttribute('disabled');
+  };
+
 
   return (
     <div className="container">
@@ -244,25 +259,44 @@ function Cart() {
                       {item.product.description}
                     </p>
                     <div className="d-flex justify-content-between align-items-center w-100">
-                      <select
-                        name=""
-                        id=""
-                        className="form-select"
-                        value={item.qty}
-                        disabled={loadingItems.includes(item.id)}
-                        onChange={(e) => {
-                          updateCartItem(item, e.target.value * 1);
-                        }}
-                      >
-                        {[...new Array(20)].map((i, num) => (
-                          <option value={num + 1} key={num}>
-                            {num + 1}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="input-group mb-3 border mt-3">
+                        <div className="input-group-prepend">
+                          <button
+                            className="btn btn-outline-dark rounded-0 border-0 py-3"
+                            type="button"
+                            id="button-addon1"
+                            onClick={() => adjustQty(item, false)}
+                            ref={reduceBtnRef}
+                          >
+                            <i className="bi bi-dash-circle" />
+                          </button>
+                        </div>
+                        <input
+                          value={item.qty}
+                          readOnly
+                          type="number"
+                          className="form-control border-0 text-center my-auto shadow-none"
+                          placeholder=""
+                          aria-label="Example text with button addon"
+                          aria-describedby="button-addon1"
+                          ref={cartQuantityRef}
+
+                        />
+                        <div className="input-group-append">
+                          <button
+                            className="btn btn-outline-dark rounded-0 border-0 py-3"
+                            type="button"
+                            id="button-addon2"
+                            onClick={() => adjustQty(item, true)}
+                            ref={addBtnRef}
+                          >
+                            <i className="bi bi-plus-circle" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
                     <p style={{ float: "right" }} className="mb-0 ms-auto mt-3">
-                      NT$ {item.total}
+                      NT$ {item?.total?.toLocaleString()}
                     </p>
                     <p
                       style={{
@@ -293,6 +327,7 @@ function Cart() {
                   placeholder="請輸入折扣碼"
                   onChange={(e) => handleCoupon(e)}
                   disabled={cartData.total !== cartData.final_total}
+                  ref={couponCodeRef}
                 />
                 {/* 使用優惠券按鈕 */}
                 <button
@@ -303,28 +338,36 @@ function Cart() {
                   onClick={checkCoupon}
                   disabled={cartData.total !== cartData.final_total}
                 >
-                  <i className="bi bi-send" style={{ fontSize: "20px" }} />
+                  <i className="bi bi-ticket-perforated" style={{ fontSize: "20px" }} />
                 </button>
               </div>
-              <button
-                type="button"
-                className="btn btn-primary float-end mt-3"
-                data-bs-toggle="tooltip"
-                data-bs-html="true"
-                title="
+              <div className="d-flex justify-content-end">
+                <button
+                  type="button"
+                  className="btn btn-primary float-end mt-3"
+                  data-bs-toggle="tooltip"
+                  data-bs-html="true"
+                  title="
                                 <div>9折優惠券：discount90</div>
                                 <div>8折優惠券：discount80</div>
                                 <div>7折優惠券：discount70</div>
                             "
-              >
-                查看折扣碼
-              </button>
+                >
+                  查看折扣碼
+                </button>
+                <button type="button"
+                className="btn btn-secondary float-end mt-3 ms-3"
+                  onClick={removeCoupon}
+                >
+                  移除優惠券
+                </button>
+              </div>
             </>
           )}
           <div className="d-flex justify-content-between mt-7">
             <p className="mb-0 h4 fw-bold"> 總金額</p>
             <p className="mb-0 h4 fw-bold">
-              NT$ {cartData.final_total}
+              NT$ {cartData?.final_total?.toLocaleString()}
               <span
                 style={{
                   fontSize: "15px",
@@ -341,7 +384,7 @@ function Cart() {
             className={`${cartData?.carts?.length === 0 ? "disabled" : ""} btn btn-dark w-100 mt-4 rounded-0 py-3`}
             onClick={checkCart}
           >
-            確認商品正確
+            填寫訂單
           </button>
         </div>
       </div>

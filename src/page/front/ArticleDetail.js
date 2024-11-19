@@ -20,35 +20,36 @@ function ArticleDetail() {
     }
   };
 
-  const getArticle = async (id) => {
-    setLoading(true);
-    const articleRes = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/article/${id}`,
-    );
-    setArticle(articleRes.data.article);
-
-    const articlesPage1 = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/articles`,
-    );
-    const articlesPage2 = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=2`,
-    );
-    const articlesArr = [
-      ...articlesPage1.data.articles,
-      ...articlesPage2.data.articles,
-    ];
-    setArticleAll(articlesArr);
-
-    for (let index = 0; index < articlesArr.length; index++) {
-      if (articlesArr[index].id === articleRes.data.article.id) {
-        setArticleNum(articlesArr[index].num);
-        break;
-      }
-    }
-    setLoading(false);
-  };
+  
 
   useEffect(() => {
+    const getArticle = async (id) => {
+      setLoading(true);
+      const articleRes = await axios.get(
+        `/v2/api/${process.env.REACT_APP_API_PATH}/article/${id}`,
+      );
+      setArticle(articleRes.data.article);
+  
+      const articlesPage1 = await axios.get(
+        `/v2/api/${process.env.REACT_APP_API_PATH}/articles`,
+      );
+      const articlesPage2 = await axios.get(
+        `/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=2`,
+      );
+      const articlesArr = [
+        ...articlesPage1.data.articles,
+        ...articlesPage2.data.articles,
+      ];
+      setArticleAll(articlesArr);
+  
+      for (let index = 0; index < articlesArr.length; index++) {
+        if (articlesArr[index].id === articleRes.data.article.id) {
+          setArticleNum(articlesArr[index].num);
+          break;
+        }
+      }
+      setLoading(false);
+    };
     getArticle(id);
   }, [id]);
   return (

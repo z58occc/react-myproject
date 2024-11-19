@@ -21,27 +21,29 @@ function Articles() {
     setLoading(false);
   };
 
-  const getTagArticles = async () => {
-    setLoading(true);
-    const articlesPage1 = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/articles`,
-    );
-    const articlesPage2 = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=2`,
-    );
-    const articlesArr = [
-      ...articlesPage1.data.articles,
-      ...articlesPage2.data.articles,
-    ];
-    const articleFilter = articlesArr.filter((item) =>
-      item?.tag?.includes(tag.tag),
-    );
-    setArticles(articleFilter);
-    setLoading(false);
-  };
+
 
   useEffect(() => {
     if (tag.tag) {
+      const getTagArticles = async () => {
+        setLoading(true);
+        const articlesPage1 = await axios.get(
+          `/v2/api/${process.env.REACT_APP_API_PATH}/articles`,
+        );
+        const articlesPage2 = await axios.get(
+          `/v2/api/${process.env.REACT_APP_API_PATH}/articles?page=2`,
+        );
+        const articlesArr = [
+          ...articlesPage1.data.articles,
+          ...articlesPage2.data.articles,
+        ];
+        const articleFilter = articlesArr.filter((item) =>
+          item?.tag?.includes(tag.tag),
+        );
+        setArticles(articleFilter);
+        setLoading(false);
+      };
+
       getTagArticles();
     } else {
       getArticles(1);

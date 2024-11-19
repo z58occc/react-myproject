@@ -23,12 +23,7 @@ function Success() {
     };
   }, []);
 
-  const getOrder = async () => {
-    const res = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/order/${orderId}`,
-    );
-    setOrderData(res.data.order);
-  };
+
 
   const copyToClipboard = () => {
     navigator.clipboard
@@ -43,6 +38,12 @@ function Success() {
 
   useEffect(() => {
     getCart();
+    const getOrder = async () => {
+      const res = await axios.get(
+        `/v2/api/${process.env.REACT_APP_API_PATH}/order/${orderId}`,
+      );
+      setOrderData(res.data.order);
+    };
     getOrder();
   }, [orderId]);
   return (
@@ -135,20 +136,18 @@ function Success() {
                               <small>NT${item.product.price}</small>
                             </p>
                             <p
-                              className={`${
-                                item.total !== item.final_total
+                              className={`${item.total !== item.final_total
                                   ? "text-secondary fs-7 text-decoration-line-through"
                                   : ""
-                              }
+                                }
                                                             mb-0`}
                             >
                               NT${item.total}
                             </p>
                           </div>
                           <div
-                            className={`${
-                              item.total === item.final_total ? "d-none" : ""
-                            }
+                            className={`${item.total === item.final_total ? "d-none" : ""
+                              }
                                                             text-end`}
                           >
                             NT${item.final_total}

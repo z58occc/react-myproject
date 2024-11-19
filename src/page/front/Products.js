@@ -20,22 +20,7 @@ function Products() {
     setReSearch(e.target.value);
   };
 
-  const getProductsAll = async () => {
-    setLoading(true);
-    const productAllRes = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/products/all`,
-    );
-    const searchArr = productAllRes.data.products.filter((item) =>
-      regex.test(item.title),
-    );
-    if (searchArr.length === 0) {
-      setSearchRes(false);
-    } else {
-      setSearchRes(true);
-    }
-    setProducts(searchArr);
-    setLoading(false);
-  };
+  
   const getProducts = async (page = 1) => {
     setSearchRes(true);
     setLoading(true);
@@ -67,6 +52,22 @@ function Products() {
 
   useEffect(() => {
     if (searchWord) {
+      const getProductsAll = async () => {
+        setLoading(true);
+        const productAllRes = await axios.get(
+          `/v2/api/${process.env.REACT_APP_API_PATH}/products/all`,
+        );
+        const searchArr = productAllRes.data.products.filter((item) =>
+          regex.test(item.title),
+        );
+        if (searchArr.length === 0) {
+          setSearchRes(false);
+        } else {
+          setSearchRes(true);
+        }
+        setProducts(searchArr);
+        setLoading(false);
+      };
       getProductsAll();
     } else {
       getProducts();

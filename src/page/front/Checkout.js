@@ -46,6 +46,7 @@ function Checkout() {
               <div>
                 <div className="mb-2">
                   <Input
+                    placeholder="請輸入正確email格式"
                     id="email"
                     labelText="Email"
                     type="email"
@@ -63,6 +64,7 @@ function Checkout() {
 
                 <div className="mb-2">
                   <Input
+                    placeholder="請輸入使用者名稱"
                     id="name"
                     type="text"
                     errors={errors}
@@ -79,6 +81,7 @@ function Checkout() {
                 </div>
                 <div className="">
                   <Input
+                    placeholder="請輸入手機或市話"
                     id="tel"
                     labelText="電話"
                     type="tel"
@@ -99,6 +102,7 @@ function Checkout() {
                 </div>
                 <div className="">
                   <Input
+                    placeholder="請輸入配送地址"
                     id="address"
                     labelText="地址"
                     type="address"
@@ -111,6 +115,7 @@ function Checkout() {
                 </div>
                 <div className="">
                   <Textarea
+                    placeholder="若有任何問題，請在此處填寫"
                     id="message"
                     labelText="留言"
                     type="Textarea"
@@ -135,7 +140,7 @@ function Checkout() {
                 type="submit"
                 className="btn btn-dark py-3 px-7 rounded-0"
               >
-                送出表單
+                送出訂單
               </button>
             </div>
           </form>
@@ -178,20 +183,18 @@ function Checkout() {
                         <small>NT${item.product.price}</small>
                       </p>
                       <p
-                        className={`${
-                          item.total !== item.final_total
-                            ? "text-secondary fs-7 text-decoration-line-through"
-                            : ""
-                        }
+                        className={`${item.total !== item.final_total
+                          ? "text-secondary fs-7 text-decoration-line-through"
+                          : ""
+                          }
                                                             mb-0`}
                       >
                         NT${item.total}
                       </p>
                     </div>
                     <div
-                      className={`${
-                        item.total === item.final_total ? "d-none" : ""
-                      }
+                      className={`${item.total === item.final_total ? "d-none" : ""
+                        }
                                                             text-end`}
                     >
                       NT${item.final_total}

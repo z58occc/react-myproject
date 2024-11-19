@@ -29,12 +29,13 @@ export const CheckboxRadio = ({
   </>
 );
 
-export const Input = ({ id, labelText, register, type, errors, rules }) => (
+export const Input = ({ id, labelText, register, type, errors, rules,placeholder}) => (
   <>
     <label htmlFor={id} className="form-label">
       {labelText}
     </label>
     <input
+      placeholder={placeholder}
       id={id}
       type={type}
       className={`form-control ${errors[id] && "is-invalid"}`}
@@ -45,12 +46,13 @@ export const Input = ({ id, labelText, register, type, errors, rules }) => (
     )}
   </>
 );
-export const Textarea = ({ id, labelText, register, type, errors, rules }) => (
+export const Textarea = ({ id, labelText, register, type, errors, rules,placeholder }) => (
   <>
     <label htmlFor={id} className="form-label">
       {labelText}
     </label>
     <textarea
+      placeholder={placeholder}
       id={id}
       type={type}
       className={`form-control ${errors[id] && "is-invalid"}`}
