@@ -7,9 +7,14 @@ import {
   handleErrorMessage,
 } from "../contexts/MessageContext";
 
+
 function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
-  const imgRef = useRef(null);
+  const imgUrlRef = useRef(null);
+  const imgUploadRef = useRef(null);
   const [tag, setTag] = useState("");
+  const [, dispatch] = useContext(MessageContext);
+
+  
   const [tempData, setTempData] = useState({
     title: "",
     description: "",
@@ -36,7 +41,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
 
     const formData = new FormData();
     formData.append("file-to-upload", file);
-    try {
+    try {      
       const res = await axios.post(
         `/v2/api/${process.env.REACT_APP_API_PATH}/admin/upload`,
         formData,
@@ -60,10 +65,12 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
           ),
         });
       }
-    } catch (error) { }
+    } catch (error) {
+      imgUploadRef.current.value='';
+      handleErrorMessage(dispatch, error);
+     }
   };
 
-  const [, dispatch] = useContext(MessageContext);
 
   useEffect(() => {
     if (type === "create") {
@@ -77,10 +84,10 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
         isPublic: true,
         content: "",
       });
-      imgRef.current.value = "";
+      imgUrlRef.current.value = "";
     } else if (type === "edit") {
       setTempData(tempArticle);
-      imgRef.current.value = tempData.image;
+      imgUrlRef.current.value = tempData?.image;
     }
   }, [type, tempArticle]);
 
@@ -155,6 +162,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
               onClick={() => {
                 closeArticleModal();
                 setTempData(tempArticle);
+                imgUploadRef.current.value='';
               }}
             />
           </div>
@@ -171,7 +179,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                       placeholder="請輸入圖片連結"
                       className="form-control"
                       onChange={handleChange}
-                      ref={imgRef}
+                      ref={imgUrlRef}
                     />
                   </label>
                   <div className="form-group ">
@@ -181,6 +189,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                       className="form-control"
                       name="image"
                       onChange={(e) => uploadFile(e)}
+                      ref={imgUploadRef}
                     />
                   </div>
                   {tempData?.image && (
@@ -335,6 +344,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                     onClick={() => {
                       closeArticleModal();
                       setTempData(tempArticle);
+                      imgUploadRef.current.value='';
                     }}
                   >
                     關閉

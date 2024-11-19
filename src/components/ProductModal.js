@@ -128,7 +128,11 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
           ),
         });
       }
-    } catch (error) { }
+    } catch (error) {
+      
+      handleErrorMessage(dispatch, error);
+
+     }
   };
 
   useEffect(() => {
@@ -223,10 +227,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       onChange={(e) => uploadFile(e)}
                     />
                   </div>
-                  {tempData.imagesUrl[0] && (
+                  {tempData?.imagesUrl?.[0] && (
                     <img
                       className="w-100"
-                      src={tempData.imagesUrl[0]}
+                      src={tempData?.imagesUrl?.[0]}
                       alt="..."
                     />
                   )}
@@ -252,10 +256,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       onChange={(e) => uploadFile(e)}
                     />
                   </div>
-                  {tempData.imagesUrl[1] && (
+                  {tempData.imagesUrl?.[1] && (
                     <img
                       className="w-100"
-                      src={tempData.imagesUrl[1]}
+                      src={tempData.imagesUrl?.[1]}
                       alt="..."
                     />
                   )}
@@ -281,10 +285,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       onChange={(e) => uploadFile(e)}
                     />
                   </div>
-                  {tempData.imagesUrl[2] && (
+                  {tempData.imagesUrl?.[2] && (
                     <img
                       className="w-100"
-                      src={tempData.imagesUrl[2]}
+                      src={tempData.imagesUrl?.[2]}
                       alt="..."
                     />
                   )}
@@ -310,10 +314,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       onChange={(e) => uploadFile(e)}
                     />
                   </div>
-                  {tempData.imagesUrl[3] && (
+                  {tempData.imagesUrl?.[3] && (
                     <img
                       className="w-100"
-                      src={tempData.imagesUrl[3]}
+                      src={tempData.imagesUrl?.[3]}
                       alt="..."
                     />
                   )}
@@ -339,10 +343,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       onChange={(e) => uploadFile(e)}
                     />
                   </div>
-                  {tempData.imagesUrl[4] && (
+                  {tempData.imagesUrl?.[4] && (
                     <img
                       className="w-100"
-                      src={tempData.imagesUrl[4]}
+                      src={tempData.imagesUrl?.[4]}
                       alt="..."
                     />
                   )}
@@ -440,7 +444,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       placeholder="請輸入產品描述"
                       className="form-control"
                       onChange={handleChange}
-                      value={tempData.description.trim()}
+                      value={tempData.description?.trim()}
                     />
                   </label>
                 </div>
