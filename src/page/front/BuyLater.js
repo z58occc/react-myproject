@@ -148,6 +148,11 @@ function BuyLater() {
         myFavorites={myFavorites}
       />
       <div className=" mt-5">
+        <div className="mb-3 text-primary"
+        style={{
+          fontSize:'25px'
+        }}
+        >收藏清單</div>
         <div className="d-flex   justify-content-sm-between flex-sm-row flex-column">
           <div className="favorite-all-choose">
             <span>
@@ -253,7 +258,7 @@ function BuyLater() {
             }}
           >
             <i className="bi bi-emoji-surprise-fill me-3" />
-            目前下次再買清單沒有商品
+            目前收藏清單沒有商品
           </div>
         ) : (
           <div className="table-responsive mt-5">

@@ -84,8 +84,11 @@ function Carousel({ products }) {
                 <img
                   ref={imgRef}
                   src={products[0]?.imageUrl}
-                  className="object-cover d-block w-100"
+                  className="object-cover d-block "
                   alt="..."
+                  style={{
+                    width: '750px'
+                  }}
                 />
               </Link>
             </div>
@@ -119,7 +122,12 @@ function Carousel({ products }) {
                   </div>
                 ))}
               </div>
-              <div className="mt-7  w-25 " style={{ textAlign: "center" }}>
+              <div className="mt-7  w-100 " style={{
+                paddingLeft: '10px',
+                textAlign: "start",
+                fontSize: "25px",
+                fontWeight: '800'
+              }}>
                 NT$ {products[0]?.price}
               </div>
             </div>
@@ -134,13 +142,16 @@ function Carousel({ products }) {
                 <Link to={`./product/${product?.id}`}>
                   <img
                     src={product.imageUrl}
-                    className="object-cover d-block w-100"
+                    className="object-cover d-block "
                     alt="..."
                     ref={(e) => {
                       otherImgRef.current[i] = e;
                       return otherImgRef.current[i];
                     }}
                     id={product?.id}
+                    style={{
+                      width: '750px'
+                    }}
                   />
                 </Link>
               </div>
@@ -176,12 +187,12 @@ function Carousel({ products }) {
                     </div>
                   ))}
                 </div>
-                <div
-                  className="mt-7 w-25"
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
+                <div className="mt-7  w-100 " style={{
+                  paddingLeft: '10px',
+                  textAlign: "start",
+                  fontSize: "25px",
+                  fontWeight: '800'
+                }}>
                   NT$ {product.price}
                 </div>
               </div>

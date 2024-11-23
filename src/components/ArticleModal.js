@@ -193,7 +193,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                     />
                   </div>
                   {tempData?.image && (
-                    <img className="w-100" src={tempData?.image} alt="..." />
+                    <img className="w-100" src={tempData?.image} alt="" />
                   )}
                   <div
                     style={{

@@ -68,25 +68,51 @@ function Cart() {
 
   };
 
-  const removeCartItem = async (id) => {
-    try {
-      removeBtnRef.current.setAttribute('disabled', '');
-      await axios.delete(
-        `/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,
-      );
-      getCart();
-    } catch (error) {
-      dispatch(createAsyncMessage(error.response.data));
-     }
+  const removeCartItem = (id) => {
+    Swal.fire({
+      title: "你確定要刪除商品?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "再想想",
+      confirmButtonText: "確定"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeBtnRef.current.setAttribute('disabled', '');
+        axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,)
+          .then(() => {
+            getCart();
+          })
+          .catch((error) => {
+            dispatch(createAsyncMessage(error.response.data));
+          });
+
+      }
+    });
+
   };
-  const removeCartAll = async () => {
-    try {
-      clearCartRef.current.setAttribute('disabled', '');
-      await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`);
-      getCart();
-    } catch (error) {
-      dispatch(createAsyncMessage(error.response.data));
-     }
+  const removeCartAll = () => {
+    Swal.fire({
+      title: "你確定要刪除全部商品?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "再想想",
+      confirmButtonText: "確定"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeBtnRef.current.setAttribute('disabled', '');
+        axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`,)
+          .then(() => {
+            getCart();
+          })
+          .catch((error) => {
+            dispatch(createAsyncMessage(error.response.data));
+          });
+      }
+    });
   };
 
   const updateCartItem = async (item, quantity) => {
@@ -134,7 +160,7 @@ function Cart() {
   };
 
   const checkCart = () => {
-    
+
     if (!cartData.carts.every((item) => item.hasOwnProperty("coupon"))) {
       //   cartData有資料沒套用coupon
       if (cartData.carts.every((item) => !item.hasOwnProperty("coupon"))) {
@@ -312,7 +338,7 @@ function Cart() {
                       className="mb-0 ms-auto mt-3 text-secondary"
                       onClick={() => addFavorite(item)}
                     >
-                      放回下次再買
+                      放回收藏清單
                     </p>
                   </div>
                 </div>
@@ -360,7 +386,7 @@ function Cart() {
                   查看折扣碼
                 </button>
                 <button type="button"
-                className="btn btn-secondary float-end mt-3 ms-3"
+                  className="btn btn-secondary float-end mt-3 ms-3"
                   onClick={removeCoupon}
                 >
                   移除優惠券

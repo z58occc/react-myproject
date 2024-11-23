@@ -34,16 +34,16 @@
   position: absolute;
 }
 
-// .product-carousel>.carousel-control-prev>.carousel-control-prev-icon {
-//   position: absolute;
-//   left: -50px;
-// }
+.product-carousel>.carousel-control-prev>.carousel-control-prev-icon {
+  position: absolute;
+  left: -50px;
+}
 
-// .product-carousel>.carousel-control-next>.carousel-control-next-icon {
-//   position: absolute;
-//   right: -50px;
+.product-carousel>.carousel-control-next>.carousel-control-next-icon {
+  position: absolute;
+  right: -50px;
 
-// }
+}
 
 .bi-caret-up,
 .bi-caret-down {

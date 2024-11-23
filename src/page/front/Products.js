@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
 
@@ -13,6 +13,10 @@ function Products() {
   const [searchRes, setSearchRes] = useState(true);
   const [reSearch, setReSearch] = useState("");
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get('category');
+
+
 
   const mySearch = useRef();
 
@@ -20,7 +24,7 @@ function Products() {
     setReSearch(e.target.value);
   };
 
-  
+
   const getProducts = async (page = 1) => {
     setSearchRes(true);
     setLoading(true);
@@ -69,10 +73,22 @@ function Products() {
         setLoading(false);
       };
       getProductsAll();
-    } else {
+    } else if (category) {
+      const ChangeType = async () => {
+        setLoading(true);
+        const typeRes = await axios.get(
+          `/v2/api/${process.env.REACT_APP_API_PATH}/products?category=${category}`,
+        );
+        setProducts(typeRes.data.products);
+        setPagination(typeRes.data.pagination);
+        setLoading(false);
+      };
+      ChangeType();
+    }
+    else {
       getProducts();
     }
-  }, [searchWord]);
+  }, [searchWord, category]);
   return (
     <div className="container mt-md-5 mt-3 mb-7"
       style={{

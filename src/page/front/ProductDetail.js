@@ -52,7 +52,7 @@ function ProdeuctDetail() {
         success: true,
         type: "success",
         title: "成功",
-        message: "已加入下次再買清單",
+        message: "已加入收藏清單",
       }),
     );
     if (!inFavorites) {
@@ -194,18 +194,16 @@ function ProdeuctDetail() {
                 </div>
               </div>
               <div
-                className="d-flex  flex-column"
-                style={{
-                  justifyItems: "center",
-                  alignItems: "center",
-                }}
+                className="d-flex justify-content-center mt-7 "
               >
                 <button
                   type="button"
-                  className="btn btn-primary w-100 rounded-0 "
+                  className="btn btn-primary   me-3"
                   onClick={() => addToCart()}
                   disabled={isLoadingCart}
-                  
+                  style={{
+                    borderRadius:'100px'
+                  }}
                 >
                   加入購物車
                 </button>
@@ -218,7 +216,7 @@ function ProdeuctDetail() {
                     borderRadius:'100px'
                   }}
                 >
-                  加入收藏
+                  加入收藏清單
                 </button>
               </div>
             </div>

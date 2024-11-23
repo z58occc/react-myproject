@@ -25,14 +25,13 @@ function SearchBar() {
       <input
         className="form-control  me-2"
         type="search"
-        placeholder="搜尋..."
+        placeholder="搜尋產品名稱"
         aria-label="Search"
         onChange={search}
         ref={mySearch}
         onKeyUp={(e) => handleKeyEnter(e)}
         style={{
           border:'black solid',
-          width:'150px',
           borderRadius:'10px'
         }}
       />

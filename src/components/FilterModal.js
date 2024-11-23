@@ -193,7 +193,7 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
             </div>
             <div>
               <div className="mt-3">
-                <h5>放入下次再買時間</h5>
+                <h5>放入收藏時間</h5>
               </div>
               <ul
                 style={{
