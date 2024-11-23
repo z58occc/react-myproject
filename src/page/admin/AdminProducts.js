@@ -1,11 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState,useContext } from "react";
 import axios from "axios";
 import { Modal } from "bootstrap";
 import ProductModal from "../../components/ProductModal";
 import DeleteModal from "../../components/DeleteModal";
 import Pagination from "../../components/Pagination";
+import {
+  MessageContext,
+  handleErrorMessage,
+} from "../../contexts/MessageContext";
 
 function AdminProducts() {
+  const [, dispatch] = useContext(MessageContext);
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({});
 
@@ -59,7 +64,9 @@ function AdminProducts() {
         getProducts();
         deleteModal.current.hide();
       }
-    } catch (error) {}
+    } catch (error) {
+      handleErrorMessage(dispatch, error);
+    }
   };
   return (
     <div className="p-3">

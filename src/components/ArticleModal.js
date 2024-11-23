@@ -244,7 +244,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                         type="text"
                         id="title"
                         name="title"
-                        placeholder="請輸入分類"
+                        placeholder="請輸入標題"
                         className="form-control"
                         onChange={handleChange}
                         value={tempData?.title || ""}
@@ -258,7 +258,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                         type="author"
                         id="author"
                         name="author"
-                        placeholder="請輸入單位"
+                        placeholder="請輸入作者名字"
                         className="form-control"
                         onChange={handleChange}
                         value={tempData?.author || ""}
@@ -274,7 +274,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                       type="text"
                       id="description"
                       name="description"
-                      placeholder="請輸入產品描述"
+                      placeholder="請輸入文章簡述"
                       className="form-control"
                       onChange={handleChange}
                       value={tempData?.description?.trim() || ""}
@@ -288,7 +288,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                       type="text"
                       id="content"
                       name="content"
-                      placeholder="請輸入產品說明內容"
+                      placeholder="請輸入文章內容"
                       className="form-control"
                       onChange={handleChange}
                       value={tempData?.content || ""}

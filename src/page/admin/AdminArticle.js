@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect,useContext } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
 import moment from "moment";
@@ -6,8 +6,13 @@ import ArticleModal from "../../components/ArticleModal";
 import DeleteModal from "../../components/DeleteModal";
 import "moment/locale/zh-tw";
 import Pagination from "../../components/Pagination";
+import {
+  MessageContext,
+  handleErrorMessage,
+} from "../../contexts/MessageContext";
 
 function AdminArticle() {
+  const [, dispatch] = useContext(MessageContext);
   const [articles, setArticles] = useState([]);
   const [pagination, setPagination] = useState({});
 
@@ -27,7 +32,9 @@ function AdminArticle() {
       );
       setTempArticle(response.data.article);
       articleModal.current.show();
-    } catch (error) {}
+    } catch (error) {
+      handleErrorMessage(dispatch, error);
+    }
   };
   const closeArticleModal = () => {
     articleModal.current.hide();
@@ -55,7 +62,9 @@ function AdminArticle() {
         getArticles();
         deleteModal.current.hide();
       }
-    } catch (error) {}
+    } catch (error) {
+      handleErrorMessage(dispatch, error);
+    }
   };
 
   useEffect(() => {

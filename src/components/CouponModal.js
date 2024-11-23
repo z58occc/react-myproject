@@ -100,7 +100,9 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
               aria-label="Close"
               onClick={() => {
                 closeModal();
-                setTempData(tempCoupon);
+                if (Object.keys(tempCoupon).length !== 0) {
+                  setTempData(tempCoupon);
+                }
               }}
             />
           </div>
@@ -190,7 +192,9 @@ function CouponModal({ closeModal, getCoupons, type, tempCoupon }) {
               className="btn btn-secondary"
               onClick={() => {
                 closeModal();
-                setTempData(tempCoupon);
+                if (Object.keys(tempCoupon).length !== 0) {
+                  setTempData(tempCoupon);
+                }
               }}
             >
               關閉

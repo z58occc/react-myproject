@@ -1,11 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState,useContext } from "react";
 import axios from "axios";
 import { Modal } from "bootstrap";
 import CouponModal from "../../components/CouponModal";
 import DeleteModal from "../../components/DeleteModal";
 import Pagination from "../../components/Pagination";
+import {
+  MessageContext,
+  handleErrorMessage,
+} from "../../contexts/MessageContext";
 
 function AdminCoupons() {
+  const [, dispatch] = useContext(MessageContext);
   const [coupons, setCoupons] = useState([]);
   const [pagination, setPagination] = useState({});
 
@@ -59,7 +64,9 @@ function AdminCoupons() {
         getCoupons();
         deleteModal.current.hide();
       }
-    } catch (error) {}
+    } catch (error) {
+      handleErrorMessage(dispatch, error);
+    }
   };
   return (
     <div className="p-3">

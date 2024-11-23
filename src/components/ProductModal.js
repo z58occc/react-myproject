@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   MessageContext,
   handleSuccessMessage,
@@ -7,6 +7,8 @@ import {
 } from "../contexts/MessageContext";
 
 function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
+  const saveBtnRef = useRef(null);
+  const firstImgRef = useRef(null);
   //  取出token
   const token = document.cookie
     .split("; ")
@@ -78,6 +80,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
   };
 
   const submit = async () => {
+    saveBtnRef.current.setAttribute('disabled', '');
     try {
       let api = `/v2/api/${process.env.REACT_APP_API_PATH}/admin/product`;
       let method = "post";
@@ -94,6 +97,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
     } catch (error) {
       handleErrorMessage(dispatch, error);
     }
+    saveBtnRef.current.removeAttribute('disabled');
   };
   const uploadFile = async (e) => {
     const { name, files } = e.target;
@@ -129,19 +133,15 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
         });
       }
     } catch (error) {
-      
       handleErrorMessage(dispatch, error);
-
-     }
+    }
   };
 
   useEffect(() => {
     const inputs = document.querySelectorAll('input[type="number"]');
-
     const handleWheel = (e) => {
       e.preventDefault();
     };
-
     inputs.forEach((input) => {
       // 為每個 input 添加非 passive 的事件監聽器
       input.addEventListener("wheel", handleWheel, { passive: false });
@@ -174,13 +174,17 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
               aria-label="Close"
               onClick={() => {
                 closeProductModal();
-                setTempData(tempProduct);
+                firstImgRef.current.value = '';
+                if (Object.keys(tempProduct).length !== 0) {
+                  setTempData(tempProduct);
+                }
               }}
             />
           </div>
           <div className="modal-body">
             <div className="row">
               <div className="col-sm-4">
+
                 <div className="form-group mb-5">
                   <label className="w-100 " htmlFor="image">
                     輸入主圖網址
@@ -191,6 +195,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       placeholder="請輸入圖片連結"
                       className="form-control"
                       onChange={handleChange}
+                      value={tempData.imageUrl}
                     />
                   </label>
                   <div className="form-group ">
@@ -200,157 +205,47 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       className="form-control"
                       name="imageUrl"
                       onChange={(e) => uploadFile(e)}
+                      ref={firstImgRef}
                     />
                   </div>
                   {tempData.imageUrl && (
                     <img className="w-100" src={tempData.imageUrl} alt="..." />
                   )}
                 </div>
-                <div className="form-group mb-5">
-                  <label className="w-100" htmlFor="image">
-                    輸入圖片網址 1
-                    <input
-                      type="text"
-                      name="0"
-                      id="image"
-                      placeholder="請輸入圖片連結"
-                      className="form-control"
-                      onChange={hadleChangeImages}
-                    />
-                  </label>
-                  <div className="form-group ">
-                    <input
-                      type="file"
-                      id="customFile"
-                      className="form-control"
-                      name="0"
-                      onChange={(e) => uploadFile(e)}
-                    />
+                {tempData?.imagesUrl?.map((imageurl, i) =>
+                (
+                  <div key={i} className="form-group mb-5">
+                    <label className="w-100" htmlFor="image">
+                      輸入圖片網址 {i + 1}
+                      <input
+                        type="text"
+                        name={i}
+                        id="image"
+                        placeholder="請輸入圖片連結"
+                        className="form-control"
+                        onChange={hadleChangeImages}
+                        value={imageurl}
+                      />
+                    </label>
+                    <div className="form-group ">
+                      <input
+                        type="file"
+                        id="customFile"
+                        className="form-control"
+                        name={i}
+                        onChange={(e) => uploadFile(e)}
+                      />
+                    </div>
+                    {tempData?.imagesUrl?.[i] && (
+                      <img
+                        className="w-100"
+                        src={tempData?.imagesUrl?.[i]}
+                        alt="..."
+                      />
+                    )}
                   </div>
-                  {tempData?.imagesUrl?.[0] && (
-                    <img
-                      className="w-100"
-                      src={tempData?.imagesUrl?.[0]}
-                      alt="..."
-                    />
-                  )}
-                </div>
-                <div className="form-group mb-5">
-                  <label className="w-100" htmlFor="image">
-                    輸入圖片網址 2
-                    <input
-                      type="text"
-                      name="1"
-                      id="image"
-                      placeholder="請輸入圖片連結"
-                      className="form-control"
-                      onChange={hadleChangeImages}
-                    />
-                  </label>
-                  <div className="form-group ">
-                    <input
-                      type="file"
-                      id="customFile"
-                      className="form-control"
-                      name="1"
-                      onChange={(e) => uploadFile(e)}
-                    />
-                  </div>
-                  {tempData.imagesUrl?.[1] && (
-                    <img
-                      className="w-100"
-                      src={tempData.imagesUrl?.[1]}
-                      alt="..."
-                    />
-                  )}
-                </div>
-                <div className="form-group mb-5">
-                  <label className="w-100" htmlFor="image">
-                    輸入圖片網址 3
-                    <input
-                      type="text"
-                      name="2"
-                      id="image"
-                      placeholder="請輸入圖片連結"
-                      className="form-control"
-                      onChange={hadleChangeImages}
-                    />
-                  </label>
-                  <div className="form-group ">
-                    <input
-                      type="file"
-                      id="customFile"
-                      className="form-control"
-                      name="2"
-                      onChange={(e) => uploadFile(e)}
-                    />
-                  </div>
-                  {tempData.imagesUrl?.[2] && (
-                    <img
-                      className="w-100"
-                      src={tempData.imagesUrl?.[2]}
-                      alt="..."
-                    />
-                  )}
-                </div>
-                <div className="form-group mb-5">
-                  <label className="w-100" htmlFor="image">
-                    輸入圖片網址 4
-                    <input
-                      type="text"
-                      name="3"
-                      id="image"
-                      placeholder="請輸入圖片連結"
-                      className="form-control"
-                      onChange={hadleChangeImages}
-                    />
-                  </label>
-                  <div className="form-group ">
-                    <input
-                      type="file"
-                      id="customFile"
-                      className="form-control"
-                      name="3"
-                      onChange={(e) => uploadFile(e)}
-                    />
-                  </div>
-                  {tempData.imagesUrl?.[3] && (
-                    <img
-                      className="w-100"
-                      src={tempData.imagesUrl?.[3]}
-                      alt="..."
-                    />
-                  )}
-                </div>
-                <div className="form-group mb-5">
-                  <label className="w-100" htmlFor="image">
-                    輸入圖片網址 5
-                    <input
-                      type="text"
-                      name="4"
-                      id="image"
-                      placeholder="請輸入圖片連結"
-                      className="form-control"
-                      onChange={hadleChangeImages}
-                    />
-                  </label>
-                  <div className="form-group ">
-                    <input
-                      type="file"
-                      id="customFile"
-                      className="form-control"
-                      name="4"
-                      onChange={(e) => uploadFile(e)}
-                    />
-                  </div>
-                  {tempData.imagesUrl?.[4] && (
-                    <img
-                      className="w-100"
-                      src={tempData.imagesUrl?.[4]}
-                      alt="..."
-                    />
-                  )}
-                </div>
+                )
+                )}
               </div>
               <div className="col-sm-8">
                 <div className="form-group mb-2">
@@ -488,7 +383,10 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                     className="btn btn-secondary"
                     onClick={() => {
                       closeProductModal();
-                      setTempData(tempProduct);
+                      firstImgRef.current.value = '';
+                      if (!Object.keys(tempProduct).length === 0) {
+                        setTempData(tempProduct);
+                      }
                     }}
                   >
                     關閉
@@ -497,6 +395,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                     type="button"
                     className="btn btn-primary"
                     onClick={submit}
+                    ref={saveBtnRef}
                   >
                     儲存
                   </button>

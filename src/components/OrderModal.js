@@ -92,7 +92,12 @@ function OrderModal({ closeOrderModal, getOrders, tempOrder }) {
               type="button"
               className="btn-close"
               aria-label="Close"
-              onClick={closeOrderModal}
+              onClick={() => {
+                closeOrderModal();
+                if (Object.keys(tempOrder) !== 0) {
+                  setTempData(tempOrder);
+                }
+              }}
             />
           </div>
           <div className="modal-body">
@@ -206,7 +211,12 @@ function OrderModal({ closeOrderModal, getOrders, tempOrder }) {
             <button
               type="button"
               className="btn btn-secondary"
-              onClick={closeOrderModal}
+              onClick={() => {
+                closeOrderModal();
+                if (Object.keys(tempOrder) !== 0) {
+                  setTempData(tempOrder);
+                }
+              }}
             >
               關閉
             </button>

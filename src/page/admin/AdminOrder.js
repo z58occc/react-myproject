@@ -4,13 +4,12 @@ import { Modal } from "bootstrap";
 import moment from "moment";
 import OrderModal from "../../components/OrderModal";
 import Pagination from "../../components/Pagination";
-import DeleteModal from "../../components/DeleteModal";
 
 function AdminOrders() {
+  // const [, dispatch] = useContext(MessageContext);
   const [orders, setOrders] = useState([]);
   const [tempOrder, setTempOrder] = useState({});
   const orderModal = useRef(null);
-  const deleteModal = useRef(null);
   const [pagination, setPagination] = useState({});
 
   const getOrders = async (page = 1) => {
@@ -25,11 +24,6 @@ function AdminOrders() {
     orderModal.current = new Modal("#orderModal", {
       backdrop: "static",
     });
-
-    deleteModal.current = new Modal("#deleteModal", {
-      backdrop: "static",
-    });
-
     getOrders();
   }, []);
 
@@ -42,22 +36,7 @@ function AdminOrders() {
     orderModal.current.hide();
   };
 
-  const closeDeleteModal = () => {
-    deleteModal.current.hide();
-  };
-
-  const deleteOrder = async (id) => {
-    try {
-      const res = await axios.delete(
-        `/v2/api/${process.env.REACT_APP_API_PATH}/admin/order/${id}`,
-      );
-      if (res.data.success) {
-        getOrders();
-        deleteModal.current.hide();
-      }
-    } catch (error) {}
-  };
-
+  
   return (
     <>
       <OrderModal
@@ -65,12 +44,6 @@ function AdminOrders() {
         closeOrderModal={closeOrderModal}
         tempOrder={tempOrder}
         getOrders={getOrders}
-      />
-      <DeleteModal
-        close={closeDeleteModal}
-        text={tempOrder.title}
-        handleDelete={deleteOrder}
-        id={tempOrder.id}
       />
       {/* Products */}
       <div className="p-3">

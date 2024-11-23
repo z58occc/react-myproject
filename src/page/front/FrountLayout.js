@@ -1,10 +1,17 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import Navbar from "../../components/Navbar";
 import MessageToast from "../../components/MessageToast";
+import { createAsyncMessage } from "../../slice/messageSlice";
+
+
+
 
 function FrountLayout() {
+  const dispatch = useDispatch();
+
   const [cartData, setCartData] = useState({});
   const getCart = async () => {
     try {
@@ -12,7 +19,9 @@ function FrountLayout() {
         `/v2/api/${process.env.REACT_APP_API_PATH}/cart`,
       );
       setCartData(res.data.data);
-    } catch (error) {}
+    } catch (error) {
+      dispatch(createAsyncMessage(error.response.data));
+    }
   };
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { Tooltip } from "bootstrap";
 import Swal from "sweetalert2";
 import { createAsyncMessage } from "../../slice/messageSlice";
 
+
 function Cart() {
   const { cartData, getCart } = useOutletContext();
   const [loadingItems, setLoadingItem] = useState([]);
@@ -50,7 +51,7 @@ function Cart() {
       couponCodeRef.current.value = '';
       getCart();
     } catch (error) {
-
+      dispatch(createAsyncMessage(error.response.data));
     }
   };
 
@@ -74,14 +75,18 @@ function Cart() {
         `/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,
       );
       getCart();
-    } catch (error) { }
+    } catch (error) {
+      dispatch(createAsyncMessage(error.response.data));
+     }
   };
   const removeCartAll = async () => {
     try {
       clearCartRef.current.setAttribute('disabled', '');
       await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`);
       getCart();
-    } catch (error) { }
+    } catch (error) {
+      dispatch(createAsyncMessage(error.response.data));
+     }
   };
 
   const updateCartItem = async (item, quantity) => {
@@ -129,7 +134,6 @@ function Cart() {
   };
 
   const checkCart = () => {
-    console.log(cartData.carts);
     
     if (!cartData.carts.every((item) => item.hasOwnProperty("coupon"))) {
       //   cartData有資料沒套用coupon
