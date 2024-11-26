@@ -23,7 +23,7 @@ function SearchBar() {
   return (
     <>
       <input
-        className="form-control  me-2"
+        className="form-control  me-2 w-50 "
         type="search"
         placeholder="搜尋產品名稱"
         aria-label="Search"

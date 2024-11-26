@@ -38,6 +38,10 @@ function Navbar({ cartData }) {
     });
   }, []);
 
+  useEffect(()=>{
+    window.addEventListener('click',hideCollapse);
+  },[]);
+
   return (
     <div
       className=" sticky-top "
@@ -115,16 +119,19 @@ function Navbar({ cartData }) {
             </li>
           </ul>
         </div>
-        <div className="d-flex me-5">
+        <div className="d-flex me-lg-5 justify-content-end ">
           <SearchBar />        
           <NavLink to="./buylater" >
-            <i className="bi bi-bookmark-star-fill ms-5  me-5 text-black"
+            <i className="bi bi-bookmark-star-fill ms-lg-5 ms-3 me-3  me-lg-5 text-black"
               style={{
                 fontSize: "25px",
               }}
             />
           </NavLink>
-          <NavLink to="/cart" className="nav-link position-relative me-5">
+          <NavLink to="/cart" className="nav-link position-relative me-lg-5 me-3"
+          style={{
+            marginRight:'0px'
+          }}>
             <i
               className="bi bi-cart-fill "
               style={{

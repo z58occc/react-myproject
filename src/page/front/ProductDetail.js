@@ -19,6 +19,7 @@ function ProdeuctDetail() {
   const imgRef = useRef("");
   const [tempSrc, setTempSrc] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const [startX, setStartX] = useState(0);
 
 
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -70,21 +71,21 @@ function ProdeuctDetail() {
     imgRef.current.src = src;
   };
   const nextImg = () => {
-    let index=product.imagesUrl.findIndex((imageUrl) => imageUrl === imgRef.current.src);
-    if(index+1>4){
-      index=-1;
-    }    
-    setTempSrc(product.imagesUrl[index+1]);
-    imgRef.current.src=product.imagesUrl[index+1];
+    let index = product.imagesUrl.findIndex((imageUrl) => imageUrl === imgRef.current.src);
+    if (index + 1 > 4) {
+      index = -1;
+    }
+    setTempSrc(product.imagesUrl[index + 1]);
+    imgRef.current.src = product.imagesUrl[index + 1];
   };
   const lastImg = () => {
-    let index=product.imagesUrl.findIndex((imageUrl) => imageUrl === imgRef.current.src);
-    
-    if(index===0){
-      index=5;
+    let index = product.imagesUrl.findIndex((imageUrl) => imageUrl === imgRef.current.src);
+
+    if (index === 0) {
+      index = 5;
     }
-    setTempSrc(product.imagesUrl[index-1]);
-    imgRef.current.src=product.imagesUrl[index-1];
+    setTempSrc(product.imagesUrl[index - 1]);
+    imgRef.current.src = product.imagesUrl[index - 1];
   };
 
 
@@ -96,8 +97,8 @@ function ProdeuctDetail() {
         `/v2/api/${process.env.REACT_APP_API_PATH}/product/${id}`,
       );
       setLoading(false);
-      
-      
+
+
 
       setProducts(productRes.data.product);
       setTempSrc(productRes.data.product.imagesUrl[0]);
@@ -118,6 +119,15 @@ function ProdeuctDetail() {
     };
     getProduct(id);
   }, [id, inFavorites]);
+
+  const touchImg = (e) => {
+    const diff = e.changedTouches[0].clientX - startX;
+    if(diff<0){
+      nextImg();
+    }else{
+      lastImg();
+    }
+  };
 
   return (
     <>
@@ -148,16 +158,6 @@ function ProdeuctDetail() {
               <h2 className=" mb-0 text-primary">{product.title}</h2>
               <h1 className="fw-bold text-primary">NT$ {product?.price?.toLocaleString()}</h1>
             </div>
-            {/* <div className="product-img">
-              <img
-                alt="product.jpg"
-                src={product?.imageUrl}
-                className="img-fluid object-cover w-100 mb-5"
-                style={{
-                  height: "250px",
-                }}
-              />
-            </div> */}
             <div className="add-to-cart">
               <p>{product.description}</p>
               <div className="input-group mb-3 border mt-3">
@@ -202,7 +202,7 @@ function ProdeuctDetail() {
                   onClick={() => addToCart()}
                   disabled={isLoadingCart}
                   style={{
-                    borderRadius:'100px'
+                    borderRadius: '100px'
                   }}
                 >
                   加入購物車
@@ -213,7 +213,7 @@ function ProdeuctDetail() {
                   className="btn btn-secondary mt-1 "
                   onClick={() => addFavorite(product)}
                   style={{
-                    borderRadius:'100px'
+                    borderRadius: '100px'
                   }}
                 >
                   加入收藏清單
@@ -226,29 +226,32 @@ function ProdeuctDetail() {
             justify-content-center
             "
             >
-              <i className="bi bi-caret-left-fill text-primary"
+              <i className="bi bi-caret-left-fill text-primary d-lg-flex"
                 style={{
-                  marginTop:'220px',
+                  marginTop: '220px',
                   fontSize: '60px',
-                  cursor:'pointer'
+                  cursor: 'pointer',
+                  display: 'none'
                 }}
                 onClick={lastImg}
               />
               <img
                 alt="product-big-image"
                 src={product?.imagesUrl?.[0]}
-                className=" object-cover "
+                className="product-primary-image object-cover "
                 style={{
                   height: "500px",
-                  minWidth: "750px"
                 }}
                 ref={imgRef}
+                onTouchStart={(e) => setStartX(e.changedTouches[0].clientX)}
+                onTouchEnd={(e) => touchImg(e)}
               />
-              <i className="bi bi-caret-right-fill text-primary"
+              <i className="bi bi-caret-right-fill text-primary d-lg-flex"
                 style={{
-                  marginTop:'220px',
+                  marginTop: '220px',
                   fontSize: '60px',
-                  cursor:'pointer'
+                  cursor: 'pointer',
+                  display: 'none'
                 }}
                 onClick={nextImg}
               />

@@ -333,7 +333,7 @@ function BuyLater() {
                         <button
                           type="button"
                           href="./checkout.html"
-                          className="nexttime-button w-50 btn btn-dark  rounded py-3"
+                          className="nexttime-button w-50 btn btn-dark  rounded "
                           onClick={() => addToCart(myFavorite)}
                           disabled={isLoadingCart}
                         >

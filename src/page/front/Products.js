@@ -75,13 +75,9 @@ function Products() {
       getProductsAll();
     } else if (category) {
       const ChangeType = async () => {
-        setLoading(true);
-        const typeRes = await axios.get(
-          `/v2/api/${process.env.REACT_APP_API_PATH}/products?category=${category}`,
-        );
-        setProducts(typeRes.data.products);
-        setPagination(typeRes.data.pagination);
-        setLoading(false);
+        const els= document.querySelectorAll('label');
+        const type=Array.from(els).filter(el=>el.htmlFor===category);
+        type[0].click();        
       };
       ChangeType();
     }
