@@ -235,7 +235,7 @@ function ProdeuctDetail() {
                 onClick={lastImg}
               />
               <img
-                alt="product.jpg"
+                alt="product-big-image"
                 src={product?.imagesUrl?.[0]}
                 className=" object-cover "
                 style={{
@@ -263,7 +263,7 @@ function ProdeuctDetail() {
                   <img
                     src={`${img}`}
                     className={`${img === tempSrc ? "outline" : ""} w-100 mt-3 object-cover`}
-                    alt="..."
+                    alt={`product-other-image-${i}`}
                     style={{
                       height: "100px",
                       cursor: "pointer",

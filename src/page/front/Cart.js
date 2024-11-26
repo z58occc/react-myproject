@@ -20,6 +20,12 @@ function Cart() {
   const reduceBtnRef = useRef(null);
   const couponCodeRef = useRef(null);
 
+  const chooseCoupon = (e) => {
+    const { id } = e.target;
+    couponCodeRef.current.value = id;
+    setCouponCode(id);
+  };
+
   const handleCoupon = (e) => {
     const { value } = e.target;
     setCouponCode(value);
@@ -255,7 +261,7 @@ function Cart() {
                       <img
                         className="object-cover"
                         src={item.product.imageUrl}
-                        alt=""
+                        alt={item.product.title}
                         style={{ width: "100px", height: "120px" }}
                       />
                     </Link>
@@ -374,7 +380,7 @@ function Cart() {
               <div className="d-flex justify-content-end">
                 <button
                   type="button"
-                  className="btn btn-primary float-end mt-3"
+                  className="btn btn-primary float-end mt-3 hint"
                   data-bs-toggle="tooltip"
                   data-bs-html="true"
                   title="
@@ -382,9 +388,20 @@ function Cart() {
                                 <div>8折優惠券：discount80</div>
                                 <div>7折優惠券：discount70</div>
                             "
+                  // data-bs-trigger='click hover focus'
                 >
                   查看折扣碼
                 </button>
+                <div className="dropdown float-end mt-3 choose-coupon d-lg-none">
+                  <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    選取折扣碼
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><span className="dropdown-item" id='discount90' onClick={(e) => chooseCoupon(e)}>9折優惠券：discount90</span></li>
+                    <li><span className="dropdown-item" id='discount80' onClick={(e) => chooseCoupon(e)}>8折優惠券：discount80</span></li>
+                    <li><span className="dropdown-item" id='discount70' onClick={(e) => chooseCoupon(e)}>7折優惠券：discount70</span></li>
+                  </ul>
+                </div>
                 <button type="button"
                   className="btn btn-secondary float-end mt-3 ms-3"
                   onClick={removeCoupon}

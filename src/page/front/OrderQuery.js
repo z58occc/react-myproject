@@ -80,7 +80,7 @@ function OrderQuery() {
       <div className=" text-center mt-5">
         <img
           src={search}
-          alt=""
+          alt="There is a question mark on a person's head"
           className="order-query-img "
           style={{
             borderRadius: "10%",

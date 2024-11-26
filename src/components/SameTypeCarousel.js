@@ -15,7 +15,7 @@ function SameTypeCarousel({ sameProducts }) {
           <div
             className="row border border-bottom-0 border-top border-start-0 border-end-0"
           >
-            {sameProducts?.slice(0, 4).map((product) => (
+            {sameProducts?.slice(0, 4).map((product,i) => (
               <div key={product.id} className="col-md-3 mt-3">
                 <div className="card border-0 mb-4  position-relative position-relative">
                   <Link
@@ -26,7 +26,7 @@ function SameTypeCarousel({ sameProducts }) {
                       style={{ height: "150px" }}
                       src={product.imageUrl}
                       className="card-img-top rounded-0 object-cover"
-                      alt="..."
+                      alt={`same-type-product-${i}`}
                     />
 
                     <div className="card-body p-0">
@@ -44,7 +44,7 @@ function SameTypeCarousel({ sameProducts }) {
               className="row
                         border border-bottom-0 border-top border-start-0 border-end-0"
             >
-              {sameProducts?.slice(4, 8).map((product) => (
+              {sameProducts?.slice(4, 8).map((product,i) => (
                 <div key={product.id} className="col-md-3 mt-3">
                   <div className="card border-0 mb-4  position-relative position-relative">
                     <Link
@@ -55,8 +55,8 @@ function SameTypeCarousel({ sameProducts }) {
                         style={{ height: "150px" }}
                         src={product.imageUrl}
                         className="card-img-top rounded-0 object-cover"
-                        alt="..."
-                      />
+                        alt={`same-type-product-${i+4}`}
+                        />
 
                       <div className="card-body p-0">
                         <h4 className="mb-0 mt-2 text-center">

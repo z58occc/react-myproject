@@ -220,7 +220,7 @@ function Products() {
                     height={300}
                     src={product.imageUrl}
                     className="card-img-top rounded-0 object-cover"
-                    alt="..."
+                    alt={product.title}
                   />
 
                   <div className="d-flex justify-content-between card-body p-0">

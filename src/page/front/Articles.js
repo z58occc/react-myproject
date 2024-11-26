@@ -52,7 +52,7 @@ function Articles() {
   return (
     <div className=" container mb-10">
       <Loading isLoading={isLoading} />
-      {articles.map((article) => (
+      {articles.map((article,i) => (
         <div className="row mt-5" key={article.id}>
           <div className="col-sm-4">
             <Link
@@ -64,7 +64,7 @@ function Articles() {
               <img
                 className="img-fluid object-cover w-100"
                 src={article.image}
-                alt=""
+                alt={`article-image-${i}`}
                 style={{
                   height: "300px",
                 }}

@@ -152,7 +152,7 @@ function Checkout() {
                   <div>
                     <img
                       src={item.product.imageUrl}
-                      alt="..."
+                      alt={item.product.title}
                       className="me-2 "
                       style={{
                         width: "48px",

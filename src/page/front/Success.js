@@ -117,7 +117,7 @@ function Success() {
                         <div>
                           <img
                             src={item.product.imageUrl}
-                            alt=""
+                            alt="two people shaking hands"
                             className="me-2"
                             style={{
                               width: "60px",

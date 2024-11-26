@@ -134,6 +134,10 @@ li > .active {
 }
 @include media-breakpoint-down(lg){
     //RWD
+    
+    .hint{
+      display: none;
+    }
   
     .checkout-button {
       text-align: center;

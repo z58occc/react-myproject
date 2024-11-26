@@ -85,7 +85,7 @@ function Carousel({ products }) {
                   ref={imgRef}
                   src={products[0]?.imageUrl}
                   className="object-cover d-block "
-                  alt="..."
+                  alt="product-primary-image"
                   style={{
                     width: '750px'
                   }}
@@ -110,7 +110,7 @@ function Carousel({ products }) {
                   <div className="col-6 g-3  " key={i}>
                     <img
                       src={img}
-                      alt=""
+                      alt="product-other-image"
                       style={{
                         height: "100px",
                         width: "100%",
@@ -143,7 +143,7 @@ function Carousel({ products }) {
                   <img
                     src={product.imageUrl}
                     className="object-cover d-block "
-                    alt="..."
+                    alt="product-primary-image"
                     ref={(e) => {
                       otherImgRef.current[i] = e;
                       return otherImgRef.current[i];
@@ -174,7 +174,7 @@ function Carousel({ products }) {
                     <div className="col-6 g-3    " key={i}>
                       <img
                         src={img}
-                        alt=""
+                        alt="product-other-image"
                         style={{
                           height: "100px",
                           width: "100%",

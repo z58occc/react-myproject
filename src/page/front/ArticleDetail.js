@@ -126,7 +126,7 @@ function ArticleDetail() {
               <img
                 className="img-fluid object-cover w-100 mt-3"
                 src={article.image}
-                alt=""
+                alt="primary-image"
                 style={{
                   height: "500px",
                 }}
@@ -220,7 +220,7 @@ function ArticleDetail() {
                 NEW ARTICLES
               </b>
             </h3>
-            {articleAll?.slice(0, 5).map((article) => (
+            {articleAll?.slice(0, 5).map((article,i) => (
               <Link
                 to={`/article/${article.id}`}
                 style={{
@@ -233,7 +233,7 @@ function ArticleDetail() {
                   <div className="col-4">
                     <img
                       src={article.image}
-                      alt=""
+                      alt={`newest-article-image-${i}`}
                       style={{
                         width: "87px",
                         height: "63px",

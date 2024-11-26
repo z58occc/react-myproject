@@ -209,7 +209,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                     />
                   </div>
                   {tempData.imageUrl && (
-                    <img className="w-100" src={tempData.imageUrl} alt="..." />
+                    <img className="w-100" src={tempData.imageUrl} alt="primary-image" />
                   )}
                 </div>
                 {tempData?.imagesUrl?.map((imageurl, i) =>
@@ -240,7 +240,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                       <img
                         className="w-100"
                         src={tempData?.imagesUrl?.[i]}
-                        alt="..."
+                        alt={`other-image-${i}`}
                       />
                     )}
                   </div>

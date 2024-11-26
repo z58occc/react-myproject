@@ -294,7 +294,7 @@ function BuyLater() {
                       <Link to={`/product/${myFavorite.id}`}>
                         <img
                           src={myFavorite.imageUrl}
-                          alt=""
+                          alt={myFavorite.title}
                           style={{
                             height: "100px",
                             width: "100px",
