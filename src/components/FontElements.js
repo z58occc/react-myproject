@@ -8,7 +8,7 @@ export const CheckboxRadio = ({
   value,
   name,
 }) => (
-  <>
+  
     <div className="form-check">
       <input
         className={`form-check-input ${errors[name] && "is-invalid"}`}
@@ -26,7 +26,7 @@ export const CheckboxRadio = ({
         <div className="invalid-feedback">{errors[name]?.message}</div>
       )}
     </div>
-  </>
+  
 );
 
 export const Input = ({ id, labelText, register, type, errors, rules,placeholder}) => (

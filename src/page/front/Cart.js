@@ -167,16 +167,16 @@ function Cart() {
 
   const checkCart = () => {
 
-    if (!cartData.carts.every((item) => item.hasOwnProperty("coupon"))) {
+    if (!cartData.carts.every((item) => item.hasOwnProperty.call(item,"coupon"))) {
       //   cartData有資料沒套用coupon
-      if (cartData.carts.every((item) => !item.hasOwnProperty("coupon"))) {
+      if (cartData.carts.every((item) => !item.hasOwnProperty.call(item,"coupon"))) {
         //   cartData全都沒套用coupon
         navigate("./checkout");
       } else {
         //  cartData中coupon未全部套用
         Swal.fire({
           title: "有商品還未使用優惠券喔！！",
-          html: "<div><small>目前購物車內有符合條件之商品尚未使用優惠券</small></div> <div><small>若要使用優惠 請清空購物車後重新操作</small></div>",
+          html: "<div><small>目前購物車內有符合條件之商品尚未使用優惠券</small></div> <div><small>若要使用優惠 請移除優惠券後重新操作</small></div>",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
