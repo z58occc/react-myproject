@@ -16,7 +16,7 @@ import Cart from "./page/front/Cart";
 import Checkout from "./page/front/Checkout";
 import Success from "./page/front/Success";
 import ScrollToTop from "./components/ScrollToTop";
-import BuyLater from "./page/front/BuyLater";
+import FavoritesList from "./page/front/FavoritesList";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route path="articles" element={<Articles />} />
           <Route path="articles/:tag" element={<Articles />} />
           <Route path="orderQuery" element={<OrderQuery />} />
-          <Route path="BuyLater" element={<BuyLater />} />
+          <Route path="favoriteslist" element={<FavoritesList />} />
           <Route path="products/:searchWord" element={<Products />} />
           <Route path="product/:id" element={<ProdeuctDetail />} />
           <Route path="article/:id" element={<ArticleDetail />} />

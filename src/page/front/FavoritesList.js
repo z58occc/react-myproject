@@ -6,7 +6,7 @@ import { Modal } from "bootstrap";
 import { createAsyncMessage } from "../../slice/messageSlice";
 import FilterModal from "../../components/FilterModal";
 
-function BuyLater() {
+function FavoritesList() {
   const [myFavorites, setMyFavorites] = useState([]);
   const [isLoadingCart, setIsLoadingCart] = useState(false);
   const cartQuantity = 1;
@@ -359,4 +359,4 @@ function BuyLater() {
   );
 }
 
-export default BuyLater;
+export default FavoritesList;
