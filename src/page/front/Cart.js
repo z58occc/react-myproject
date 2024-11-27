@@ -149,15 +149,15 @@ function Cart() {
   };
   const addFavorite = (item) => {
     const { product, id } = item;
-    let alreadyExists = false;
+    let FavInList = false;
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     for (let index = 0; index < favorites.length; index++) {
       if (favorites[index].id === product.id) {
-        alreadyExists = true;
+        FavInList = true;
         break;
       }
     }
-    if (!alreadyExists) {
+    if (!FavInList) {
       favorites.push(product);
     }
 
@@ -388,7 +388,6 @@ function Cart() {
                                 <div>8折優惠券：discount80</div>
                                 <div>7折優惠券：discount70</div>
                             "
-                  // data-bs-trigger='click hover focus'
                 >
                   查看折扣碼
                 </button>

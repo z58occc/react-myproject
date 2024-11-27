@@ -6,7 +6,6 @@ import OrderModal from "../../components/OrderModal";
 import Pagination from "../../components/Pagination";
 
 function AdminOrders() {
-  // const [, dispatch] = useContext(MessageContext);
   const [orders, setOrders] = useState([]);
   const [tempOrder, setTempOrder] = useState({});
   const orderModal = useRef(null);

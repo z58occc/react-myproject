@@ -19,7 +19,7 @@ function ProdeuctDetail() {
   const imgRef = useRef("");
   const [tempSrc, setTempSrc] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [startX, setStartX] = useState(0);
+  const [startX, setStartX] = useState(0);//  X 起始的X座標
 
 
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];

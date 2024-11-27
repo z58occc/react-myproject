@@ -185,17 +185,14 @@ function Checkout() {
                       <p
                         className={`${item.total !== item.final_total
                           ? "text-secondary fs-7 text-decoration-line-through"
-                          : ""
-                          }
-                                                            mb-0`}
+                          : ""  }mb-0`}
                       >
                         NT${item.total}
                       </p>
                     </div>
                     <div
                       className={`${item.total === item.final_total ? "d-none" : ""
-                        }
-                                                            text-end`}
+                        } text-end`}
                     >
                       NT${item.final_total}
                     </div>

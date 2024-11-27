@@ -7,14 +7,7 @@
   z-index: 0;
 }
 
-.sameType>button {
-  width: 10px !important;
-  /* 小圆点的宽度 */
-  height: 10px !important;
-  /* 小圆点的高度 */
-  border-radius: 50% !important;
-  /* 设为圆形 */
-}
+
 
 .sameType>.carousel-control-prev-icon {
   position: absolute;
@@ -145,29 +138,24 @@ li>.active {
     width: 100%;
   }
 
-  .hint {
+  .hint,
+  .favorite-checkbox,
+  .favorite-img,
+  .favorite-description,
+  .favorite-th,
+  .logo,
+  .carousel,
+  .home-article-description,
+  .latest-articles,
+  .favorite-all-choose {
     display: none;
   }
+  // 手機版隱藏
 
   .checkout-button {
     text-align: center;
   }
 
-  .favorite-checkbox {
-    display: none;
-  }
-
-  .favorite-img {
-    display: none;
-  }
-
-  .favorite-description {
-    display: none;
-  }
-
-  .favorite-th {
-    display: none;
-  }
 
   li>.nav-link {
     border-bottom: solid;
@@ -175,25 +163,12 @@ li>.active {
     color: black !important;
   }
 
-  .logo {
-    display: none;
-  }
 
   .homepage {
     display: block;
   }
 
-  .hero-image {
-    display: none;
-  }
 
-  .carousel {
-    display: none;
-  }
-
-  .home-article-description {
-    display: none;
-  }
 
   .product-description,
   .article-title,
@@ -246,9 +221,6 @@ li>.active {
     width: 300px;
   }
 
-  .favorite-all-choose {
-    display: none;
-  }
 
 }
 
@@ -298,10 +270,4 @@ li>.active {
   color: white;
   text-align: center;
   display: inline-block;
-}
-
-@media (min-width: 768px) and (max-width: 992px) {
-  .checkout-order-data {
-    // font-size: 8px;
-  }
 }

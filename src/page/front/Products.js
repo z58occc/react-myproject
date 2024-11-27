@@ -9,7 +9,7 @@ function Products() {
   const [pagination, setPagination] = useState({});
   const [isLoading, setLoading] = useState(false);
   const { searchWord } = useParams();
-  const regex = new RegExp(searchWord, "i");
+  const regex = new RegExp(searchWord, "i");// regex 正則表達式
   const [searchRes, setSearchRes] = useState(true);
   const [reSearch, setReSearch] = useState("");
   const navigate = useNavigate();
