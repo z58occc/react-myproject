@@ -29,7 +29,7 @@ function App() {
           <Route path="articles" element={<Articles />} />
           <Route path="articles/:tag" element={<Articles />} />
           <Route path="orderQuery" element={<OrderQuery />} />
-          <Route path="favoriteslist" element={<FavoritesList />} />
+          <Route path="favoritesList" element={<FavoritesList />} />
           <Route path="products/:searchWord" element={<Products />} />
           <Route path="product/:id" element={<ProdeuctDetail />} />
           <Route path="article/:id" element={<ArticleDetail />} />

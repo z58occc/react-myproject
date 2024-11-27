@@ -121,7 +121,7 @@ function Navbar({ cartData }) {
         </div>
         <div className="d-flex me-lg-5 justify-content-end ">
           <SearchBar />        
-          <NavLink to="./buylater" >
+          <NavLink to="./favoritesList" >
             <i className="bi bi-bookmark-star-fill ms-lg-5 ms-3 me-3  me-lg-5 text-black"
               style={{
                 fontSize: "25px",
