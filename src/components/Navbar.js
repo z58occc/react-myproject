@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Collapse } from "bootstrap";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import logo from "../assets/images/logo.png";
 
 function Navbar({ cartData }) {
