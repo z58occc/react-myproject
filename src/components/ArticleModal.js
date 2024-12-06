@@ -57,7 +57,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
           [name]: res.data.imageUrl,
         });
       } else {
-        const index = parseInt(e.target.name);
+        const index = parseInt(e.target.name,10);
         setTempData({
           ...tempData,
           imagesUrl: tempData.imagesUrl.map((item, i) =>
@@ -89,7 +89,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
       setTempData(tempArticle);
       imgUrlRef.current.value = tempData?.image;
     }
-  }, [type, tempArticle]);
+  }, [type, tempArticle,tempData?.image]);
 
   const handleChange = (e) => {
     const { value, name, checked } = e.target;
