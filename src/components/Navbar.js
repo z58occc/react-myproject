@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Collapse } from "bootstrap";
 import SearchBar from "./SearchBar";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo2.png";
 
 function Navbar({ cartData }) {
   const navCollapse = useRef(null);
