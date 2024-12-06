@@ -3,16 +3,23 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Carousel from "../../components/Carousel";
 import Loading from "../../components/Loading";
+import Slogan from "../../assets/images/wesson-wang-y0_vFxOHayg-unsplash.jpg";
+import GameConsole from "../../assets/images/brandon-romanchuk-gFFhJPuERII-unsplash.jpg";
+import Controller from "../../assets/images/rama-laksono-vvj5CpGPl28-unsplash.jpg";
+import Apple from "../../assets/images/sumudu-mohottige-bIgpii04UIg-unsplash.jpg";
+import Others from "../../assets/images/jakub-zerdzicki-vkFGfJ-5Nbw-unsplash.jpg";
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const randomNum = Math.floor(Math.random() * 6);
+  
 
 
 
   useEffect(() => {
+    
     const getProducts = async (page = 1) => {
       setLoading(true);
       const productRes = await axios.get(
@@ -88,7 +95,7 @@ function Home() {
                 className="carousel-item active"
                 style={{
                   backgroundImage:
-                    'url("https://images.unsplash.com/photo-1468436139062-f60a71c5c892?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
+                    `url(${Slogan})`
                 }}
               >
                 <div className="row justify-content-center py-7 ">
@@ -181,7 +188,7 @@ function Home() {
                 to='/products?category=gameConsole '
               >
                 <img
-                  src="https://images.unsplash.com/photo-1615750206996-69edef655324?q=80&w=2845&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src={GameConsole}
                   className="card-img-top rounded-0 object-cover"
                   alt="type-gameConsole-image"
                   style={{ height: "300px" }}
@@ -199,7 +206,7 @@ function Home() {
                 to='/products?category=controller '
               >
                 <img
-                  src="https://images.unsplash.com/photo-1659101967085-36dc2abaeca7?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src={Controller}
                   className="card-img-top rounded-0 object-cover"
                   alt="type-gameController-image"
                   style={{ height: "300px" }}
@@ -218,7 +225,7 @@ function Home() {
                 to='/products?category=apple '
               >
                 <img
-                  src="https://images.unsplash.com/photo-1685392485351-f7d93de2231e?q=80&w=2795&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src={Apple}
                   className="card-img-top rounded-0 object-cover"
                   alt="type-apple-series-image"
                   style={{ height: "300px" }}
@@ -236,7 +243,7 @@ function Home() {
                 to='/products?category=others'
               >
                 <img
-                  src="https://images.unsplash.com/photo-1706169529392-8685eea83b98?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src={Others}
                   className="card-img-top rounded-0 object-cover"
                   alt="type-other-products-image"
                   style={{ height: "300px" }}

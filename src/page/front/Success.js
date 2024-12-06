@@ -2,6 +2,7 @@ import { useOutletContext, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { Tooltip } from "bootstrap";
+import ShakeHand from "../../assets/images/cytonn-photography-n95VMLxqM2I-unsplash.jpg";
 
 function Success() {
   const { orderId } = useParams();
@@ -53,7 +54,7 @@ function Success() {
         style={{
           minHeight: "400px ",
           backgroundImage:
-            "url(https://images.unsplash.com/photo-1521791136064-7986c2920216?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2MjExMzl8MHwxfHNlYXJjaHw2fHxoYW5kc2hha2V8ZW58MHx8fHwxNzIzNjU1NTU5fDA&ixlib=rb-4.0.3&q=80&w=1080)",
+            `url(${ShakeHand})`,
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
