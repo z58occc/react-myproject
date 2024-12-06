@@ -40,8 +40,8 @@ function AdminProducts() {
     getProducts();
   }, []);
 
-  const openProductModal = (type, product) => {
-    setType(type);
+  const openProductModal = (method, product) => {
+    setType(method);
     setTempProduct(product);
     productModal.current.show();
   };

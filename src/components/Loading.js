@@ -2,7 +2,7 @@ import ReactLoading from "react-loading";
 
 function Loading({ isLoading }) {
   return (
-    <>
+    <div>
       {isLoading && (
         <div
           style={{
@@ -22,7 +22,7 @@ function Loading({ isLoading }) {
           <ReactLoading type="bubbles" color="white" height={60} width={100} />
         </div>
       )}
-    </>
+    </div>
   );
 }
 export default Loading;

@@ -40,9 +40,9 @@ function Products() {
   const handleChangeType = async (e) => {
     setLoading(true);
     const { htmlFor } = e.target;
-    const category = htmlFor;
+    const productCategory = htmlFor;
     const typeRes = await axios.get(
-      `/v2/api/${process.env.REACT_APP_API_PATH}/products?category=${category}`,
+      `/v2/api/${process.env.REACT_APP_API_PATH}/products?category=${productCategory}`,
     );
     setProducts(typeRes.data.products);
     setPagination(typeRes.data.pagination);

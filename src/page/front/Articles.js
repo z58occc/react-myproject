@@ -23,8 +23,8 @@ function Articles() {
 
 
 
-  useEffect(() => {
-    if (tag.tag) {
+  useEffect(() => {    
+    if (tag.tag) {//  可以從articleDetail點擊tag 搜尋該tag的所有文章
       const getTagArticles = async () => {
         setLoading(true);
         const articlesPage1 = await axios.get(
@@ -48,7 +48,7 @@ function Articles() {
     } else {
       getArticles(1);
     }
-  }, []);
+  }, [tag.tag]);
   return (
     <div className=" container mb-10">
       <Loading isLoading={isLoading} />

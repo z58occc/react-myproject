@@ -22,7 +22,7 @@ function SearchBar() {
   };
 
   return (
-    <>
+    
       <input
         className="form-control  me-2 w-50 "
         type="search"
@@ -36,7 +36,7 @@ function SearchBar() {
           borderRadius:'10px'
         }}
       />
-    </>
+    
   );
 }
 

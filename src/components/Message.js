@@ -4,7 +4,7 @@ import { MessageContext } from "../contexts/MessageContext";
 function Message() {
   const [message] = useContext(MessageContext);
   return (
-    <>
+    <div>
       <div
         className="toast-container position-fixed"
         style={{ top: "60px", right: "15px" }}
@@ -30,7 +30,7 @@ function Message() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

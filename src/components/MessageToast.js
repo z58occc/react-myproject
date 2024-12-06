@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 function Message() {
   const messages = useSelector((state) => state.message);
   return (
-    <>
+    <div>
       <div
         className="toast-container position-fixed"
         style={{ top: "60px", right: "15px" }}
@@ -30,7 +30,7 @@ function Message() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

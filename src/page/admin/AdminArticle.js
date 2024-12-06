@@ -23,8 +23,8 @@ function AdminArticle() {
   const articleModal = useRef(null);
   const deleteModal = useRef(null);
 
-  const openArticleModal = async (type, article) => {
-    setType(type);
+  const openArticleModal = async (method, article) => {
+    setType(method);
     setTempArticle(article);
     try {
       const response = await axios.get(

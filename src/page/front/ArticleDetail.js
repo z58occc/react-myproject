@@ -20,16 +20,16 @@ function ArticleDetail() {
     }
   };
 
-  
+
 
   useEffect(() => {
-    const getArticle = async (id) => {
+    const getArticle = async (productId) => {
       setLoading(true);
       const articleRes = await axios.get(
-        `/v2/api/${process.env.REACT_APP_API_PATH}/article/${id}`,
+        `/v2/api/${process.env.REACT_APP_API_PATH}/article/${productId}`,
       );
       setArticle(articleRes.data.article);
-  
+
       const articlesPage1 = await axios.get(
         `/v2/api/${process.env.REACT_APP_API_PATH}/articles`,
       );
@@ -41,8 +41,8 @@ function ArticleDetail() {
         ...articlesPage2.data.articles,
       ];
       setArticleAll(articlesArr);
-  
-      for (let index = 0; index < articlesArr.length; index++) {
+
+      for (let index = 0; index < articlesArr.length; index += 1) {
         if (articlesArr[index].id === articleRes.data.article.id) {
           setArticleNum(articlesArr[index].num);
           break;
@@ -94,12 +94,28 @@ function ArticleDetail() {
                 style={{
                   fontSize: "25px",
                 }}
+                role="button"
+                tabIndex={0}
                 className="ms-2 me-1 font-size"
                 onClick={() => handleContentSize(true)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleContentSize(true);
+                  }
+                }}
               >
                 A
               </b>
-              <b className="font-size" onClick={() => handleContentSize(false)}>
+              <b className="font-size" 
+              role="button"
+              tabIndex={0}
+              onClick={() => handleContentSize(false)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleContentSize(false);
+                }
+              }}
+              >
                 A
               </b>
             </div>
@@ -220,19 +236,19 @@ function ArticleDetail() {
                 NEW ARTICLES
               </b>
             </h3>
-            {articleAll?.slice(0, 5).map((article,i) => (
+            {articleAll?.slice(0, 5).map((item, i) => (
               <Link
-                to={`/article/${article.id}`}
+                to={`/article/${item.id}`}
                 style={{
                   textDecoration: "none",
                 }}
                 className="text-secondary"
-                key={article.id}
+                key={item.id}
               >
                 <div className="row mb-5">
                   <div className="col-4">
                     <img
-                      src={article.image}
+                      src={item.image}
                       alt={`newest-article-image-${i}`}
                       style={{
                         width: "87px",
@@ -247,7 +263,7 @@ function ArticleDetail() {
                       fontSize: "12px",
                     }}
                   >
-                    {article.description}
+                    {item.description}
                   </div>
                 </div>
               </Link>

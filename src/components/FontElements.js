@@ -1,4 +1,4 @@
-export const CheckboxRadio = ({
+export function CheckboxRadio({
   id,
   labelText,
   register,
@@ -7,8 +7,9 @@ export const CheckboxRadio = ({
   rules,
   value,
   name,
-}) => (
-  
+}) {
+  return (
+
     <div className="form-check">
       <input
         className={`form-check-input ${errors[name] && "is-invalid"}`}
@@ -26,44 +27,49 @@ export const CheckboxRadio = ({
         <div className="invalid-feedback">{errors[name]?.message}</div>
       )}
     </div>
-  
-);
 
-export const Input = ({ id, labelText, register, type, errors, rules,placeholder}) => (
-  <>
-    <label htmlFor={id} className="form-label">
-      {labelText}
-    </label>
-    <input
-      placeholder={placeholder}
-      id={id}
-      type={type}
-      className={`form-control ${errors[id] && "is-invalid"}`}
-      {...register(id, rules)}
-    />
-    {errors[id] && (
-      <div className="invalid-feedback">{errors[id]?.message}</div>
-    )}
-  </>
-);
-export const Textarea = ({ id, labelText, register, type, errors, rules,placeholder }) => (
-  <>
-    <label htmlFor={id} className="form-label">
-      {labelText}
-    </label>
-    <textarea
-      placeholder={placeholder}
-      id={id}
-      type={type}
-      className={`form-control ${errors[id] && "is-invalid"}`}
-      {...register(id, rules)}
-    />
-    {errors[id] && (
-      <div className="invalid-feedback">{errors[id]?.message}</div>
-    )}
-  </>
-);
-export const Select = ({
+  );
+}
+
+export function Input({ id, labelText, register, type, errors, rules, placeholder }) {
+  return (
+    <>
+      <label htmlFor={id} className="form-label">
+        {labelText}
+      </label>
+      <input
+        placeholder={placeholder}
+        id={id}
+        type={type}
+        className={`form-control ${errors[id] && "is-invalid"}`}
+        {...register(id, rules)}
+      />
+      {errors[id] && (
+        <div className="invalid-feedback">{errors[id]?.message}</div>
+      )}
+    </>
+  );
+}
+export function Textarea({ id, labelText, register, type, errors, rules, placeholder }) {
+  return (
+    <>
+      <label htmlFor={id} className="form-label">
+        {labelText}
+      </label>
+      <textarea
+        placeholder={placeholder}
+        id={id}
+        type={type}
+        className={`form-control ${errors[id] && "is-invalid"}`}
+        {...register(id, rules)}
+      />
+      {errors[id] && (
+        <div className="invalid-feedback">{errors[id]?.message}</div>
+      )}
+    </>
+  );
+}
+export function Select({
   id,
   labelText,
   register,
@@ -71,21 +77,23 @@ export const Select = ({
   rules,
   children,
   disabled = false,
-}) => (
-  <>
-    <label htmlFor={id} className="form-label">
-      {labelText}
-    </label>
-    <select
-      id={id}
-      className={`form-select ${errors[id] && "is-invalid"}`}
-      {...register(id, rules)}
-      disabled={disabled}
-    >
-      {children}
-    </select>
-    {errors[id] && (
-      <div className="invalid-feedback">{errors[id]?.message}</div>
-    )}
-  </>
-);
+}) {
+  return (
+    <>
+      <label htmlFor={id} className="form-label">
+        {labelText}
+      </label>
+      <select
+        id={id}
+        className={`form-select ${errors[id] && "is-invalid"}`}
+        {...register(id, rules)}
+        disabled={disabled}
+      >
+        {children}
+      </select>
+      {errors[id] && (
+        <div className="invalid-feedback">{errors[id]?.message}</div>
+      )}
+    </>
+  );
+}

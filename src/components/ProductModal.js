@@ -70,7 +70,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
     }
   };
   const hadleChangeImages = (e) => {
-    const index = parseInt(e.target.name);
+    const index = parseInt(e.target.name,10);
     setTempData({
       ...tempData,
       imagesUrl: tempData.imagesUrl.map((item, i) =>
@@ -124,7 +124,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
           [name]: res.data.imageUrl,
         });
       } else {
-        const index = parseInt(e.target.name);
+        const index = parseInt(e.target.name,10);
         setTempData({
           ...tempData,
           imagesUrl: tempData.imagesUrl.map((item, i) =>

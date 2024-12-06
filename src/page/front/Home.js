@@ -38,7 +38,7 @@ function Home() {
     getArticles();
   }, []);
   return (
-    <>
+    
       <div className="homepage-bg  container">
         <Loading isLoading={isLoading} />
         <div
@@ -256,7 +256,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </>
+    
   );
 }
 export default Home;

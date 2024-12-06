@@ -40,8 +40,8 @@ function AdminCoupons() {
     getCoupons();
   }, []);
 
-  const openCouponModal = (type, item) => {
-    setType(type);
+  const openCouponModal = (method, item) => {
+    setType(method);
     setTempCoupon(item);
     couponModal.current.show();
   };

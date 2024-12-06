@@ -47,7 +47,7 @@ function FavoritesList() {
 
   const addToCartAll = async () => {
     const tasks = [];
-    for (let index = checked.current.length - 1; index >= 0; index--) {
+    for (let index = checked.current.length - 1; index >= 0; index-=1) {
       if (checked?.current[index]?.checked) {
         tasks.push(addToCart(myFavorites[index], true));
       }
@@ -82,11 +82,11 @@ function FavoritesList() {
   const hadleChange = (e) => {
     setDisabled(allChoose.current.checked);
     if (e.target.checked) {
-      for (let index = 0; index < checked.current.length; index++) {
+      for (let index = 0; index < checked.current.length; index+=1) {
         checked.current[index].checked = true;
       }
     } else {
-      for (let index = 0; index < checked.current.length; index++) {
+      for (let index = 0; index < checked.current.length; index+=1) {
         checked.current[index].checked = false;
       }
     }

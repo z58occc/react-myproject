@@ -13,7 +13,7 @@ function Cart() {
   const [couponCode, setCouponCode] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const removeBtnRef = useRef(null);
+  const removeBtnRef = useRef([]);
   const clearCartRef = useRef(null);
   const cartQuantityRef = useRef(null);
   const addBtnRef = useRef(null);
@@ -85,7 +85,6 @@ function Cart() {
       confirmButtonText: "確定"
     }).then((result) => {
       if (result.isConfirmed) {
-        removeBtnRef.current.setAttribute('disabled', '');
         axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,)
           .then(() => {
             getCart();
@@ -109,7 +108,6 @@ function Cart() {
       confirmButtonText: "確定"
     }).then((result) => {
       if (result.isConfirmed) {
-        removeBtnRef.current.setAttribute('disabled', '');
         axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/carts`,)
           .then(() => {
             getCart();
@@ -151,7 +149,7 @@ function Cart() {
     const { product, id } = item;
     let FavInList = false;
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    for (let index = 0; index < favorites.length; index++) {
+    for (let index = 0; index < favorites.length; index+=1) {
       if (favorites[index].id === product.id) {
         FavInList = true;
         break;
@@ -209,13 +207,13 @@ function Cart() {
   const adjustQty = async (item, boolean) => {
     if (boolean) {
       addBtnRef.current.setAttribute('disabled', '');
-      cartQuantityRef.current.value++;
+      cartQuantityRef.current.value+=1;
     } else {
       if (cartQuantityRef.current.value === '1') {
         return;
       }
       reduceBtnRef.current.setAttribute('disabled', '');
-      cartQuantityRef.current.value--;
+      cartQuantityRef.current.value-=1;
     }
     await updateCartItem(item, cartQuantityRef.current.value * 1);
     addBtnRef.current.removeAttribute('disabled');
@@ -254,7 +252,7 @@ function Cart() {
                   清空購物車
                 </button>
               </div>
-              {cartData?.carts?.map((item) => (
+              {cartData?.carts?.map((item,i) => (
                 <div className="d-flex mt-4 bg-light" key={item.id}>
                   <div>
                     <Link to={`/product/${item.product.id}`}>
@@ -275,10 +273,12 @@ function Cart() {
                       }}
                       onClick={() => {
                         removeCartItem(item.id);
+                        removeBtnRef.current[i].setAttribute('disabled', '');
                       }}
-                      ref={removeBtnRef}
-
-
+                      ref={(el)=>{
+                        removeBtnRef.current[i]=el;
+                        return removeBtnRef.current[i];
+                      }}
                     >
                       <i className="bi bi-x-circle-fill" />
                     </button>
@@ -334,18 +334,26 @@ function Cart() {
                     <p style={{ float: "right" }} className="mb-0 ms-auto mt-3">
                       NT$ {item?.total?.toLocaleString()}
                     </p>
-                    <p
+                    <button
                       style={{
+                        background: 'none',       /* 去除背景 */
+                        border: 'none',       /* 去除邊框 */
                         float: "left",
                         fontSize: "12px",
                         textDecoration: "underline",
                         cursor: "pointer",
                       }}
+                      type="button"
                       className="mb-0 ms-auto mt-3 text-secondary"
                       onClick={() => addFavorite(item)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          addFavorite(item);
+                        }
+                      }}
                     >
                       放回收藏清單
-                    </p>
+                    </button>
                   </div>
                 </div>
               ))}
@@ -396,9 +404,9 @@ function Cart() {
                     選取折扣碼
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><span className="dropdown-item" id='discount90' onClick={(e) => chooseCoupon(e)}>9折優惠券：discount90</span></li>
-                    <li><span className="dropdown-item" id='discount80' onClick={(e) => chooseCoupon(e)}>8折優惠券：discount80</span></li>
-                    <li><span className="dropdown-item" id='discount70' onClick={(e) => chooseCoupon(e)}>7折優惠券：discount70</span></li>
+                    <li><button type="button" className="dropdown-item" id='discount90' onClick={(e) => chooseCoupon(e)}>9折優惠券：discount90</button></li>
+                    <li><button type="button" className="dropdown-item" id='discount80' onClick={(e) => chooseCoupon(e)}>8折優惠券：discount80</button></li>
+                    <li><button type="button" className="dropdown-item" id='discount70' onClick={(e) => chooseCoupon(e)}>7折優惠券：discount70</button></li>
                   </ul>
                 </div>
                 <button type="button"

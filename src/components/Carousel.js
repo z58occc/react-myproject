@@ -10,7 +10,7 @@ function Carousel({ products }) {
   const changeImg = (e) => {
     const { src, name } = e.target;
     if (name) {
-      for (let index = 0; index < otherImgRef.current.length; index++) {
+      for (let index = 0; index < otherImgRef.current.length; index+=1) {
         if (otherImgRef.current[index].id === name) {
           otherImgRef.current[index].src = src;
         }
@@ -23,7 +23,7 @@ function Carousel({ products }) {
     //   滑鼠離開後 把原本的圖換回來
     const { name } = e.target;
     if (name) {
-      for (let index = 0; index < otherImgRef.current.length; index++) {
+      for (let index = 0; index < otherImgRef.current.length; index+=1) {
         if (otherImgRef.current[index].id === name) {
           otherImgRef.current[index].src = otherOldImg[index];
         }
@@ -116,8 +116,10 @@ function Carousel({ products }) {
                         width: "100%",
                       }}
                       className="object-cover"
+                      onFocus={(e) => changeImg(e)}
                       onMouseOver={(e) => changeImg(e)}
                       onMouseOut={(e) => oriImg(e)}
+                      onBlur={(e) => oriImg(e)}
                     />
                   </div>
                 ))}
@@ -170,8 +172,8 @@ function Carousel({ products }) {
                 </div>
 
                 <div className="row m-1">
-                  {product?.imagesUrl?.slice(0, 4).map((img, i) => (
-                    <div className="col-6 g-3    " key={i}>
+                  {product?.imagesUrl?.slice(0, 4).map((img, num) => (
+                    <div className="col-6 g-3    " key={num}>
                       <img
                         src={img}
                         alt="product-other-image"
@@ -181,8 +183,10 @@ function Carousel({ products }) {
                         }}
                         className="object-cover"
                         name={product.id}
+                        onFocus={(e) => changeImg(e)}
                         onMouseOver={(e) => changeImg(e)}
                         onMouseOut={(e) => oriImg(e)}
+                        onBlur={(e) => oriImg(e)}
                       />
                     </div>
                   ))}

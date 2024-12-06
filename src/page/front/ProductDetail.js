@@ -45,7 +45,7 @@ function ProdeuctDetail() {
       dispatch(createAsyncMessage(error.response.data));
     }
   };
-  const addFavorite = (product) => {
+  const addFavorite = (myProduct) => {
     const createTime = new Date();
     const momentTime = moment(createTime).unix();
     dispatch(
@@ -57,7 +57,7 @@ function ProdeuctDetail() {
       }),
     );
     if (!inFavorites) {
-      const favoriteItem = product;
+      const favoriteItem = myProduct;
       favoriteItem.create_at = momentTime;
       favorites.push(favoriteItem);
     }
@@ -91,10 +91,10 @@ function ProdeuctDetail() {
 
 
   useEffect(() => {
-    const getProduct = async (id) => {
+    const getProduct = async (productId) => {
       setLoading(true);
       const productRes = await axios.get(
-        `/v2/api/${process.env.REACT_APP_API_PATH}/product/${id}`,
+        `/v2/api/${process.env.REACT_APP_API_PATH}/product/${productId}`,
       );
       setLoading(false);
 
@@ -102,7 +102,7 @@ function ProdeuctDetail() {
 
       setProducts(productRes.data.product);
       setTempSrc(productRes.data.product.imagesUrl[0]);
-      for (let index = 0; index < favorites.length; index++) {
+      for (let index = 0; index < favorites.length; index += 1) {
         if (favorites[index].id === productRes.data.product.id) {
           setInFavorites(true);
           break;
@@ -122,9 +122,9 @@ function ProdeuctDetail() {
 
   const touchImg = (e) => {
     const diff = e.changedTouches[0].clientX - startX;
-    if(diff<0){
+    if (diff < 0) {
       nextImg();
-    }else{
+    } else {
       lastImg();
     }
   };
@@ -226,14 +226,18 @@ function ProdeuctDetail() {
             justify-content-center
             "
             >
-              <i className="bi bi-caret-left-fill text-primary d-lg-flex"
+              <button className="bi bi-caret-left-fill text-primary d-lg-flex"
+                type="button"
                 style={{
+                  background: "none",     /* 去除背景 */
+                  border: "none",           /* 去除邊框 */
                   marginTop: '220px',
                   fontSize: '60px',
                   cursor: 'pointer',
                   display: 'none'
                 }}
                 onClick={lastImg}
+
               />
               <img
                 alt="product-big-image"
@@ -246,8 +250,11 @@ function ProdeuctDetail() {
                 onTouchStart={(e) => setStartX(e.changedTouches[0].clientX)}
                 onTouchEnd={(e) => touchImg(e)}
               />
-              <i className="bi bi-caret-right-fill text-primary d-lg-flex"
+              <button className="bi bi-caret-right-fill text-primary d-lg-flex"
+                type="button"
                 style={{
+                  background: "none",     /* 去除背景 */
+                  border: "none",           /* 去除邊框 */
                   marginTop: '220px',
                   fontSize: '60px',
                   cursor: 'pointer',
@@ -263,16 +270,30 @@ function ProdeuctDetail() {
                     className={`${img !== tempSrc ? "opacity-0" : ""}
                                             triangle  position-absolute start-50 top-0 translate-middle`}
                   />
-                  <img
-                    src={`${img}`}
-                    className={`${img === tempSrc ? "outline" : ""} w-100 mt-3 object-cover`}
-                    alt={`product-other-image-${i}`}
+                  <button type="button"
                     style={{
-                      height: "100px",
-                      cursor: "pointer",
+                      background: "none",     /* 去除背景 */
+                      border: "none",         /* 去除邊框 */
+                      padding: '0'
                     }}
+                    className={`${img === tempSrc ? "outline" : ""} w-100 mt-3 object-cover`}
                     onClick={(e) => changeImg(e)}
-                  />
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        changeImg(e);
+                      }
+                    }}
+                  >
+                    <img
+                      src={`${img}`}
+                      className={`${img === tempSrc ? "outline" : ""} w-100  object-cover`}
+                      alt={`product-other-image-${i}`}
+                      style={{
+                        height: "100px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </button>
                 </div>
               ))}
             </div>

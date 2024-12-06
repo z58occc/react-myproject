@@ -75,7 +75,8 @@ function Success() {
                 />
               </h3>
 
-              <i
+              <button
+                type="button"
                 ref={tooltipTriggerElRef}
                 data-bs-toggle="tooltip"
                 data-bs-html="true"
@@ -84,6 +85,8 @@ function Success() {
                 onClick={copyToClipboard}
                 className="bi bi-copy "
                 style={{
+                  background: "none",     /* 去除背景 */
+                  border: "none",           /* 去除邊框 */
                   fontSize: "25px",
                   cursor: "pointer",
                 }}
@@ -138,8 +141,8 @@ function Success() {
                             </p>
                             <p
                               className={`${item.total !== item.final_total
-                                  ? "text-secondary fs-7 text-decoration-line-through"
-                                  : ""
+                                ? "text-secondary fs-7 text-decoration-line-through"
+                                : ""
                                 }
                                                             mb-0`}
                             >
