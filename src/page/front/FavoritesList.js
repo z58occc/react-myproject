@@ -329,11 +329,11 @@ function FavoritesList() {
                       </div>
                     </td>
                     <td>
-                      <div className="d-sm-flex  mt-0 mt-md-3 ">
+                      <div className="d-sm-flex   mt-0 mt-md-3 ">
                         <button
                           type="button"
                           href="./checkout.html"
-                          className="nexttime-button w-50 btn btn-dark  rounded "
+                          className="nexttime-button w-50 btn btn-dark me-3 rounded "
                           onClick={() => addToCart(myFavorite)}
                           disabled={isLoadingCart}
                         >
@@ -341,7 +341,7 @@ function FavoritesList() {
                         </button>
                         <button
                           type="button"
-                          className="nexttime-button w-50 btn btn-secondary m-sm-0  rounded py-3"
+                          className="nexttime-button w-50 btn btn-secondary   rounded py-3"
                           onClick={() => deleteFavorite(myFavorite.id)}
                         >
                           刪除商品

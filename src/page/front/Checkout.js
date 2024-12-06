@@ -1,10 +1,12 @@
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useState } from "react";
 import { Textarea, Input } from "../../components/FontElements";
 
 function Checkout() {
   const { cartData } = useOutletContext();
+  const [submitState,setSubmitState]=useState(false);
 
   const {
     register,
@@ -17,6 +19,7 @@ function Checkout() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    setSubmitState(true);
     const { name, email, tel, address, message } = data;
     const form = {
       data: {
@@ -34,6 +37,7 @@ function Checkout() {
       form,
     );
     navigate(`/success/${res.data.orderId}`);
+    setSubmitState(false);
   };
 
   return (
@@ -139,6 +143,7 @@ function Checkout() {
               <button
                 type="submit"
                 className="btn btn-dark py-3 px-7 rounded-0"
+                disabled={submitState}
               >
                 送出訂單
               </button>
@@ -175,9 +180,9 @@ function Checkout() {
                                             mt-auto checkout-order-data"
                     >
                       {/*
-                                                 flex-row 小於768px排列方向row(橫)
-                                                 flex-lg-row 大於992px排列方向row(橫)
-                                                 flex-md-column 介於768~992px排列方向col(直)
+                          flex-row 小於768px排列方向row(橫)
+                          flex-lg-row 大於992px排列方向row(橫)
+                          flex-md-column 介於768~992px排列方向col(直)
                                                  */}
                       <p className="text-muted mb-0">
                         <small>NT${item.product.price}</small>
@@ -185,7 +190,7 @@ function Checkout() {
                       <p
                         className={`${item.total !== item.final_total
                           ? "text-secondary fs-7 text-decoration-line-through"
-                          : ""  }mb-0`}
+                          : ""}mb-0`}
                       >
                         NT${item.total}
                       </p>

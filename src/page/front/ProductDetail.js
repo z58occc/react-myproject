@@ -12,6 +12,7 @@ function ProdeuctDetail() {
   const [cartQuantity, setCartQuantity] = useState(1);
   const { id } = useParams();
   const [isLoadingCart, setIsLoadingCart] = useState(false);
+  const [isLoadingFav, setIsLoadingFav] = useState(false);
   const { getCart } = useOutletContext();
   const [inFavorites, setInFavorites] = useState(false);
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function ProdeuctDetail() {
     }
   };
   const addFavorite = (myProduct) => {
+    setIsLoadingFav(true);// 加入收藏清單的按鈕狀態（disabled）
     const createTime = new Date();
     const momentTime = moment(createTime).unix();
     dispatch(
@@ -62,7 +64,10 @@ function ProdeuctDetail() {
       favorites.push(favoriteItem);
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
-    setInFavorites(true);
+    setInFavorites(true);// 該產品已在收藏清單中
+    setTimeout(()=>{
+      setIsLoadingFav(false);// 加入收藏清單的按鈕狀態（disabled）
+    },1000);
   };
 
   const changeImg = (e) => {
@@ -210,7 +215,8 @@ function ProdeuctDetail() {
 
                 <button
                   type="button"
-                  className="btn btn-secondary mt-1 "
+                  className="btn btn-secondary "
+                  disabled={isLoadingFav}
                   onClick={() => addFavorite(product)}
                   style={{
                     borderRadius: '100px'

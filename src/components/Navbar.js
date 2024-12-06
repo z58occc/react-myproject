@@ -44,13 +44,13 @@ function Navbar({ cartData }) {
 
   return (
     <div
-      className=" sticky-top "
+      className=" sticky-top  "
       style={{
         backgroundColor: "gray",
       }}
     >
       <nav
-        className="navbar px-0 navbar-expand-lg navbar-light "
+        className="navbar px-0 navbar-expand-lg navbar-light container"
         style={{
           height: "65px",
         }}

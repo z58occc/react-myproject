@@ -29,7 +29,8 @@ function FrountLayout() {
   }, []);
 
   return (
-    <>
+    
+    <div >
       <Navbar cartData={cartData} />
       <MessageToast />
       <Outlet context={{ getCart, cartData }} />
@@ -57,7 +58,8 @@ function FrountLayout() {
           </div>
         </div>
       </div>
-    </>
+    </div>
+    
   );
 }
 export default FrountLayout;
