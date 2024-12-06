@@ -6,6 +6,7 @@ function SearchBar() {
   const [searchWord, setSearchWord] = useState("");
   const mySearch = useRef();
   const navigate = useNavigate();
+  console.log(1);
   
 
 
