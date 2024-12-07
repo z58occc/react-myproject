@@ -205,7 +205,7 @@ function ArticleModal({ closeArticleModal, type, getArticles, tempArticle }) {
                       item ? (
                         <button
                           onClick={() => removeTag(i)}
-                          key={i}
+                          key={`${Date.now()}-${Math.random()}`}
                           type="button"
                           className={`
                                         me-3 mt-2    rounded btn btn-outline-primary position-relative`}

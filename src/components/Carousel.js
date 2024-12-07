@@ -61,8 +61,8 @@ function Carousel({ products }) {
 
         {products?.slice(1, products.length).map((_, i) => (
           <button
-            key={i + 1}
-            type="button"
+          key={`${Date.now()}-${Math.random()}`}
+          type="button"
             data-bs-target="#carouselExampleIndicators"
             data-bs-slide-to={i + 1}
             aria-label={`Slide ${i + 1}`}
@@ -107,7 +107,9 @@ function Carousel({ products }) {
               </div>
               <div className="row m-1">
                 {products[0]?.imagesUrl?.slice(0, 4).map((img, i) => (
-                  <div className="col-6 g-3  " key={i}>
+                  <div className="col-6 g-3  " 
+                  key={`${Date.now()}-${Math.random()}`}
+                  >
                     <img
                       src={img}
                       alt="product-other-image"
@@ -172,8 +174,10 @@ function Carousel({ products }) {
                 </div>
 
                 <div className="row m-1">
-                  {product?.imagesUrl?.slice(0, 4).map((img, num) => (
-                    <div className="col-6 g-3    " key={num}>
+                  {product?.imagesUrl?.slice(0, 4).map((img) => (
+                    <div className="col-6 g-3    " 
+                    key={`${Date.now()}-${Math.random()}`}
+                    >
                       <img
                         src={img}
                         alt="product-other-image"

@@ -70,9 +70,9 @@ function Home() {
 
                   />
                   <div className="card-body p-0">
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between mt-3">
                       <h4 className=" text-primary ">{product.title}</h4>
-                      <h3>${product.price.toLocaleString()}</h3>
+                      <h3>NT${product.price.toLocaleString()}</h3>
                     </div>
                     <div className="d-flex justify-content-between mt-3">
                       <p className="product-description card-text text-muted mb-0 w-100">
@@ -134,7 +134,7 @@ function Home() {
           >
             <i className="bi bi-pencil me-3"
               style={{
-                fontSize: '36px'
+                fontSize: '72px'
               }}
             />
             3C探索
@@ -176,7 +176,7 @@ function Home() {
           >
             <i className="bi bi-diagram-3 me-3"
               style={{
-                fontSize: '36px'
+                fontSize: '72px'
               }}
             />
             商品類別

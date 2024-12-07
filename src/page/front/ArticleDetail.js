@@ -58,9 +58,11 @@ function ArticleDetail() {
         <Loading isLoading={isLoading} />
         <div className="col-lg-9 mt-5">
           <div>
-            {article?.tag?.map((item, i) =>
+            {article?.tag?.map((item) =>
               item ? (
-                <Link key={i} to={`/articles/${item}`}>
+                <Link
+                  key={`${Date.now()}-${Math.random()}`}
+                  to={`/articles/${item}`}>
                   <button
                     type="button"
                     className="me-3  pt-0 pb-0  btn btn-secondary tag"
@@ -106,15 +108,15 @@ function ArticleDetail() {
               >
                 A
               </b>
-              <b className="font-size" 
-              role="button"
-              tabIndex={0}
-              onClick={() => handleContentSize(false)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleContentSize(false);
-                }
-              }}
+              <b className="font-size"
+                role="button"
+                tabIndex={0}
+                onClick={() => handleContentSize(false)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleContentSize(false);
+                  }
+                }}
               >
                 A
               </b>
@@ -173,7 +175,12 @@ function ArticleDetail() {
             <div className="row">
               <div className="col">
                 <div className="d-flex justify-content-end me-5 text-primary">
-                  <b>PREVIOUS ARTICLE</b>
+                  <b
+                    style={{
+                      visibility: (articleAll[articleNum - 2]?.title ? "" : "hidden") // 沒有上一篇文章的話 就把這行字隱藏起來
+                    }}>
+                    PREVIOUS ARTICLE
+                  </b>
                 </div>
                 <Link
                   to={`/article/${articleAll[articleNum - 2]?.id}`}
@@ -181,10 +188,11 @@ function ArticleDetail() {
                     textDecoration: "none",
                   }}
                 >
-                  <div className="d-flex justify-content-between me-5 ">
+                  <div className="d-flex justify-content-between me-5 "
+                  >
                     <i
                       className="bi bi-chevron-double-left text-secondary"
-                      style={{ fontSize: "80px" }}
+                      style={{ fontSize: "60px" }}
                     />
                     <div className="mt-3 next-article text-black">
                       {articleAll[articleNum - 2]?.title}
@@ -208,7 +216,7 @@ function ArticleDetail() {
                     </div>
                     <i
                       className="bi bi-chevron-double-right text-secondary"
-                      style={{ fontSize: "80px" }}
+                      style={{ fontSize: "60px" }}
                     />
                   </div>
                 </Link>

@@ -70,7 +70,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
     }
   };
   const hadleChangeImages = (e) => {
-    const index = parseInt(e.target.name,10);
+    const index = parseInt(e.target.name, 10);
     setTempData({
       ...tempData,
       imagesUrl: tempData.imagesUrl.map((item, i) =>
@@ -124,7 +124,7 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
           [name]: res.data.imageUrl,
         });
       } else {
-        const index = parseInt(e.target.name,10);
+        const index = parseInt(e.target.name, 10);
         setTempData({
           ...tempData,
           imagesUrl: tempData.imagesUrl.map((item, i) =>
@@ -214,7 +214,9 @@ function ProductModal({ closeProductModal, getProducts, type, tempProduct }) {
                 </div>
                 {tempData?.imagesUrl?.map((imageurl, i) =>
                 (
-                  <div key={i} className="form-group mb-5">
+                  <div
+                    key={`${Date.now()}-${Math.random()}`}
+                    className="form-group mb-5">
                     <label className="w-100" htmlFor="image">
                       輸入圖片網址 {i + 1}
                       <input

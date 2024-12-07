@@ -61,18 +61,7 @@ function Cart() {
     }
   };
 
-  const checkCoupon = () => {
-    if (couponCode === "") {
-      Swal.fire({
-        title: "發生錯誤",
-        html: "<small>欄位不得為空 請依照需求填寫折扣碼</small>",
-        icon: "error",
-      });
-      return;
-    }
-    sendCoupon();
-
-  };
+  
 
   const removeCartItem = (id) => {
     Swal.fire({
@@ -149,7 +138,7 @@ function Cart() {
     const { product, id } = item;
     let FavInList = false;
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    for (let index = 0; index < favorites.length; index+=1) {
+    for (let index = 0; index < favorites.length; index += 1) {
       if (favorites[index].id === product.id) {
         FavInList = true;
         break;
@@ -165,9 +154,9 @@ function Cart() {
 
   const checkCart = () => {
 
-    if (!cartData.carts.every((item) => item.hasOwnProperty.call(item,"coupon"))) {
+    if (!cartData.carts.every((item) => item.hasOwnProperty.call(item, "coupon"))) {
       //   cartData有資料沒套用coupon
-      if (cartData.carts.every((item) => !item.hasOwnProperty.call(item,"coupon"))) {
+      if (cartData.carts.every((item) => !item.hasOwnProperty.call(item, "coupon"))) {
         //   cartData全都沒套用coupon
         navigate("./checkout");
       } else {
@@ -207,13 +196,13 @@ function Cart() {
   const adjustQty = async (item, boolean) => {
     if (boolean) {
       addBtnRef.current.setAttribute('disabled', '');
-      cartQuantityRef.current.value+=1;
+      cartQuantityRef.current.value += 1;
     } else {
       if (cartQuantityRef.current.value === '1') {
         return;
       }
       reduceBtnRef.current.setAttribute('disabled', '');
-      cartQuantityRef.current.value-=1;
+      cartQuantityRef.current.value -= 1;
     }
     await updateCartItem(item, cartQuantityRef.current.value * 1);
     addBtnRef.current.removeAttribute('disabled');
@@ -252,7 +241,7 @@ function Cart() {
                   清空購物車
                 </button>
               </div>
-              {cartData?.carts?.map((item,i) => (
+              {cartData?.carts?.map((item, i) => (
                 <div className="d-flex mt-4 bg-light" key={item.id}>
                   <div>
                     <Link to={`/product/${item.product.id}`}>
@@ -275,8 +264,8 @@ function Cart() {
                         removeCartItem(item.id);
                         removeBtnRef.current[i].setAttribute('disabled', '');
                       }}
-                      ref={(el)=>{
-                        removeBtnRef.current[i]=el;
+                      ref={(el) => {
+                        removeBtnRef.current[i] = el;
                         return removeBtnRef.current[i];
                       }}
                     >
@@ -379,8 +368,9 @@ function Cart() {
                   className="btn btn-outline-primary
                                  border-top-0 border-start-0 border-end-0 border-bottom-0 rounded-0
                                 "
-                  onClick={checkCoupon}
-                  disabled={cartData.total !== cartData.final_total}
+                  onClick={sendCoupon}
+                  disabled={cartData.total !== cartData.final_total || couponCodeRef?.current?.value === ''}
+                  // 已使用優惠券 或是折扣碼欄位為空 disabled 
                 >
                   <i className="bi bi-ticket-perforated" style={{ fontSize: "20px" }} />
                 </button>

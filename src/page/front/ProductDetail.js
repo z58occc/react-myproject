@@ -65,9 +65,9 @@ function ProdeuctDetail() {
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
     setInFavorites(true);// 該產品已在收藏清單中
-    setTimeout(()=>{
+    setTimeout(() => {
       setIsLoadingFav(false);// 加入收藏清單的按鈕狀態（disabled）
-    },1000);
+    }, 1000);
   };
 
   const changeImg = (e) => {
@@ -160,8 +160,14 @@ function ProdeuctDetail() {
             to={`./product/${product?.id}`}
           >
             <div className="product-title">
-              <h2 className=" mb-0 text-primary">{product.title}</h2>
-              <h1 className="fw-bold text-primary">NT$ {product?.price?.toLocaleString()}</h1>
+              <h1 className=" fw-bold mb-0 text-primary "
+              
+              >{product.title}</h1>
+              <h4 className=" mt-5 text-primary p-2"
+              style={{
+                backgroundColor:"#f3f3f3"
+              }}
+              >NT$ {product?.price?.toLocaleString()}</h4>
             </div>
             <div className="add-to-cart">
               <p>{product.description}</p>
@@ -203,26 +209,19 @@ function ProdeuctDetail() {
               >
                 <button
                   type="button"
-                  className="btn btn-primary   me-3"
-                  onClick={() => addToCart()}
-                  disabled={isLoadingCart}
-                  style={{
-                    borderRadius: '100px'
-                  }}
-                >
-                  加入購物車
-                </button>
-
-                <button
-                  type="button"
-                  className="btn btn-secondary "
+                  className="btn btn-secondary me-3 "
                   disabled={isLoadingFav}
                   onClick={() => addFavorite(product)}
-                  style={{
-                    borderRadius: '100px'
-                  }}
                 >
                   加入收藏清單
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary   "
+                  onClick={() => addToCart()}
+                  disabled={isLoadingCart}
+                >
+                  加入購物車
                 </button>
               </div>
             </div>
@@ -231,24 +230,28 @@ function ProdeuctDetail() {
             <div className="d-flex
             justify-content-center
             "
+              style={{
+                position: 'relative'
+              }}
             >
               <button className="bi bi-caret-left-fill text-primary d-lg-flex"
                 type="button"
                 style={{
-                  background: "none",     /* 去除背景 */
-                  border: "none",           /* 去除邊框 */
+                  background: "none",
+                  border: "none",
                   marginTop: '220px',
-                  fontSize: '60px',
+                  fontSize: '80px',
                   cursor: 'pointer',
-                  display: 'none'
+                  display: 'none',
+                  position: "absolute",
+                  left: '-20px'
                 }}
                 onClick={lastImg}
-
               />
               <img
                 alt="product-big-image"
                 src={product?.imagesUrl?.[0]}
-                className="product-primary-image object-cover "
+                className="product-primary-image object-cover w-100"
                 style={{
                   height: "500px",
                 }}
@@ -259,19 +262,23 @@ function ProdeuctDetail() {
               <button className="bi bi-caret-right-fill text-primary d-lg-flex"
                 type="button"
                 style={{
-                  background: "none",     /* 去除背景 */
-                  border: "none",           /* 去除邊框 */
+                  background: "none",
+                  border: "none",
                   marginTop: '220px',
-                  fontSize: '60px',
+                  fontSize: '80px',
                   cursor: 'pointer',
-                  display: 'none'
+                  display: 'none',
+                  position: "absolute",
+                  right: '-20px'
                 }}
                 onClick={nextImg}
               />
             </div>
             <div className="row g-1  ">
               {product?.imagesUrl?.map((img, i) => (
-                <div className="col position-relative" key={i}>
+                <div className="col position-relative"
+                  key={`${Date.now()}-${Math.random()}`}
+                >
                   <div
                     className={`${img !== tempSrc ? "opacity-0" : ""}
                                             triangle  position-absolute start-50 top-0 translate-middle`}

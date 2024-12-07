@@ -20,7 +20,9 @@ function Pagination({ pagination, changePage }) {
             _,
             i, //    索引位置
           ) => (
-            <li className="page-item" key={`${i}_page`}>
+            <li className="page-item" 
+            key={`${Date.now()}-${Math.random()}`}
+            >
               <a
                 className={`page-link ${i + 1 === pagination.current_page && "active"}`}
                 href="/"

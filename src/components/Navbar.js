@@ -7,6 +7,7 @@ import logo from "../assets/images/logo2.png";
 function Navbar({ cartData }) {
   const navCollapse = useRef(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [navActive, setNavActive] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,7 +26,7 @@ function Navbar({ cartData }) {
   const style = {
     backgroundColor: windowWidth < 990 ? "rgb(211, 211, 211, 0.8)" : "",
     textAlign: windowWidth < 990 ? "center" : "",
-    display:windowWidth>990?'none':''
+    display: windowWidth > 990 ? 'none' : ''
   };
 
   const hideCollapse = () => {
@@ -38,15 +39,28 @@ function Navbar({ cartData }) {
     });
   }, []);
 
-  useEffect(()=>{
-    window.addEventListener('click',hideCollapse);
-  },[]);
+  useEffect(() => {
+    window.addEventListener('click', () => {
+      hideCollapse();
+      const links = document.getElementsByClassName("nav-menu");
+      for (let i = 0; i < links.length; i += 1) {
+        if (links[i].className.includes("active")) {
+          setNavActive(true);
+          break;
+        } else {
+          setNavActive(false);
+        }
+      }
+    });
+  }, []);
+
+
 
   return (
     <div
       className=" sticky-top  "
       style={{
-        backgroundColor: "gray",
+        backgroundColor: (navActive ? "lightgray" : "gray")
       }}
     >
       <nav
@@ -71,7 +85,8 @@ function Navbar({ cartData }) {
           id="navbarNav"
           style={style}
         >
-          <NavLink className="logo nav-link navbar-brand " to="/">
+          <NavLink className="logo nav-link navbar-brand " to="/"
+          >
             <img
               src={logo}
               alt="web-logo"
@@ -83,36 +98,32 @@ function Navbar({ cartData }) {
           <ul className="navbar-nav flex-grow-1">
             <li className="nav-item ">
               <NavLink
-                className="homepage nav-link  ps-0"
+                className="homepage nav-link ps-0"
                 to="/"
-                onClick={hideCollapse}
               >
                 首頁
               </NavLink>
             </li>
             <li className="nav-item    ">
               <NavLink
-                className="nav-link   ps-0"
+                className="nav-link   ps-0 nav-menu"
                 to="/products"
-                onClick={hideCollapse}
               >
                 產品列表
               </NavLink>
             </li>
             <li className="nav-item  ">
               <NavLink
-                className="nav-link  ps-0"
+                className="nav-link  ps-0 nav-menu"
                 to="/articles"
-                onClick={hideCollapse}
               >
                 文章列表
               </NavLink>
             </li>
             <li className="nav-item  ">
               <NavLink
-                className="nav-link  ps-0"
+                className="nav-link  ps-0 nav-menu"
                 to="/orderQuery"
-                onClick={hideCollapse}
               >
                 訂單查詢
               </NavLink>
@@ -120,7 +131,7 @@ function Navbar({ cartData }) {
           </ul>
         </div>
         <div className="d-flex me-lg-5 justify-content-end ">
-          <SearchBar />        
+          <SearchBar />
           <NavLink to="./favoritesList" >
             <i className="bi bi-bookmark-star-fill ms-lg-5 ms-3 me-3  me-lg-5 text-black"
               style={{
@@ -129,9 +140,9 @@ function Navbar({ cartData }) {
             />
           </NavLink>
           <NavLink to="/cart" className="nav-link position-relative me-lg-5 me-3"
-          style={{
-            marginRight:'0px'
-          }}>
+            style={{
+              marginRight: '0px'
+            }}>
             <i
               className="bi bi-cart-fill "
               style={{
