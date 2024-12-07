@@ -58,6 +58,11 @@ function ArticleDetail() {
         <Loading isLoading={isLoading} />
         <div className="col-lg-9 mt-5">
           <div>
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item"><Link className="text-decoration-none" to="/">首頁</Link></li>
+              <li className="breadcrumb-item "><Link className="text-decoration-none" to="/articles">文章列表</Link></li>
+              <li className="breadcrumb-item active " aria-current="page">文章詳細</li>
+            </ol>
             {article?.tag?.map((item) =>
               item ? (
                 <Link

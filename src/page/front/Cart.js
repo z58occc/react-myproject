@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useOutletContext, Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Tooltip } from "bootstrap";
 import Swal from "sweetalert2";
 import { createAsyncMessage } from "../../slice/messageSlice";
 
@@ -26,10 +25,6 @@ function Cart() {
     setCouponCode(id);
   };
 
-  const handleCoupon = (e) => {
-    const { value } = e.target;
-    setCouponCode(value);
-  };
 
   const sendCoupon = async () => {
     try {
@@ -61,7 +56,7 @@ function Cart() {
     }
   };
 
-  
+
 
   const removeCartItem = (id) => {
     Swal.fire({
@@ -181,17 +176,7 @@ function Cart() {
       navigate("./checkout");
     }
   };
-  useEffect(() => {
-    const tooltipTriggerList = [].slice.call(
-      document.querySelectorAll('[data-bs-toggle="tooltip"]'),
-    );
-    const tooltipList = tooltipTriggerList.map(
-      (tooltipTriggerEl) => new Tooltip(tooltipTriggerEl),
-    );
-    return () => {
-      tooltipList.forEach((tooltip) => tooltip.dispose());
-    };
-  });
+
 
   const adjustQty = async (item, boolean) => {
     if (boolean) {
@@ -208,6 +193,10 @@ function Cart() {
     addBtnRef.current.removeAttribute('disabled');
     reduceBtnRef.current.removeAttribute('disabled');
   };
+  useEffect(() => {
+    console.log(cartData);
+
+  }, []);
 
 
   return (
@@ -301,7 +290,6 @@ function Cart() {
                           readOnly
                           type="number"
                           className="form-control border-0 text-center my-auto shadow-none"
-                          placeholder=""
                           aria-label="Example text with button addon"
                           aria-describedby="button-addon1"
                           ref={cartQuantityRef}
@@ -356,10 +344,10 @@ function Cart() {
                   type="text"
                   className="form-control w-50 me-3 text-center
                                  rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none
+                                 coupon-code
                                 "
-                  placeholder="請輸入折扣碼"
-                  onChange={(e) => handleCoupon(e)}
-                  disabled={cartData.total !== cartData.final_total}
+                  placeholder={`${cartData.carts[0].coupon.code !== "return" ? cartData.carts[0].coupon.code : ""}`}
+                  disabled
                   ref={couponCodeRef}
                 />
                 {/* 使用優惠券按鈕 */}
@@ -369,28 +357,17 @@ function Cart() {
                                  border-top-0 border-start-0 border-end-0 border-bottom-0 rounded-0
                                 "
                   onClick={sendCoupon}
-                  disabled={cartData.total !== cartData.final_total || couponCodeRef?.current?.value === ''}
-                  // 已使用優惠券 或是折扣碼欄位為空 disabled 
+                  disabled={cartData.total !== cartData.final_total || couponCodeRef?.current?.value === ""}
+                // 已使用優惠券 或是折扣碼欄位為空 disabled 
                 >
                   <i className="bi bi-ticket-perforated" style={{ fontSize: "20px" }} />
                 </button>
               </div>
               <div className="d-flex justify-content-end">
-                <button
-                  type="button"
-                  className="btn btn-primary float-end mt-3 hint"
-                  data-bs-toggle="tooltip"
-                  data-bs-html="true"
-                  title="
-                                <div>9折優惠券：discount90</div>
-                                <div>8折優惠券：discount80</div>
-                                <div>7折優惠券：discount70</div>
-                            "
-                >
-                  查看折扣碼
-                </button>
-                <div className="dropdown float-end mt-3 choose-coupon d-lg-none">
-                  <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <div className="dropdown float-end mt-3 choose-coupon">
+                  <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                    disabled={cartData.total !== cartData.final_total}
+                  >
                     選取折扣碼
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -401,7 +378,10 @@ function Cart() {
                 </div>
                 <button type="button"
                   className="btn btn-secondary float-end mt-3 ms-3"
-                  onClick={removeCoupon}
+                  onClick={() => {
+                    removeCoupon();
+                    setCouponCode("return");
+                  }}
                 >
                   移除優惠券
                 </button>

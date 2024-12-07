@@ -137,7 +137,7 @@ function FavoritesList() {
     filterModal.current = new Modal("#filterModal");
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     sortFavorites = [...favorites].sort((a, b) => a.create_at - b.create_at);
-    setMyFavorites(sortFavorites);
+    setMyFavorites(sortFavorites);    
   }, []);
 
   return (
@@ -162,8 +162,11 @@ function FavoritesList() {
                 className="ms-2 "
                 id="all"
                 ref={allChoose}
+                style={{
+                  transform:"scale(2)"
+                }}
               />
-              <label htmlFor="all" className="me-5 ">
+              <label htmlFor="all" className="me-5 ms-3">
                 全選
               </label>
             </span>
@@ -280,7 +283,7 @@ function FavoritesList() {
               <tbody>
                 {myFavorites?.map((myFavorite, i) => (
                   <tr key={myFavorite.id}>
-                    <th className="favorite-checkbox" scope="row">
+                    <th className="favorite-checkbox " scope="row">
                       <input
                         type="checkbox"
                         ref={(e) => {
@@ -288,6 +291,10 @@ function FavoritesList() {
                           return checked.current[i];
                         }}
                         onChange={handleDisabled}
+                        style={{
+                          transform:"scale(2)",
+                          marginTop:'45px'
+                        }}
                       />
                     </th>
                     <td className="favorite-img">
@@ -319,10 +326,15 @@ function FavoritesList() {
                         <small>{myFavorite.description}</small>
                       </div>
                     </td>
-                    <td>
-                      <div
+                    <td 
+                    style={{
+                      height:'116px'
+                    }}
+                    >
+                      <div  className="d-flex  align-items-center"
                         style={{
                           width: "100px",
+                          height:'100%'
                         }}
                       >
                         NT$ {myFavorite.price}
@@ -330,21 +342,22 @@ function FavoritesList() {
                     </td>
                     <td>
                       <div className="d-sm-flex   mt-0 mt-md-3 ">
+                        
+                        <button
+                          type="button"
+                          className="nexttime-button w-50 btn btn-secondary  "
+                          onClick={() => deleteFavorite(myFavorite.id)}
+                        >
+                          刪除商品
+                        </button>
                         <button
                           type="button"
                           href="./checkout.html"
-                          className="nexttime-button w-50 btn btn-dark me-3 rounded "
+                          className="nexttime-button w-50 btn btn-primary ms-3"
                           onClick={() => addToCart(myFavorite)}
                           disabled={isLoadingCart}
                         >
                           加入購物車
-                        </button>
-                        <button
-                          type="button"
-                          className="nexttime-button w-50 btn btn-secondary   rounded py-3"
-                          onClick={() => deleteFavorite(myFavorite.id)}
-                        >
-                          刪除商品
                         </button>
                       </div>
                     </td>

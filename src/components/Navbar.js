@@ -91,7 +91,7 @@ function Navbar({ cartData }) {
               src={logo}
               alt="web-logo"
               style={{
-                height: "150px",
+                height: "120px",
               }}
             />
           </NavLink>

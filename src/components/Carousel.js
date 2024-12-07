@@ -106,7 +106,7 @@ function Carousel({ products }) {
                 </Link>
               </div>
               <div className="row m-1">
-                {products[0]?.imagesUrl?.slice(0, 4).map((img, i) => (
+                {products[0]?.imagesUrl?.slice(0, 4).map((img) => (
                   <div className="col-6 g-3  " 
                   key={`${Date.now()}-${Math.random()}`}
                   >
