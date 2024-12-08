@@ -133,9 +133,6 @@ li>.active {
 @include media-breakpoint-down(lg) {
 
   //RWD
-  .fav-list-td{
-    // height: 100px;
-  }
 
   .product-primary-image {
     min-width: unset;
