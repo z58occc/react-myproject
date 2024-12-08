@@ -325,12 +325,9 @@ function FavoritesList() {
                         <small>{myFavorite.description}</small>
                       </div>
                     </td>
-                    <td
-                      style={{
-                        height: '116px'
-                      }}
+                    <td className="fav-list-td"
                     >
-                      <div className="d-flex  align-items-center"
+                      <div className="d-flex  align-items-sm-center"
                         style={{
                           width: "100px",
                           height: '100%'
@@ -339,10 +336,7 @@ function FavoritesList() {
                         NT$ {myFavorite.price}
                       </div>
                     </td>
-                    <td 
-                    style={{
-                      height: '116px'
-                    }}
+                    <td className="fav-list-td"
                     >
                       <div className="d-sm-flex   mt-0  align-items-center  "
                       style={{
@@ -353,7 +347,7 @@ function FavoritesList() {
 
                         <button
                           type="button"
-                          className="nexttime-button w-50 btn btn-secondary  "
+                          className=" w-50 btn btn-secondary  p-1"
                           onClick={() => deleteFavorite(myFavorite.id)}
                         >
                           刪除商品
@@ -361,7 +355,7 @@ function FavoritesList() {
                         <button
                           type="button"
                           href="./checkout.html"
-                          className="nexttime-button w-50 btn btn-primary ms-3"
+                          className=" w-50 btn btn-primary ms-sm-3 p-1"
                           onClick={() => addToCart(myFavorite)}
                           disabled={isLoadingCart}
                         >

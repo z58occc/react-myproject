@@ -133,6 +133,10 @@ li>.active {
 @include media-breakpoint-down(lg) {
 
   //RWD
+  .fav-list-td{
+    // height: 100px;
+  }
+
   .product-primary-image {
     min-width: unset;
     width: 100%;
@@ -212,10 +216,6 @@ li>.active {
     margin-top: 30px;
   }
 
-  .nexttime-button {
-    width: 100px;
-  }
-
   .slogan {
     height: 100px;
     width: 300px;
@@ -274,3 +274,9 @@ li>.active {
 .coupon-code::placeholder{
   color: black;
 }
+@include media-breakpoint-up(lg) { 
+  //當螢幕大於等於 lg (992px) 時
+  .fav-list-td{
+    height: 116px; //需要設定height 拉出td的高度 讓價格跟按鈕置中
+  }
+ }
