@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Collapse } from "bootstrap";
 import SearchBar from "./SearchBar";
@@ -8,6 +8,8 @@ function Navbar({ cartData }) {
   const navCollapse = useRef(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [navActive, setNavActive] = useState(false);
+  const location = useLocation();
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,14 +49,14 @@ function Navbar({ cartData }) {
   useEffect(() => {
     const links = document.getElementsByClassName("nav-menu");
     for (let i = 0; i < links.length; i += 1) {
-      if (links[i].className.includes("active")) {
+      if (links[i].className.includes("active")) {        
         setNavActive(true);
         break;
       } else {
         setNavActive(false);
       }
     }
-  }, []);
+  }, [location]);
 
 
 
