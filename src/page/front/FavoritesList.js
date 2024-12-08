@@ -339,8 +339,17 @@ function FavoritesList() {
                         NT$ {myFavorite.price}
                       </div>
                     </td>
-                    <td>
-                      <div className="d-sm-flex   mt-0 mt-md-3 ">
+                    <td 
+                    style={{
+                      height: '116px'
+                    }}
+                    >
+                      <div className="d-sm-flex   mt-0  align-items-center  "
+                      style={{
+                        width: "100%",
+                        height: '100%'
+                      }}
+                      >
 
                         <button
                           type="button"

@@ -353,7 +353,7 @@ function Cart() {
                                  border-top-0 border-start-0 border-end-0 border-bottom-0 rounded-0
                                 "
                   onClick={sendCoupon}
-                  disabled={cartData.total !== cartData.final_total || couponCodeRef?.current?.value === ""}
+                  disabled={cartData.total !== cartData.final_total || !couponCodeRef?.current?.value}
                 // 已使用優惠券 或是折扣碼欄位為空 disabled 
                 >
                   <i className="bi bi-ticket-perforated" style={{ fontSize: "20px" }} />
