@@ -14,9 +14,6 @@ function OrderQuery() {
 
   const getOrder = async (id) => {
     setLoading(true);
-    if(isLoading){
-      return;
-    }
     const orderRes = await axios.get(
       `/v2/api/${process.env.REACT_APP_API_PATH}/order/${id}`,
     );
