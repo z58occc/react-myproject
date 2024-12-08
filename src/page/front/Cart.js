@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { useOutletContext, Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
@@ -193,10 +193,6 @@ function Cart() {
     addBtnRef.current.removeAttribute('disabled');
     reduceBtnRef.current.removeAttribute('disabled');
   };
-  useEffect(() => {
-    console.log(cartData);
-
-  }, []);
 
 
   return (
@@ -346,7 +342,7 @@ function Cart() {
                                  rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none
                                  coupon-code
                                 "
-                  placeholder={`${cartData.carts[0].coupon.code !== "return" ? cartData.carts[0].coupon.code : ""}`}
+                  placeholder={`${cartData.carts[0]?.coupon?.code && cartData.carts[0]?.coupon?.code !== "return" ? cartData.carts[0]?.coupon?.code : ""}`}
                   disabled
                   ref={couponCodeRef}
                 />

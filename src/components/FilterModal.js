@@ -145,49 +145,59 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
                 }}
               >
                 <li className="option">
-                  <input
-                    type="checkbox"
-                    id="alltype"
-                    checked={typeState.alltype}
-                    onChange={(e) => handleType(e)}
-                  />
-                  <label htmlFor="alltype">全部</label>
+                  <label htmlFor="alltype">
+                    <input
+                      type="checkbox"
+                      id="alltype"
+                      checked={typeState.alltype}
+                      onChange={(e) => handleType(e)}
+                    />
+                    全部
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="checkbox"
-                    id="apple"
-                    checked={typeState.apple}
-                    onChange={(e) => handleType(e)}
-                  />
-                  <label htmlFor="apple">蘋果</label>
+                  <label htmlFor="apple">
+                    <input
+                      type="checkbox"
+                      id="apple"
+                      checked={typeState.apple}
+                      onChange={(e) => handleType(e)}
+                    />
+                    蘋果
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="checkbox"
-                    id="gameConsole"
-                    checked={typeState.gameConsole}
-                    onChange={(e) => handleType(e)}
-                  />
-                  <label htmlFor="gameConsole">遊戲主機</label>
+                  <label htmlFor="gameConsole">
+                    <input
+                      type="checkbox"
+                      id="gameConsole"
+                      checked={typeState.gameConsole}
+                      onChange={(e) => handleType(e)}
+                    />
+                    遊戲主機
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="checkbox"
-                    id="controller"
-                    checked={typeState.controller}
-                    onChange={(e) => handleType(e)}
-                  />
-                  <label htmlFor="controller">遊戲手把</label>
+                  <label htmlFor="controller">
+                    <input
+                      type="checkbox"
+                      id="controller"
+                      checked={typeState.controller}
+                      onChange={(e) => handleType(e)}
+                    />
+                    遊戲手把
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="checkbox"
-                    id="others"
-                    checked={typeState.others}
-                    onChange={(e) => handleType(e)}
-                  />
-                  <label htmlFor="others">其他</label>
+                  <label htmlFor="others">
+                    <input
+                      type="checkbox"
+                      id="others"
+                      checked={typeState.others}
+                      onChange={(e) => handleType(e)}
+                    />
+                    其他
+                  </label>
                 </li>
               </ul>
             </div>
@@ -203,59 +213,71 @@ function FilterModal({ closeFilterModal, setMyFavorites }) {
                 }}
               >
                 <li className="option">
-                  <input
-                    type="radio"
-                    name="time"
-                    id="alltime"
-                    onChange={(e) => handleTime(e)}
-                    checked={timeOption === "alltime" || timeOption === ""}
-                  />
-                  <label htmlFor="alltime">全部</label>
+                  <label htmlFor="alltime">
+                    <input
+                      type="radio"
+                      name="time"
+                      id="alltime"
+                      onChange={(e) => handleTime(e)}
+                      checked={timeOption === "alltime" || timeOption === ""}
+                    />
+                    全部
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="radio"
-                    name="time"
-                    id="one_month"
-                    onChange={(e) => handleTime(e)}
-                  />
-                  <label htmlFor="one_month">一個月內</label>
+                  <label htmlFor="one_month">
+                    <input
+                      type="radio"
+                      name="time"
+                      id="one_month"
+                      onChange={(e) => handleTime(e)}
+                    />
+                    一個月內
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="radio"
-                    name="time"
-                    id="three_month"
-                    onChange={(e) => handleTime(e)}
-                  />
-                  <label htmlFor="three_month">三個月內</label>
+                  <label htmlFor="three_month">
+                    <input
+                      type="radio"
+                      name="time"
+                      id="three_month"
+                      onChange={(e) => handleTime(e)}
+                    />
+                    三個月內
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="radio"
-                    name="time"
-                    id="half_year"
-                    onChange={(e) => handleTime(e)}
-                  />
-                  <label htmlFor="half_year">六個月內</label>
+                  <label htmlFor="half_year">
+                    <input
+                      type="radio"
+                      name="time"
+                      id="half_year"
+                      onChange={(e) => handleTime(e)}
+                    />
+                    六個月內
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="radio"
-                    name="time"
-                    id="one_year"
-                    onChange={(e) => handleTime(e)}
-                  />
-                  <label htmlFor="one_year">一年內</label>
+                  <label htmlFor="one_year">
+                    <input
+                      type="radio"
+                      name="time"
+                      id="one_year"
+                      onChange={(e) => handleTime(e)}
+                    />
+                    一年內
+                  </label>
                 </li>
                 <li className="option">
-                  <input
-                    type="radio"
-                    name="time"
-                    id="over_one_year"
-                    onChange={(e) => handleTime(e)}
-                  />
-                  <label htmlFor="over_one_year">超過一年</label>
+                  <label htmlFor="over_one_year">
+                    <input
+                      type="radio"
+                      name="time"
+                      id="over_one_year"
+                      onChange={(e) => handleTime(e)}
+                    />
+                    超過一年
+                  </label>
                 </li>
               </ul>
             </div>

@@ -1,7 +1,7 @@
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Textarea, Input } from "../../components/FontElements";
 
 function Checkout() {
@@ -39,6 +39,10 @@ function Checkout() {
     navigate(`/success/${res.data.orderId}`);
     setSubmitState(false);
   };
+  useEffect(()=>{
+    console.log(register);
+    
+  },[]);
 
   return (
     <div className="bg-light pt-5 pb-7 min-vh-100">

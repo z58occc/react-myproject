@@ -1,37 +1,8 @@
-export function CheckboxRadio({
-  id,
-  labelText,
-  register,
-  type,
-  errors,
-  rules,
-  value,
-  name,
-}) {
-  return (
 
-    <div className="form-check">
-      <input
-        className={`form-check-input ${errors[name] && "is-invalid"}`}
-        type={type}
-        name={name}
-        id={id}
-        value={value}
-        {...register(name, rules)}
-      />
-      {/* Radio 使用 Name 欄位 */}
-      <label className="form-check-label" htmlFor={id}>
-        {labelText}
-      </label>
-      {errors[name] && (
-        <div className="invalid-feedback">{errors[name]?.message}</div>
-      )}
-    </div>
-
-  );
-}
 
 export function Input({ id, labelText, register, type, errors, rules, placeholder }) {
+  const { name, onChange, onBlur, ref } = register(id, rules);
+
   return (
     <>
       <label htmlFor={id} className="form-label">
@@ -42,7 +13,10 @@ export function Input({ id, labelText, register, type, errors, rules, placeholde
         id={id}
         type={type}
         className={`form-control ${errors[id] && "is-invalid"}`}
-        {...register(id, rules)}
+        name={name}
+        ref={ref}
+        onChange={onChange}
+        onBlur={onBlur}
       />
       {errors[id] && (
         <div className="invalid-feedback">{errors[id]?.message}</div>
@@ -51,6 +25,8 @@ export function Input({ id, labelText, register, type, errors, rules, placeholde
   );
 }
 export function Textarea({ id, labelText, register, type, errors, rules, placeholder }) {
+  const { name, onChange, onBlur, ref } = register(id, rules);
+
   return (
     <>
       <label htmlFor={id} className="form-label">
@@ -61,7 +37,10 @@ export function Textarea({ id, labelText, register, type, errors, rules, placeho
         id={id}
         type={type}
         className={`form-control ${errors[id] && "is-invalid"}`}
-        {...register(id, rules)}
+        name={name}
+        ref={ref}
+        onChange={onChange}
+        onBlur={onBlur}
       />
       {errors[id] && (
         <div className="invalid-feedback">{errors[id]?.message}</div>
@@ -69,31 +48,4 @@ export function Textarea({ id, labelText, register, type, errors, rules, placeho
     </>
   );
 }
-export function Select({
-  id,
-  labelText,
-  register,
-  errors,
-  rules,
-  children,
-  disabled = false,
-}) {
-  return (
-    <>
-      <label htmlFor={id} className="form-label">
-        {labelText}
-      </label>
-      <select
-        id={id}
-        className={`form-select ${errors[id] && "is-invalid"}`}
-        {...register(id, rules)}
-        disabled={disabled}
-      >
-        {children}
-      </select>
-      {errors[id] && (
-        <div className="invalid-feedback">{errors[id]?.message}</div>
-      )}
-    </>
-  );
-}
+

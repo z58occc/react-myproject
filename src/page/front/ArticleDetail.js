@@ -207,7 +207,11 @@ function ArticleDetail() {
               </div>
               <div className="col border-start border-black">
                 <div className="d-flex justify-content-start ms-5 text-primary">
-                  <b>NEXT ARTICLE</b>
+                  <b
+                    style={{
+                      visibility: (articleAll[articleNum]?.title ? "" : "hidden") // 沒有下一篇文章的話 就把這行字隱藏起來
+                    }}
+                  >NEXT ARTICLE</b>
                 </div>
                 <Link
                   to={`/article/${articleAll[articleNum]?.id}`}
