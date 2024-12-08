@@ -46,7 +46,7 @@ function Success() {
       setOrderData(res.data.order);
     };
     getOrder();
-  }, [orderId]);
+  }, [orderId,getCart]);
   return (
     <div className="container min-vh-100">
       <div

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { useOutletContext, useParams, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,9 @@ function ProdeuctDetail() {
   const [startX, setStartX] = useState(0);//  X 起始的X座標
 
 
-  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  const favorites = useMemo(() =>
+    JSON.parse(localStorage.getItem("favorites")) || []
+    , []);
 
   const addToCart = async () => {
     const data = {
@@ -123,7 +125,7 @@ function ProdeuctDetail() {
       setSameProducts(similarArr);
     };
     getProduct(id);
-  }, [id, inFavorites]);
+  }, [id, inFavorites, favorites]);
 
   const touchImg = (e) => {
     const diff = e.changedTouches[0].clientX - startX;
@@ -161,12 +163,12 @@ function ProdeuctDetail() {
           >
             <div className="product-title">
               <h1 className=" fw-bold mb-0 text-primary "
-              
+
               >{product.title}</h1>
               <h4 className=" mt-5 text-primary p-2"
-              style={{
-                backgroundColor:"#f3f3f3"
-              }}
+                style={{
+                  backgroundColor: "#f3f3f3"
+                }}
               >NT$ {product?.price?.toLocaleString()}</h4>
             </div>
             <div className="add-to-cart">

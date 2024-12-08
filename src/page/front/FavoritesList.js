@@ -47,7 +47,7 @@ function FavoritesList() {
 
   const addToCartAll = async () => {
     const tasks = [];
-    for (let index = checked.current.length - 1; index >= 0; index-=1) {
+    for (let index = checked.current.length - 1; index >= 0; index -= 1) {
       if (checked?.current[index]?.checked) {
         tasks.push(addToCart(myFavorites[index], true));
       }
@@ -82,11 +82,11 @@ function FavoritesList() {
   const hadleChange = (e) => {
     setDisabled(allChoose.current.checked);
     if (e.target.checked) {
-      for (let index = 0; index < checked.current.length; index+=1) {
+      for (let index = 0; index < checked.current.length; index += 1) {
         checked.current[index].checked = true;
       }
     } else {
-      for (let index = 0; index < checked.current.length; index+=1) {
+      for (let index = 0; index < checked.current.length; index += 1) {
         checked.current[index].checked = false;
       }
     }
@@ -136,8 +136,7 @@ function FavoritesList() {
   useEffect(() => {
     filterModal.current = new Modal("#filterModal");
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    sortFavorites = [...favorites].sort((a, b) => a.create_at - b.create_at);
-    setMyFavorites(sortFavorites);    
+    setMyFavorites(favorites);
   }, []);
 
   return (
@@ -149,24 +148,24 @@ function FavoritesList() {
       />
       <div className=" mt-5">
         <div className="mb-3 text-primary"
-        style={{
-          fontSize:'25px'
-        }}
+          style={{
+            fontSize: '25px'
+          }}
         >收藏清單</div>
         <div className="d-flex   justify-content-sm-between flex-sm-row flex-column">
           <div className="favorite-all-choose">
             <span>
-              <input
-                type="checkbox"
-                onChange={hadleChange}
-                className="ms-2 "
-                id="all"
-                ref={allChoose}
-                style={{
-                  transform:"scale(2)"
-                }}
-              />
               <label htmlFor="all" className="me-5 ms-3">
+                <input
+                  type="checkbox"
+                  onChange={hadleChange}
+                  className="me-3 "
+                  id="all"
+                  ref={allChoose}
+                  style={{
+                    transform: "scale(2)"
+                  }}
+                />
                 全選
               </label>
             </span>
@@ -292,8 +291,8 @@ function FavoritesList() {
                         }}
                         onChange={handleDisabled}
                         style={{
-                          transform:"scale(2)",
-                          marginTop:'45px'
+                          transform: "scale(2)",
+                          marginTop: '45px'
                         }}
                       />
                     </th>
@@ -326,15 +325,15 @@ function FavoritesList() {
                         <small>{myFavorite.description}</small>
                       </div>
                     </td>
-                    <td 
-                    style={{
-                      height:'116px'
-                    }}
+                    <td
+                      style={{
+                        height: '116px'
+                      }}
                     >
-                      <div  className="d-flex  align-items-center"
+                      <div className="d-flex  align-items-center"
                         style={{
                           width: "100px",
-                          height:'100%'
+                          height: '100%'
                         }}
                       >
                         NT$ {myFavorite.price}
@@ -342,7 +341,7 @@ function FavoritesList() {
                     </td>
                     <td>
                       <div className="d-sm-flex   mt-0 mt-md-3 ">
-                        
+
                         <button
                           type="button"
                           className="nexttime-button w-50 btn btn-secondary  "

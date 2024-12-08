@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Navbar from "../../components/Navbar";
@@ -13,23 +13,24 @@ function FrountLayout() {
   const dispatch = useDispatch();
 
   const [cartData, setCartData] = useState({});
-  const getCart = async () => {
-    try {
-      const res = await axios.get(
-        `/v2/api/${process.env.REACT_APP_API_PATH}/cart`,
-      );
-      setCartData(res.data.data);
-    } catch (error) {
-      dispatch(createAsyncMessage(error.response.data));
-    }
-  };
+  const getCart = useCallback(
+    async () => {
+      try {
+        const res = await axios.get(
+          `/v2/api/${process.env.REACT_APP_API_PATH}/cart`,
+        );
+        setCartData(res.data.data);
+      } catch (error) {
+        dispatch(createAsyncMessage(error.response.data));
+      }
+    }, [dispatch]);
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [getCart]);
 
   return (
-    
+
     <div >
       <Navbar cartData={cartData} />
       <MessageToast />
@@ -59,7 +60,7 @@ function FrountLayout() {
         </div>
       </div>
     </div>
-    
+
   );
 }
 export default FrountLayout;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination";
@@ -9,12 +9,15 @@ function Products() {
   const [pagination, setPagination] = useState({});
   const [isLoading, setLoading] = useState(false);
   const { searchWord } = useParams();
-  const regex = new RegExp(searchWord, "i");// regex 正則表達式
   const [searchRes, setSearchRes] = useState(true);
   const [reSearch, setReSearch] = useState("");
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
+  const regex = useMemo(() =>
+    new RegExp(searchWord, "i")// regex 正則表達式
+    , [searchWord]);
+
 
 
 
@@ -75,16 +78,16 @@ function Products() {
       getProductsAll();
     } else if (category) {
       const ChangeType = async () => {
-        const els= document.querySelectorAll('label');
-        const type=Array.from(els).filter(el=>el.htmlFor===category);
-        type[0].click();        
+        const els = document.querySelectorAll('label');
+        const type = Array.from(els).filter(el => el.htmlFor === category);
+        type[0].click();
       };
       ChangeType();
     }
     else {
       getProducts();
     }
-  }, [searchWord, category]);
+  }, [searchWord, category, regex]);
   return (
     <div className="container mt-md-5 mt-3 mb-7"
       style={{
@@ -98,7 +101,7 @@ function Products() {
         aria-label="Basic radio toggle button group"
       >
         <input
-          type="radio"
+          type="radio"// 利用radio特性來改變顏色
           className="btn-check"
           name="btnradio"
           id="btnradio1"
@@ -109,6 +112,7 @@ function Products() {
           className="btn btn-outline-primary"
           htmlFor="btnradio1"
           onClick={getProducts}
+          role="none"
         >
           全部
         </label>
@@ -123,6 +127,7 @@ function Products() {
           className="btn btn-outline-primary"
           htmlFor="gameConsole"
           onClick={handleChangeType}
+          role="none"
         >
           遊戲主機
         </label>
@@ -137,6 +142,8 @@ function Products() {
           className="btn btn-outline-primary"
           htmlFor="controller"
           onClick={handleChangeType}
+          role="none"
+
         >
           遊戲手把
         </label>
@@ -152,6 +159,7 @@ function Products() {
           className="btn btn-outline-primary"
           htmlFor="apple"
           onClick={handleChangeType}
+          role="none"
         >
           蘋果
         </label>
@@ -167,10 +175,12 @@ function Products() {
           className="btn btn-outline-primary"
           htmlFor="others"
           onClick={handleChangeType}
+          role="none"
         >
           其他
         </label>
       </div>
+
       {!searchRes ? (
         <>
           <div
