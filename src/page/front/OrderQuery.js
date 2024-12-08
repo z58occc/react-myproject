@@ -12,8 +12,11 @@ function OrderQuery() {
   const [isLoading, setLoading] = useState(false);
   const queryModal = useRef(null);
 
-  const getOrder = async (e, id) => {
+  const getOrder = async (id) => {
     setLoading(true);
+    if(isLoading){
+      return;
+    }
     const orderRes = await axios.get(
       `/v2/api/${process.env.REACT_APP_API_PATH}/order/${id}`,
     );
@@ -31,7 +34,7 @@ function OrderQuery() {
     setLoading(false);
   };
   const handleKeyEnter = (e) => {
-    if(inputRef.current.value===""){
+    if (inputRef.current.value === "") {
       return;
     }
     if (e.code === "Enter") {

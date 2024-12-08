@@ -42,16 +42,18 @@ function Navbar({ cartData }) {
   useEffect(() => {
     window.addEventListener('click', () => {
       hideCollapse();
-      const links = document.getElementsByClassName("nav-menu");
-      for (let i = 0; i < links.length; i += 1) {
-        if (links[i].className.includes("active")) {
-          setNavActive(true);
-          break;
-        } else {
-          setNavActive(false);
-        }
-      }
     });
+  }, []);
+  useEffect(() => {
+    const links = document.getElementsByClassName("nav-menu");
+    for (let i = 0; i < links.length; i += 1) {
+      if (links[i].className.includes("active")) {
+        setNavActive(true);
+        break;
+      } else {
+        setNavActive(false);
+      }
+    }
   }, []);
 
 
