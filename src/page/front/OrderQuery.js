@@ -13,30 +13,24 @@ function OrderQuery() {
   const queryModal = useRef(null);
 
   const getOrder = async (id) => {
+    if (isLoading) { // 防止enter鍵連續觸發
+      return;
+    }
     setLoading(true);
     const orderRes = await axios.get(
       `/v2/api/${process.env.REACT_APP_API_PATH}/order/${id}`,
     );
-    setOrder(orderRes.data.order);
-    if (orderRes.data.order == null) {
-      setLoading(false);
+    if (orderRes.data.order) {// api不會丟錯誤 只會有有訂單跟沒有兩種狀態
+      setOrder(orderRes.data.order);
+      queryModal.current.show();
+    } else {
       Swal.fire({
         title: "發生錯誤",
         html: "<small>找不到資料，請確認訂單編號是否正確</small>",
         icon: "error",
       });
-      return;
     }
-    queryModal.current.show();
     setLoading(false);
-  };
-  const handleKeyEnter = (e) => {
-    if (inputRef.current.value === "") {
-      return;
-    }
-    if (e.code === "Enter") {
-      getOrder(inputRef.current.value.trim());
-    }
   };
   const closeQueryModal = () => {
     queryModal.current.hide();
@@ -53,7 +47,7 @@ function OrderQuery() {
       <QueryModal tempOrder={order || {}} closeOrderModal={closeQueryModal} />
       <form
         className="row justify-content-center justify-content-sm-start "
-        onSubmit={(e) => getOrder(e, inputRef.current.value.trim())}
+        onSubmit={() => getOrder(inputRef.current.value.trim())}// 不要把e丟進去 很麻煩
       >
         <span
           className="col-auto"
@@ -67,7 +61,6 @@ function OrderQuery() {
           type="text"
           className="oreder-query-input col-auto col-form-control "
           ref={inputRef}
-          onKeyUp={(e) => handleKeyEnter(e)}
           required
         />
         <div className="col-auto d-flex justify-content-center">
