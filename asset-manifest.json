@@ -1,19 +1,25 @@
 {
   "files": {
-    "main.css": "/react-myproject/static/css/main.6715886f.css",
-    "main.js": "/react-myproject/static/js/main.bb10ea57.js",
+    "main.css": "/react-myproject/static/css/main.5270c133.css",
+    "main.js": "/react-myproject/static/js/main.13160731.js",
     "static/js/453.68d63b2b.chunk.js": "/react-myproject/static/js/453.68d63b2b.chunk.js",
     "static/media/bootstrap-icons.woff?": "/react-myproject/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
     "static/media/search.webp": "/react-myproject/static/media/search.c0fd803f35236fc75b04.webp",
+    "static/media/cytonn-photography-n95VMLxqM2I-unsplash.jpg": "/react-myproject/static/media/cytonn-photography-n95VMLxqM2I-unsplash.7d5c8b5d75e642b53f29.jpg",
     "static/media/bootstrap-icons.woff2?": "/react-myproject/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
-    "static/media/logo.png": "/react-myproject/static/media/logo.0278b3118cf7b836f86b.png",
+    "static/media/wesson-wang-y0_vFxOHayg-unsplash.jpg": "/react-myproject/static/media/wesson-wang-y0_vFxOHayg-unsplash.4ba3ec04bd2ae1a2638f.jpg",
+    "static/media/rama-laksono-vvj5CpGPl28-unsplash.jpg": "/react-myproject/static/media/rama-laksono-vvj5CpGPl28-unsplash.ff944996afc8449c13ae.jpg",
+    "static/media/jakub-zerdzicki-vkFGfJ-5Nbw-unsplash.jpg": "/react-myproject/static/media/jakub-zerdzicki-vkFGfJ-5Nbw-unsplash.485db4345bf3bdac834b.jpg",
+    "static/media/logo2.png": "/react-myproject/static/media/logo2.02b8b403816ffdf5c418.png",
+    "static/media/brandon-romanchuk-gFFhJPuERII-unsplash.jpg": "/react-myproject/static/media/brandon-romanchuk-gFFhJPuERII-unsplash.c1ee463c6f86fd1c4f70.jpg",
+    "static/media/sumudu-mohottige-bIgpii04UIg-unsplash.jpg": "/react-myproject/static/media/sumudu-mohottige-bIgpii04UIg-unsplash.165550ecfce42a45be47.jpg",
     "index.html": "/react-myproject/index.html",
-    "main.6715886f.css.map": "/react-myproject/static/css/main.6715886f.css.map",
-    "main.bb10ea57.js.map": "/react-myproject/static/js/main.bb10ea57.js.map",
+    "main.5270c133.css.map": "/react-myproject/static/css/main.5270c133.css.map",
+    "main.13160731.js.map": "/react-myproject/static/js/main.13160731.js.map",
     "453.68d63b2b.chunk.js.map": "/react-myproject/static/js/453.68d63b2b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6715886f.css",
-    "static/js/main.bb10ea57.js"
+    "static/css/main.5270c133.css",
+    "static/js/main.13160731.js"
   ]
 }
