@@ -347,7 +347,7 @@ function FavoritesList() {
 
                         <button
                           type="button"
-                          className=" w-50 btn btn-secondary  p-1"
+                          className=" w-50 btn btn-secondary  p-2"
                           onClick={() => deleteFavorite(myFavorite.id)}
                         >
                           刪除商品
@@ -355,7 +355,7 @@ function FavoritesList() {
                         <button
                           type="button"
                           href="./checkout.html"
-                          className=" w-50 btn btn-primary ms-sm-3 p-1"
+                          className=" w-50 btn btn-primary ms-sm-3 p-2"
                           onClick={() => addToCart(myFavorite)}
                           disabled={isLoadingCart}
                         >
