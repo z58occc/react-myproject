@@ -185,21 +185,21 @@ function Checkout() {
                           flex-md-column 介於768~992px排列方向col(直)
                                                  */}
                       <p className="text-muted mb-0">
-                        <small>NT${item.product.price}</small>
+                        <small>NT$ {item.product.price.toLocaleString()}</small>
                       </p>
                       <p
                         className={`${item.total !== item.final_total
                           ? "text-secondary fs-7 text-decoration-line-through"
                           : ""}mb-0`}
                       >
-                        NT${item.total}
+                        NT$ {item.total.toLocaleString()}
                       </p>
                     </div>
                     <div
                       className={`${item.total === item.final_total ? "d-none" : ""
                         } text-end`}
                     >
-                      NT${item.final_total}
+                      NT$ {item.final_total.toLocaleString()}
                     </div>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ function Checkout() {
               <hr />
               <div className="d-flex justify-content-between mt-4">
                 <p className="mb-0 h4 fw-bold">總金額</p>
-                <p className="mb-0 h4 fw-bold">NT${cartData.final_total}</p>
+                <p className="mb-0 h4 fw-bold">NT$ {cartData.final_total.toLocaleString()}</p>
               </div>
             </div>
           </div>

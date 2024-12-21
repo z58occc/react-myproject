@@ -334,7 +334,7 @@ function FavoritesList() {
                           height: '100%'
                         }}
                       >
-                        NT$ {myFavorite.price}
+                        NT$ {myFavorite.price.toLocaleString()}
                       </div>
                     </td>
                     <td className="fav-list-td"

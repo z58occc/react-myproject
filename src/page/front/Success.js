@@ -46,7 +46,7 @@ function Success() {
       setOrderData(res.data.order);
     };
     getOrder();
-  }, [orderId,getCart]);
+  }, [orderId, getCart]);
   return (
     <div className="container min-vh-100">
       <div
@@ -137,7 +137,7 @@ function Success() {
                           </div>
                           <div className="d-flex justify-content-between mt-auto">
                             <p className="text-muted mb-0">
-                              <small>NT${item.product.price}</small>
+                              <small>NT$ {item.product.price.toLocaleString()}</small>
                             </p>
                             <p
                               className={`${item.total !== item.final_total
@@ -146,7 +146,7 @@ function Success() {
                                 }
                                                             mb-0`}
                             >
-                              NT${item.total}
+                              NT$ {item.total.toLocaleString()}
                             </p>
                           </div>
                           <div
@@ -154,7 +154,7 @@ function Success() {
                               }
                                                             text-end`}
                           >
-                            NT${item.final_total}
+                            NT$ {item.final_total.toLocaleString()}
                           </div>
                         </div>
                       </div>
@@ -164,7 +164,7 @@ function Success() {
                   <li className="list-group-item px-0 pb-0">
                     <div className="d-flex justify-content-between mt-2">
                       <p className="mb-0 h4 fw-bold">總金額</p>
-                      <p className="mb-0 h4 fw-bold">NT${orderData?.total}</p>
+                      <p className="mb-0 h4 fw-bold">NT$ {orderData?.total?.toLocaleString()}</p>
                     </div>
                   </li>
                 </ul>

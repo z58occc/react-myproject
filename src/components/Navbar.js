@@ -137,9 +137,10 @@ function Navbar({ cartData }) {
         <div className="d-flex me-lg-5 justify-content-end ">
           <SearchBar />
           <NavLink to="./favoritesList" >
-            <i className="bi bi-bookmark-star-fill ms-lg-5 ms-3 me-3  me-lg-5 text-black"
+            <i className="bi bi-bookmark-star-fill ms-lg-5 ms-3 me-3  me-lg-5 "
               style={{
                 fontSize: "25px",
+                color:'white'
               }}
             />
           </NavLink>
@@ -151,6 +152,7 @@ function Navbar({ cartData }) {
               className="bi bi-cart-fill "
               style={{
                 fontSize: "25px",
+                color:'white'
               }}
             />
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

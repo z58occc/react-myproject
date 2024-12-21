@@ -1,15 +1,15 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { useOutletContext, Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import { Dropdown } from "bootstrap";
 import { createAsyncMessage } from "../../slice/messageSlice";
 
 
 function Cart() {
   const { cartData, getCart } = useOutletContext();
   const [loadingItems, setLoadingItem] = useState([]);
-  const [couponCode, setCouponCode] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const removeBtnRef = useRef([]);
@@ -19,19 +19,27 @@ function Cart() {
   const reduceBtnRef = useRef(null);
   const couponCodeRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const dropdownListRef = useRef([]);
 
-  const chooseCoupon = (e) => {
+ 
+  const dropDownHide = () => {
+    const dropdownElements = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+    dropdownListRef.current = dropdownElements.map((dropdownToggleEl) =>
+      new Dropdown(dropdownToggleEl)
+    );
+    dropdownListRef.current.forEach((dropdownInstance) => {
+      dropdownInstance.hide();
+    });
+  };
+  const chooseCoupon = async (e) => {
     const { id } = e.target;
     couponCodeRef.current.value = id;
-    setCouponCode(id);
-  };
-
-
-  const sendCoupon = async () => {
+    setIsLoading(true);
+    dropDownHide();
     try {
       await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/coupon`, {
         data: {
-          code: couponCode,
+          code: id,
         },
       });
       getCart();
@@ -42,8 +50,11 @@ function Cart() {
         icon: "error",
       });
     }
+    setIsLoading(false);
+
   };
   const removeCoupon = async () => {
+    setIsLoading(true);
     try {
       await axios.post(`/v2/api/${process.env.REACT_APP_API_PATH}/coupon`, {
         data: {
@@ -55,14 +66,16 @@ function Cart() {
     } catch (error) {
       dispatch(createAsyncMessage(error.response.data));
     }
+    setIsLoading(false);
   };
 
 
 
-  const removeCartItem = (id) => {
+
+  const removeCartItem = (id, state) => {
     setIsLoading(true);
     Swal.fire({
-      title: "你確定要刪除商品?",
+      title: `你確定要${state === "addFavorite" ? "放回收藏清單" : "刪除商品"}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -144,9 +157,8 @@ function Cart() {
     if (!FavInList) {
       favorites.push(product);
     }
-
     localStorage.setItem("favorites", JSON.stringify(favorites));
-    removeCartItem(id);
+    removeCartItem(id, 'addFavorite');
   };
 
   const checkCart = () => {
@@ -193,6 +205,7 @@ function Cart() {
     await updateCartItem(item, cartQuantityRef.current.value * 1);
     setIsLoading(false);
   };
+
 
 
   return (
@@ -340,7 +353,7 @@ function Cart() {
               >
                 <input
                   type="text"
-                  className="form-control w-50 me-3 text-center
+                  className="form-control w-50  text-center
                                  rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none
                                  coupon-code
                                 "
@@ -348,27 +361,24 @@ function Cart() {
                   disabled
                   ref={couponCodeRef}
                 />
-                {/* 使用優惠券按鈕 */}
-                <button
-                  type="button"
-                  className="btn btn-outline-primary
-                                 border-top-0 border-start-0 border-end-0 border-bottom-0 rounded-0
-                                "
-                  onClick={sendCoupon}
-                  disabled={cartData.total !== cartData.final_total || !couponCodeRef?.current?.value}
-                // 已使用優惠券 或是折扣碼欄位為空 disabled 
-                >
-                  <i className="bi bi-ticket-perforated" style={{ fontSize: "20px" }} />
-                </button>
+                
               </div>
               <div className="d-flex justify-content-end">
+                <div className="block opacity-25"
+                  style={{
+                    position: 'absolute'
+
+                  }}
+                />
                 <div className="dropdown float-end mt-3 choose-coupon">
                   <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                    disabled={cartData.total !== cartData.final_total}
+                    disabled={cartData.total !== cartData.final_total || isLoading}
+                    data-bs-auto-close="inside"
                   >
                     選取折扣碼
                   </button>
-                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                  >
                     <li><button type="button" className="dropdown-item" id='discount90' onClick={(e) => chooseCoupon(e)}>9折優惠券：discount90</button></li>
                     <li><button type="button" className="dropdown-item" id='discount80' onClick={(e) => chooseCoupon(e)}>8折優惠券：discount80</button></li>
                     <li><button type="button" className="dropdown-item" id='discount70' onClick={(e) => chooseCoupon(e)}>7折優惠券：discount70</button></li>
@@ -378,8 +388,8 @@ function Cart() {
                   className="btn btn-secondary float-end mt-3 ms-3"
                   onClick={() => {
                     removeCoupon();
-                    setCouponCode("return");
                   }}
+                  disabled={isLoading}
                 >
                   移除優惠券
                 </button>
