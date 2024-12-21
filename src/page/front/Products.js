@@ -77,12 +77,12 @@ function Products() {
       };
       getProductsAll();
     } else if (category) {
-      const ChangeType = async () => {
+      const changeType = async () => {
         const els = document.querySelectorAll('label');
         const type = Array.from(els).filter(el => el.htmlFor === category);
         type[0].click();
       };
-      ChangeType();
+      changeType();
     }
     else {
       getProducts();

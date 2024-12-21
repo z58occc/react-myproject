@@ -9,7 +9,7 @@ function Articles() {
   const [articles, setArticles] = useState([]);
   const [pagination, setPagination] = useState({});
   const [isLoading, setLoading] = useState(false);
-  const tag = useParams();
+  const params = useParams();
 
   const getArticles = async (page = 1) => {
     setLoading(true);
@@ -24,7 +24,7 @@ function Articles() {
 
 
   useEffect(() => {    
-    if (tag.tag) {//  可以從articleDetail點擊tag 搜尋該tag的所有文章
+    if (params.tag) {//  可以從articleDetail點擊tag 搜尋該tag的所有文章
       const getTagArticles = async () => {
         setLoading(true);
         const articlesPage1 = await axios.get(
@@ -38,7 +38,7 @@ function Articles() {
           ...articlesPage2.data.articles,
         ];
         const articleFilter = articlesArr.filter((item) =>
-          item?.tag?.includes(tag.tag),
+          item?.tag?.includes(params.tag),
         );
         setArticles(articleFilter);
         setLoading(false);
@@ -48,7 +48,7 @@ function Articles() {
     } else {
       getArticles(1);
     }
-  }, [tag.tag]);
+  }, [params.tag]);
   return (
     <div className=" container mb-10">
       <Loading isLoading={isLoading} />

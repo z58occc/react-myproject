@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useOutletContext, Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
@@ -18,6 +18,7 @@ function Cart() {
   const addBtnRef = useRef(null);
   const reduceBtnRef = useRef(null);
   const couponCodeRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const chooseCoupon = (e) => {
     const { id } = e.target;
@@ -59,6 +60,7 @@ function Cart() {
 
 
   const removeCartItem = (id) => {
+    setIsLoading(true);
     Swal.fire({
       title: "你確定要刪除商品?",
       icon: "warning",
@@ -67,17 +69,17 @@ function Cart() {
       cancelButtonColor: "#d33",
       cancelButtonText: "再想想",
       confirmButtonText: "確定"
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,)
+        await axios.delete(`/v2/api/${process.env.REACT_APP_API_PATH}/cart/${id}`,)
           .then(() => {
             getCart();
           })
           .catch((error) => {
             dispatch(createAsyncMessage(error.response.data));
           });
-
       }
+      setIsLoading(false);
     });
 
   };
@@ -179,19 +181,17 @@ function Cart() {
 
 
   const adjustQty = async (item, boolean) => {
+    setIsLoading(true);
     if (boolean) {
-      addBtnRef.current.setAttribute('disabled', '');
-      cartQuantityRef.current.value += 1;
+      cartQuantityRef.current.value = Number(item.qty) + 1;
     } else {
       if (cartQuantityRef.current.value === '1') {
         return;
       }
-      reduceBtnRef.current.setAttribute('disabled', '');
-      cartQuantityRef.current.value -= 1;
+      cartQuantityRef.current.value = Number(item.qty) - 1;
     }
     await updateCartItem(item, cartQuantityRef.current.value * 1);
-    addBtnRef.current.removeAttribute('disabled');
-    reduceBtnRef.current.removeAttribute('disabled');
+    setIsLoading(false);
   };
 
 
@@ -247,12 +247,12 @@ function Cart() {
                       }}
                       onClick={() => {
                         removeCartItem(item.id);
-                        removeBtnRef.current[i].setAttribute('disabled', '');
                       }}
                       ref={(el) => {
                         removeBtnRef.current[i] = el;
                         return removeBtnRef.current[i];
                       }}
+                      disabled={isLoading}
                     >
                       <i className="bi bi-x-circle-fill" />
                     </button>
@@ -277,6 +277,7 @@ function Cart() {
                             id="button-addon1"
                             onClick={() => adjustQty(item, false)}
                             ref={reduceBtnRef}
+                            disabled={isLoading}
                           >
                             <i className="bi bi-dash-circle" />
                           </button>
@@ -298,6 +299,7 @@ function Cart() {
                             id="button-addon2"
                             onClick={() => adjustQty(item, true)}
                             ref={addBtnRef}
+                            disabled={isLoading}
                           >
                             <i className="bi bi-plus-circle" />
                           </button>

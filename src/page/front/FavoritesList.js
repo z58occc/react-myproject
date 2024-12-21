@@ -185,6 +185,7 @@ function FavoritesList() {
                   backgroundColor: "lightgray",
                   fontSize: "15px",
                 }}
+                disabled={isLoadingCart}
               >
                 <i className="bi bi-cart4" />
                 放入購物車
