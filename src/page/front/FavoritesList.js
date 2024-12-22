@@ -169,48 +169,47 @@ function FavoritesList() {
                 全選
               </label>
             </span>
+
+            <span
+              style={{
+                cursor: `${disabled ? "pointer" : "not-allowed"}`,
+                display: "inline-block",
+                width: "100px",
+              }}
+              className="me-4 "
+            >
+              <button
+                type="button"
+                className={`btn   w-100 btn-secondary  p-1 ${disabled ? "" : "disabled"}`}
+                onClick={deleteFavoriteAll}
+                style={{
+                  cursor: "pointer",
+                  fontSize: "15px",
+                }}
+              >
+                <i className="bi bi-trash" />
+                刪除商品
+              </button>
+
+            </span>
             <span
               style={{
                 display: "inline-block",
                 width: "100px",
                 cursor: `${disabled ? "" : "not-allowed"}`,
               }}
-              className="me-5 "
             >
               <button
                 type="button"
-                className={`btn   p-0 w-100 rounded ${disabled ? "" : "disabled"}`}
+                className={`btn  p-1 w-100 btn-primary ${disabled ? "" : "disabled"}`}
                 onClick={addToCartAll}
+                disabled={isLoadingCart}
                 style={{
-                  backgroundColor: "lightgray",
                   fontSize: "15px",
                 }}
-                disabled={isLoadingCart}
               >
                 <i className="bi bi-cart4" />
-                放入購物車
-              </button>
-            </span>
-            <span
-              style={{
-                cursor: `${disabled ? "pointer" : "not-allowed"}`,
-                display: "inline-block",
-                width: "80px",
-              }}
-            >
-              <button
-                type="button"
-                className={`btn   p-0 w-100 rounded ${disabled ? "" : "disabled"} `}
-                onClick={deleteFavoriteAll}
-                style={{
-                  cursor: "pointer",
-                  backgroundColor: "lightgray",
-                  fontSize: "15px",
-                  padding: "5px",
-                }}
-              >
-                <i className="bi bi-trash" />
-                刪除商品
+                加入購物車
               </button>
             </span>
           </div>
@@ -340,10 +339,10 @@ function FavoritesList() {
                     <td className="fav-list-td"
                     >
                       <div className="d-sm-flex   mt-0  align-items-center  "
-                      style={{
-                        width: "100%",
-                        height: '100%'
-                      }}
+                        style={{
+                          width: "100%",
+                          height: '100%'
+                        }}
                       >
 
                         <button
@@ -355,7 +354,6 @@ function FavoritesList() {
                         </button>
                         <button
                           type="button"
-                          href="./checkout.html"
                           className=" w-50 btn btn-primary ms-sm-3 p-2"
                           onClick={() => addToCart(myFavorite)}
                           disabled={isLoadingCart}

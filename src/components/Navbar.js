@@ -1,14 +1,12 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Collapse } from "bootstrap";
 import SearchBar from "./SearchBar";
-import logo from "../assets/images/logo2.png";
+import logo from "../assets/images/logo-black-word.png";
 
 function Navbar({ cartData }) {
   const navCollapse = useRef(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [navActive, setNavActive] = useState(false);
-  const location = useLocation();
 
 
   useEffect(() => {
@@ -46,17 +44,6 @@ function Navbar({ cartData }) {
       hideCollapse();
     });
   }, []);
-  useEffect(() => {
-    const links = document.getElementsByClassName("nav-menu");
-    for (let i = 0; i < links.length; i += 1) {
-      if (links[i].className.includes("active")) {        
-        setNavActive(true);
-        break;
-      } else {
-        setNavActive(false);
-      }
-    }
-  }, [location]);
 
 
 
@@ -64,8 +51,9 @@ function Navbar({ cartData }) {
     <div
       className=" sticky-top  "
       style={{
-        backgroundColor: (navActive ? "lightgray" : "gray")
-      }}
+        backgroundColor:"white",
+        boxShadow: "5px 5px 50px 1px lightgray  "  
+        }}
     >
       <nav
         className="navbar px-0 navbar-expand-lg navbar-light container"
@@ -140,7 +128,7 @@ function Navbar({ cartData }) {
             <i className="bi bi-bookmark-star-fill ms-lg-5 ms-3 me-3  me-lg-5 "
               style={{
                 fontSize: "25px",
-                color:'white'
+                color:'gray'
               }}
             />
           </NavLink>
@@ -152,7 +140,7 @@ function Navbar({ cartData }) {
               className="bi bi-cart-fill "
               style={{
                 fontSize: "25px",
-                color:'white'
+                color:'gray'
               }}
             />
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
