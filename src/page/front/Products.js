@@ -235,7 +235,10 @@ function Products() {
                       ${product.price}
                     </h5>
                   </div>
-                  <div className="text-black "
+                  <div className="text-black mt-3"
+                  style={{
+                    lineHeight:'2'
+                  }}
                   >{product.description}</div>
                 </Link>
               </div>
