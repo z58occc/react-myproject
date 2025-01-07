@@ -21,7 +21,6 @@ import FavoritesList from "./page/front/FavoritesList";
 function App() {
   return (
     <div className="App">
-      {/* test */}
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<FrountLayout />}>
