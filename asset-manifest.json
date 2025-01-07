@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-myproject/static/css/main.1e15cc7e.css",
-    "main.js": "/react-myproject/static/js/main.6a24dc40.js",
+    "main.js": "/react-myproject/static/js/main.b760f168.js",
     "static/js/453.68d63b2b.chunk.js": "/react-myproject/static/js/453.68d63b2b.chunk.js",
     "static/media/bootstrap-icons.woff?": "/react-myproject/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
     "static/media/search.webp": "/react-myproject/static/media/search.c0fd803f35236fc75b04.webp",
@@ -15,11 +15,11 @@
     "static/media/sumudu-mohottige-bIgpii04UIg-unsplash.jpg": "/react-myproject/static/media/sumudu-mohottige-bIgpii04UIg-unsplash.165550ecfce42a45be47.jpg",
     "index.html": "/react-myproject/index.html",
     "main.1e15cc7e.css.map": "/react-myproject/static/css/main.1e15cc7e.css.map",
-    "main.6a24dc40.js.map": "/react-myproject/static/js/main.6a24dc40.js.map",
+    "main.b760f168.js.map": "/react-myproject/static/js/main.b760f168.js.map",
     "453.68d63b2b.chunk.js.map": "/react-myproject/static/js/453.68d63b2b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1e15cc7e.css",
-    "static/js/main.6a24dc40.js"
+    "static/js/main.b760f168.js"
   ]
 }
