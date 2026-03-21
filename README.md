@@ -7,17 +7,17 @@ npm start
 ```
 
 
-電商網站模擬專案
-GitHub Pages | GitHub
+電商網站模擬專案\
+[GitHub Pages](https://z58occc.github.io/react-myproject/)
 
 製作目的：
 
 模擬實際的電商網站流程，從前台商品呈現，到後台訂單及商品管理。實作前端 React與後端 API 的溝通，並以 RWD 設計滿足近代跨裝置需求。 
 
-網站功能：
-購物車
-送出訂單
-收藏清單
+網站功能：\
+購物車\
+送出訂單\
+收藏清單\
 訂單查詢
 
 主要負責項目：
