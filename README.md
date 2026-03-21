@@ -1,8 +1,10 @@
-ˋˋˋ
+<img width="1440" height="813" alt="截圖 2026-03-21 下午9 28 43" src="https://github.com/user-attachments/assets/1c62a404-c858-4459-a314-1f5f58a4d2a4" />
+
+```
 啟動指令
 npm i
 npm start
-ˋˋˋ
+```
 
 
 電商網站模擬專案
