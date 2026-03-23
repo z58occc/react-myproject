@@ -7,7 +7,7 @@ npm start
 ```
 
 
-電商網站模擬專案\
+電商網站模擬專題\
 [GitHub Pages](https://z58occc.github.io/react-myproject/)
 
 製作目的：
